@@ -1,0 +1,11 @@
+config:
+  target: "http://localhost:4400"  # Replace with your API base URL
+  phases:
+    - duration: 60        # Duration of the test in seconds
+      arrivalRate: 10     # Number of new virtual users per second
+
+scenarios:
+  - name: "Get Homepage"
+    flow:
+      - get:
+          url: "/health"       # Replace with your actual endpoint
