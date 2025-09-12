@@ -1,5 +1,6 @@
 import { ProductRoute } from "./api";
 
-export default function (app) {
-  app.use("/api/product", ProductRoute);
+
+export const router = (app) => {
+  app.use("/api/v1/products", ProductRoute)
 }

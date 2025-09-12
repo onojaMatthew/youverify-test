@@ -13,7 +13,7 @@ const logger = createLogger({
       return `${timestamp} [${level}] ${message}`
     })
   ),
-  defaultMeta: { service: "courier-service" },
+  defaultMeta: { service: "payment-service" },
   transports: [
     new transports.File({ filename: "error.log", level: "error" }),
     new transports.File({ filename: "combine.log" }),

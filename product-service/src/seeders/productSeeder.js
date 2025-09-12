@@ -101,6 +101,106 @@ const sampleProducts = [
       material: 'Plastic'
     },
     tags: ['gaming', 'console', 'portable']
+  },
+  {
+    productId: 'PROD-006',
+    name: 'Dell XPS 13',
+    description: 'Sleek and powerful ultrabook with InfinityEdge display',
+    price: 1299.99,
+    category: 'Computers',
+    brand: 'Dell',
+    stock: 35,
+    sku: 'DEL-XPS13-9320',
+    images: [
+      { url: 'https://example.com/dellxps13.jpg', alt: 'Dell XPS 13' }
+    ],
+    specifications: {
+      weight: '1.27kg',
+      dimensions: '295.7 x 199.1 x 15.3 mm',
+      color: 'Platinum Silver',
+      material: 'Aluminum/Carbon Fiber'
+    },
+    tags: ['ultrabook', 'windows', 'slim']
+  },
+  {
+    productId: 'PROD-007',
+    name: 'Canon EOS R6 Mark II',
+    description: 'Versatile full-frame mirrorless camera for photo and video',
+    price: 2499.99,
+    category: 'Photography',
+    brand: 'Canon',
+    stock: 18,
+    sku: 'CAN-EOSR6M2-BDY',
+    images: [
+      { url: 'https://example.com/canonr6ii.jpg', alt: 'Canon EOS R6 Mark II' }
+    ],
+    specifications: {
+      weight: '670g',
+      dimensions: '138.4 x 98.4 x 88.4 mm',
+      color: 'Black',
+      material: 'Magnesium Alloy'
+    },
+    tags: ['camera', 'mirrorless', 'full-frame']
+  },
+  {
+    productId: 'PROD-008',
+    name: 'Kindle Paperwhite',
+    description: 'Waterproof e-reader with a high-resolution glare-free display',
+    price: 149.99,
+    category: 'Books & Readers',
+    brand: 'Amazon',
+    stock: 200,
+    sku: 'AMZ-KPW11-BLK-8GB',
+    images: [
+      { url: 'https://example.com/kindlepw.jpg', alt: 'Kindle Paperwhite' }
+    ],
+    specifications: {
+      weight: '205g',
+      dimensions: '174 x 125 x 8.1 mm',
+      color: 'Black',
+      material: 'Plastic'
+    },
+    tags: ['ereader', 'ebooks', 'amazon']
+  },
+  {
+    productId: 'PROD-009',
+    name: 'PlayStation 5',
+    description: 'Next-generation gaming console with ultra-high speed SSD',
+    price: 499.99,
+    category: 'Gaming',
+    brand: 'Sony',
+    stock: 15,
+    sku: 'SNY-PS5-DISC',
+    images: [
+      { url: 'https://example.com/ps5.jpg', alt: 'PlayStation 5' }
+    ],
+    specifications: {
+      weight: '4.5kg',
+      dimensions: '390 x 260 x 104 mm',
+      color: 'White & Black',
+      material: 'Plastic'
+    },
+    tags: ['gaming', 'console', '4k']
+  },
+  {
+    productId: 'PROD-010',
+    name: 'Apple Watch Series 9',
+    description: 'Advanced smartwatch with new S9 SiP and Double Tap gesture',
+    price: 429.99,
+    category: 'Wearables',
+    brand: 'Apple',
+    stock: 80,
+    sku: 'APL-AW9-45MM-AL',
+    images: [
+      { url: 'https://example.com/applewatch9.jpg', alt: 'Apple Watch Series 9' }
+    ],
+    specifications: {
+      weight: '51.5g',
+      dimensions: '45 x 38 x 10.7 mm',
+      color: 'Aluminum Midnight',
+      material: 'Aluminum'
+    },
+    tags: ['smartwatch', 'fitness', 'health']
   }
 ];
 
