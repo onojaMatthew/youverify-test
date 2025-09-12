@@ -4,8 +4,8 @@ import { createCustomer, getCustomerById, getCustomers, updateCustomer } from ".
 const router = Router();
 
 router.post("/", createCustomer);
-router.get("/:customerId", getCustomerById);
 router.get("/list", getCustomers);
+router.get("/:customerId", getCustomerById);
 router.put("/:customerId/update", updateCustomer);
 
 export { router as CustomerRoute }

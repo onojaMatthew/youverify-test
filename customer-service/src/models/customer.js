@@ -1,12 +1,6 @@
 import { model, Schema } from "mongoose";
 
 const customerSchema = new Schema({
-  customerId: {
-    type: String,
-    required: true,
-    unique: true,
-    index: true
-  },
   firstName: {
     type: String,
     required: true,
@@ -52,6 +46,6 @@ customerSchema.virtual('fullName').get(function() {
 
 // Index for better query performance
 customerSchema.index({ email: 1 });
-customerSchema.index({ customerId: 1 });
+customerSchema.index({ _id: 1 });
 
 export const Customer = model("Customer", customerSchema)

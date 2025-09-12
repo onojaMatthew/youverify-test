@@ -55,4 +55,9 @@ const startApp = async () =>  {
 
 startApp();
 
+process.on('SIGTERM', () => {
+  Logger.log({ level: "info", message: 'SIGTERM received, shutting down gracefully'});
+  process.exit(0);
+});
+
 export { app as appServer }

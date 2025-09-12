@@ -1,4 +1,4 @@
-import { Customer } from '../models/order';
+import { Customer } from '../models/customer';
 const { v4: uuidv4 } = require('uuid');
 import { Logger } from '../config/logger';
 

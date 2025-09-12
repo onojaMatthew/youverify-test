@@ -1,5 +1,5 @@
 import { Logger } from "../config/logger";
-import { Customer } from "../models/order";
+import { Customer } from "../models/customer";
 import { AppError } from "../utils/errorHandler";
 
 export const createCustomer = async (req, res, next) => {
@@ -28,7 +28,7 @@ export const createCustomer = async (req, res, next) => {
 export const getCustomers = async (req, res, next) => {
   try {
     const { page = 1, limit = 10, searchTerm } = req.query;
-    const query = search ? 
+    const query = searchTerm ? 
       { $or: [
         { firstName: { $regex: searchTerm, $options: 'i' } },
         { lastName: { $regex: searchTerm, $options: 'i' } },
@@ -53,7 +53,7 @@ export const getCustomers = async (req, res, next) => {
     }
     res.json({
       success: true,
-      message: "Request successful",
+      message: "Customers fetched successfully",
       data: responseData,
       
     });
@@ -65,15 +65,15 @@ export const getCustomers = async (req, res, next) => {
 
 export const getCustomerById = async (req, res, next) => {
   try {
-    const {customerId } = req.params;
+    const { customerId } = req.params;
 
-    const customer = await Customer.findOne({ customerId });
+    const customer = await Customer.findOne({ _id: customerId });
     
     if (!customer) return next(new AppError(`Customer not found`, 404));
 
     return res.json({
       success: true,
-      message: "Request successful",
+      message: "Customer fetched successfully",
       data: customer
     });
   } catch (err) {
