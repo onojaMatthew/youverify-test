@@ -9,6 +9,7 @@ import path from "path";
 import connectDB from "./config/database";
 import { Logger } from "./config/logger";
 import { router } from "./routes";
+import { seedCustomers } from "./seeders/customerSeed";
 
 const swaggerJSDoc = YAML.load(path.resolve(__dirname, "../api.yaml"));
 
@@ -19,7 +20,7 @@ const port = process.env.PORT || 5200
 const startApp = async () =>  {
   try {
     await connectDB();
-   
+    await seedCustomers();
   } catch (error) {
     Logger.log({ level: "error", message: "Failed to sync database: "+ error.message});
   }
