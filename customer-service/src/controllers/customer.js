@@ -24,8 +24,37 @@ export const createCustomer = async (req, res, next) => {
   }
 }
 
-
 export const getCustomers = async (req, res, next) => {
+  try {
+    const { page=1, limit=10 } = req.query;
+
+    const customers = await Customer.find({})
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .sort({ createdAt: -1 });
+    
+    const total = await Customer.countDocuments();
+    const totalPages = Math.ceil(total / limit)
+
+    const responseData = {
+      customers,
+      pagination: {
+        page: parseInt(page),
+        limit: parseInt(limit),
+        total,
+        pages: totalPages,
+        hasNextPage: totalPages > parseInt(page),
+        hasPrevPage: parseInt(page) > totalPages
+      }
+    }
+    return res.json({ success: true, message: "Customer list fetched successfully", data: responseData });
+  } catch (err) {
+    Logger.log({ level: "error", message: `Error fetching customer list: ${err.message}`});
+    return next(new AppError(`Internal server error: ${err.message}`, 500));
+  }
+}
+
+export const searchCustomers = async (req, res, next) => {
   try {
     const { page = 1, limit = 10, searchTerm } = req.query;
     const query = searchTerm ? 
@@ -41,14 +70,16 @@ export const getCustomers = async (req, res, next) => {
       .sort({ createdAt: -1 });
 
     const total = await Customer.countDocuments(query);
-    
+    const totalPages = Math.ceil(total / limit)
     const responseData = {
       customers,
       pagination: {
         page: parseInt(page),
         limit: parseInt(limit),
         total,
-        pages: Math.ceil(total / limit)
+        pages: totalPages,
+        hasNextPage: totalPages > parseInt(page),
+        hasPrevPage: parseInt(page) > totalPages
       }
     }
     res.json({
