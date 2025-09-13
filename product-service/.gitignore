@@ -2,8 +2,7 @@ node_modules/
 build
 db_data
 .env
-yarn.lock
-package-lock.json
+
 
 combine.log
 error.log
