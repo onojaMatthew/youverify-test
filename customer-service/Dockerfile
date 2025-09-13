@@ -1,16 +1,31 @@
 FROM node:alpine
 
-WORKDIR /usr/src/app
+# Create app directory
+WORKDIR /app
 
-COPY ./package.json ./
+# Copy package files
+COPY package*.json ./
 
-RUN npm install
+# Install dependencies
+RUN npm ci --only=production
 
-RUN npm install pm2 -g
+# Copy app source
+COPY . .
 
-COPY ./ ./
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nodejs -u 1001
 
-RUN npm run build
+# Change ownership of the app directory
+RUN chown -R nodejs:nodejs /app
+USER nodejs
 
-CMD ["pm2-runtime", "start", "ecosystem.config.js"]
+# Expose port
+EXPOSE 3000
 
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node healthcheck.js
+
+# Start the application
+CMD ["npm", "start"]

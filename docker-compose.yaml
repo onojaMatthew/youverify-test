@@ -1,0 +1,161 @@
+version: '3.8'
+
+services:
+  # MongoDB instances for each service
+  customer-db:
+    image: mongo:6.0
+    container_name: customer-db
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: customer_db
+    volumes:
+      - customer_data:/data/db
+    networks:
+      - ecommerce-network
+
+  product-db:
+    image: mongo:6.0
+    container_name: product-db
+    ports:
+      - "27018:27017"
+    environment:
+      MONGO_INITDB_DATABASE: product_db
+    volumes:
+      - product_data:/data/db
+    networks:
+      - ecommerce-network
+
+  order-db:
+    image: mongo:6.0
+    container_name: order-db
+    ports:
+      - "27019:27017"
+    environment:
+      MONGO_INITDB_DATABASE: order_db
+    volumes:
+      - order_data:/data/db
+    networks:
+      - ecommerce-network
+
+  payment-db:
+    image: mongo:6.0
+    container_name: payment-db
+    ports:
+      - "27020:27017"
+    environment:
+      MONGO_INITDB_DATABASE: payment_db
+    volumes:
+      - payment_data:/data/db
+    networks:
+      - ecommerce-network
+
+  # RabbitMQ Message Broker
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: password
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - ecommerce-network
+
+  # Microservices
+  customer-service:
+    build:
+      context: ./customer-service
+      dockerfile: Dockerfile
+    container_name: customer-service
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - MONGODB_URI=mongodb://customer-db:27017/customer_db
+    depends_on:
+      - customer-db
+    networks:
+      - ecommerce-network
+    volumes:
+      - ./customer-service:/app
+      - /app/node_modules
+
+  product-service:
+    build:
+      context: ./product-service
+      dockerfile: Dockerfile
+    container_name: product-service
+    ports:
+      - "3002:3002"
+    environment:
+      - NODE_ENV=development
+      - PORT=3002
+      - MONGODB_URI=mongodb://product-db:27017/product_db
+    depends_on:
+      - product-db
+    networks:
+      - ecommerce-network
+    volumes:
+      - ./product-service:/app
+      - /app/node_modules
+
+  order-service:
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    container_name: order-service
+    ports:
+      - "3003:3003"
+    environment:
+      - NODE_ENV=development
+      - PORT=3003
+      - MONGODB_URI=mongodb://order-db:27017/order_db
+      - CUSTOMER_SERVICE_URL=http://customer-service:3001
+      - PRODUCT_SERVICE_URL=http://product-service:3002
+      - PAYMENT_SERVICE_URL=http://payment-service:3004
+    depends_on:
+      - order-db
+      - customer-service
+      - product-service
+    networks:
+      - ecommerce-network
+    volumes:
+      - ./order-service:/app
+      - /app/node_modules
+
+  payment-service:
+    build:
+      context: ./payment-service
+      dockerfile: Dockerfile
+    container_name: payment-service
+    ports:
+      - "3004:3004"
+    environment:
+      - NODE_ENV=development
+      - PORT=3004
+      - MONGODB_URI=mongodb://payment-db:27017/payment_db
+      - RABBITMQ_URI=amqp://admin:password@rabbitmq:5672
+    depends_on:
+      - payment-db
+      - rabbitmq
+    networks:
+      - ecommerce-network
+    volumes:
+      - ./payment-service:/app
+      - /app/node_modules
+
+networks:
+  ecommerce-network:
+    driver: bridge
+
+volumes:
+  customer_data:
+  product_data:
+  order_data:
+  payment_data:
+  rabbitmq_data:
