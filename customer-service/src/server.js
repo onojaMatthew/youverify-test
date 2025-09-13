@@ -49,7 +49,7 @@ const startApp = async () =>  {
   });
 
   app.listen(port, () => {
-    Logger.log({ level: "info", message: `User service is running @ http://localhost:${port}`})
+    Logger.log({ level: "info", message: `Customer service is running @ http://localhost:${port}`})
   });
 
 }
@@ -57,7 +57,7 @@ const startApp = async () =>  {
 startApp();
 
 process.on('SIGTERM', () => {
-  logger.info('SIGTERM received, shutting down gracefully');
+  Logger.log({ level: "info", message: 'SIGTERM received, shutting down gracefully'});
   process.exit(0);
 });
 

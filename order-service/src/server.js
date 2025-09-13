@@ -40,15 +40,13 @@ const startApp = async () =>  {
     return next(new AppError("Not Found", 404));
   });
 
-  
-
   app.use((err, req, res, next) => {
     if (err.isOperational) return res.status(err.statusCode || 500).json({ success: false, message: err.message || "Something went wrong", data: null });
     return res.status(500).json({ success: false, message: "Internal Server Error", data: null });
   });
 
   app.listen(port, () => {
-    Logger.log({ level: "info", message: `User service is running @ http://localhost:${port}`})
+    Logger.log({ level: "info", message: `Order service is running @ http://localhost:${port}`})
   });
 
 }

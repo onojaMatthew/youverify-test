@@ -3,7 +3,6 @@ import { Product } from '../models/product';
 
 const sampleProducts = [
   {
-    productId: 'PROD-001',
     name: 'iPhone 15 Pro',
     description: 'Latest Apple iPhone with A17 Pro chip and titanium design',
     price: 999.99,
@@ -23,7 +22,6 @@ const sampleProducts = [
     tags: ['smartphone', 'ios', 'premium']
   },
   {
-    productId: 'PROD-002',
     name: 'Samsung Galaxy S24',
     description: 'High-performance Android smartphone with AI features',
     price: 849.99,
@@ -43,7 +41,6 @@ const sampleProducts = [
     tags: ['smartphone', 'android', 'ai']
   },
   {
-    productId: 'PROD-003',
     name: 'MacBook Pro 14"',
     description: 'Professional laptop with M3 Pro chip for demanding tasks',
     price: 1999.99,
@@ -63,7 +60,6 @@ const sampleProducts = [
     tags: ['laptop', 'professional', 'macos']
   },
   {
-    productId: 'PROD-004',
     name: 'Sony WH-1000XM5',
     description: 'Premium wireless noise-canceling headphones',
     price: 399.99,
@@ -83,7 +79,6 @@ const sampleProducts = [
     tags: ['headphones', 'wireless', 'noise-canceling']
   },
   {
-    productId: 'PROD-005',
     name: 'Nintendo Switch OLED',
     description: 'Hybrid gaming console with vibrant OLED display',
     price: 349.99,
@@ -103,7 +98,6 @@ const sampleProducts = [
     tags: ['gaming', 'console', 'portable']
   },
   {
-    productId: 'PROD-006',
     name: 'Dell XPS 13',
     description: 'Sleek and powerful ultrabook with InfinityEdge display',
     price: 1299.99,
@@ -123,7 +117,6 @@ const sampleProducts = [
     tags: ['ultrabook', 'windows', 'slim']
   },
   {
-    productId: 'PROD-007',
     name: 'Canon EOS R6 Mark II',
     description: 'Versatile full-frame mirrorless camera for photo and video',
     price: 2499.99,
@@ -143,7 +136,6 @@ const sampleProducts = [
     tags: ['camera', 'mirrorless', 'full-frame']
   },
   {
-    productId: 'PROD-008',
     name: 'Kindle Paperwhite',
     description: 'Waterproof e-reader with a high-resolution glare-free display',
     price: 149.99,
@@ -163,7 +155,6 @@ const sampleProducts = [
     tags: ['ereader', 'ebooks', 'amazon']
   },
   {
-    productId: 'PROD-009',
     name: 'PlayStation 5',
     description: 'Next-generation gaming console with ultra-high speed SSD',
     price: 499.99,
@@ -183,7 +174,6 @@ const sampleProducts = [
     tags: ['gaming', 'console', '4k']
   },
   {
-    productId: 'PROD-010',
     name: 'Apple Watch Series 9',
     description: 'Advanced smartwatch with new S9 SiP and Double Tap gesture',
     price: 429.99,

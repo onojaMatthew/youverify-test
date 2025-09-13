@@ -48,7 +48,7 @@ const startApp = async () =>  {
   });
 
   app.listen(port, () => {
-    Logger.log({ level: "info", message: `User service is running @ http://localhost:${port}`})
+    Logger.log({ level: "info", message: `Product service is running @ http://localhost:${port}`})
   });
 
 }

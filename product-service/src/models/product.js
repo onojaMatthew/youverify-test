@@ -2,7 +2,6 @@ import { model, Schema} from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 
 const productSchema = new Schema({
-  productId: { type: String, required: true, unique: true, index: true },
   name: { type: String, required: true, trim: true },
   description: { type: String, required: true, trim: true },
   price: { type: Number, required: true, min: 0 },
