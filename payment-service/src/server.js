@@ -9,6 +9,8 @@ import path from "path";
 import connectDB from "./config/database";
 import { Logger } from "./config/logger";
 import { router } from "./routes";
+import { initializeRabbitMQ } from "./service/rabbitmqService";
+import { startTransactionWorker } from "./workers/transactionWorker";
 
 const swaggerJSDoc = YAML.load(path.resolve(__dirname, "../api.yaml"));
 
@@ -42,7 +44,12 @@ app.use((err, req, res, next) => {
 const startApp = async () =>  {
   try {
     await connectDB();
-   
+    await initializeRabbitMQ();
+    Logger.info({ level: "info", message: "RabbitMQ connection established" });
+
+    // Start transaction worker
+    await startTransactionWorker();
+    Logger.log({ level: "info", message: 'Transaction worker started'});
   } catch (error) {
     Logger.log({ level: "error", message: "Failed to sync database: "+ error.message});
   }

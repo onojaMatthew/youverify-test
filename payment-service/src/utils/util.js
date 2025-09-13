@@ -27,3 +27,15 @@ export const formatKeys = (key) => {
         .trim();
   return formattedKey.charAt(0).toUpperCase() + formattedKey.slice(1);
 }
+
+export const generatePaymentId = () => {
+  const timestamp = Date.now().toString(36);
+  const randomString = Math.random().toString(36).substr(2, 5);
+  return `PAY-${timestamp}-${randomString}`.toUpperCase();
+};
+
+export const generateTransactionId = () => {
+  const timestamp = Date.now().toString(36);
+  const randomString = Math.random().toString(36).substr(2, 5);
+  return `TXN-${timestamp}-${randomString}`.toUpperCase();
+};
