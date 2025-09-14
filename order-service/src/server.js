@@ -14,7 +14,7 @@ const swaggerJSDoc = YAML.load(path.resolve(__dirname, "../api.yaml"));
 
 const app = express();
 
-const port = process.env.PORT || 4400
+const port = process.env.PORT || 5400
 
 const startApp = async () =>  {
   try {
