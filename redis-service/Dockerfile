@@ -1,5 +1,5 @@
 # Use the official Redis image as the base
-FROM redis:latest
+FROM redis
 
 # Optional: Add custom Redis configuration file if you want to modify the default settings
 COPY ./redis.conf /usr/local/etc/redis/redis.conf

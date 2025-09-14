@@ -1,16 +1,16 @@
 {
   "presets": [
-      [
-          "env",
-          {
-              "targets": {
-                  "node": "20.15.0"
-              }
-          }
-      ]
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "20"
+        }
+      }
+    ]
   ],
   "plugins": [
-    "transform-class-properties",
-    "transform-object-rest-spread",
-    "transform-export-extensions"  ]
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread"
+  ]
 }

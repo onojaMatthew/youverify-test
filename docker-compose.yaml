@@ -72,10 +72,10 @@ services:
       dockerfile: Dockerfile
     container_name: customer-service
     ports:
-      - "3001:3001"
+      - "5200:5200"
     environment:
       - NODE_ENV=development
-      - PORT=3001
+      - PORT=5200
       - MONGODB_URI=mongodb://customer-db:27017/customer_db
     depends_on:
       - customer-db
@@ -91,10 +91,10 @@ services:
       dockerfile: Dockerfile
     container_name: product-service
     ports:
-      - "3002:3002"
+      - "5100:5100"
     environment:
       - NODE_ENV=development
-      - PORT=3002
+      - PORT=5100
       - MONGODB_URI=mongodb://product-db:27017/product_db
     depends_on:
       - product-db
@@ -110,14 +110,14 @@ services:
       dockerfile: Dockerfile
     container_name: order-service
     ports:
-      - "3003:3003"
+      - "5400:5400"
     environment:
       - NODE_ENV=development
-      - PORT=3003
+      - PORT=5400
       - MONGODB_URI=mongodb://order-db:27017/order_db
-      - CUSTOMER_SERVICE_URL=http://customer-service:3001
-      - PRODUCT_SERVICE_URL=http://product-service:3002
-      - PAYMENT_SERVICE_URL=http://payment-service:3004
+      - CUSTOMER_SERVICE_URL=http://customer-service:5200
+      - PRODUCT_SERVICE_URL=http://product-service:5100
+      - PAYMENT_SERVICE_URL=http://payment-service:5000
     depends_on:
       - order-db
       - customer-service
@@ -134,10 +134,10 @@ services:
       dockerfile: Dockerfile
     container_name: payment-service
     ports:
-      - "3004:3004"
+      - "5000:5000"
     environment:
       - NODE_ENV=development
-      - PORT=3004
+      - PORT=5000
       - MONGODB_URI=mongodb://payment-db:27017/payment_db
       - RABBITMQ_URI=amqp://admin:password@rabbitmq:5672
     depends_on:
