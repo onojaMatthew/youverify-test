@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Logger } from "../config/logger";
 import { key } from "../config/key";
+import { Product } from "../models/product";
 
 class ProductService {
   constructor() {
@@ -9,11 +10,10 @@ class ProductService {
 
   async getProduct(productId) {
     try {
-      const response = await axios.get(`${this.baseURL}/api/v1/products/${productId}`, {
-        timeout: 5000
-      });
+      const product = await Product.findOne({ productId });
       
-      if (response.data.success) return response.data.data;
+      if (product) return product;
+
       return null;
     } catch (err) {
       Logger.log({ level: "error", message: `Error fetching product ${productId}: ${ err.message}`});
@@ -23,11 +23,17 @@ class ProductService {
 
   async checkAvailability(productId) {
     try {
-      const response = await axios.get(`${this.baseURL}/api/v1/products/${productId}/available`, {
-        timeout: 5000
-      });
+      const product = await Product.findOne({ productId, isActive: true });
       
-      if (response.data.success) return response.data.data;
+      if (product) {
+        return {
+          productId: product.productId,
+          name: product.name,
+          price: product.price,
+          stock: product.stock,
+          isAvailable: product.isAvailable
+        }
+      }
       
       return null;
     } catch (err) {
@@ -35,6 +41,8 @@ class ProductService {
       return null;
     }
   }
+
+
 }
 
 export default { ProductService: new ProductService()}

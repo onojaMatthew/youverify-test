@@ -2,6 +2,7 @@
 import { Logger } from "../config/logger";
 import { Customer } from "../models/customer";
 import { Order } from "../models/order";
+import { Product } from "../models/product";
 import { AppError } from "../utils/errorHandler";
 
 export const filterOrders = async (req, res, next) => {
@@ -268,10 +269,10 @@ export const saveCustomerData = async (req, res, next) => {
 
 export const saveProductData = async (req, res, next) => {
   try {
-    let customer = new Customer(req.body);
-    await customer.save();
-    Logger.log({ level: "info", message: `Customer record saved. Customer ID: ${customer.customerId}`})
-    return res.json({ success: true, message: "Customer record saved successfully", data: customer });
+    let product = new Product(req.body);
+    await product.save();
+    Logger.log({ level: "info", message: `Product record saved. product ID: ${product.productId}`})
+    return res.json({ success: true, message: "Customer record saved successfully", data: product });
   } catch (err) {
     Logger.log({ level: "error", message: `Error saving customer data:, ${err.message}`});
     return next(new AppError(`Internal server error: ${err.message}`, 500));

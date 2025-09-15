@@ -1,15 +1,37 @@
+import axios from "axios";
+import { key } from "../config/key";
 import { Logger } from "../config/logger";
 import { Product } from "../models/product";
 import { AppError } from "../utils/errorHandler";
 
+const PRODUCT_SERVICE_URL = key.ORDER_SERVICE_URL || "http://localhost:5300";
 export const createProduct = async (req, res, next) => {
   try {
-    console.log("in the product controller")
     const { sku } = req.body;
     const itExists = await Product.findOne({ sku });
     if (itExists) return next(new AppError(`A product with ${sku} sku already exists`, 400));
     let product = new Product(req.body);
     await product.save();
+
+    const productData = {
+      productId: product._id,
+      name: product.name,
+      description: product.description,
+      category: product.category,
+      brand: product.brand,
+      price: product.price,
+      tags: product.tags,
+      sku: product.sku,
+      images: product.images,
+      specifications: product.specifications,
+      isActive: product.isActive
+    }
+
+    try {
+      axios.post(`${PRODUCT_SERVICE_URL}/api/v1/orders/products`, productData);
+    } catch (err) {
+      Logger.log({ level: "error", message:`Failed to morror product in order service: ${err.message}`});
+    }
     return res.status(201).json({ success: true, message: "Product created successfully", data: product })
   } catch (err) {
     Logger.log({ level: "error", message:` Failed to create product: ${err.message}`});
