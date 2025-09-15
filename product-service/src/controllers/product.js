@@ -4,7 +4,8 @@ import { Logger } from "../config/logger";
 import { Product } from "../models/product";
 import { AppError } from "../utils/errorHandler";
 
-const PRODUCT_SERVICE_URL = key.ORDER_SERVICE_URL || "http://localhost:5300";
+const ORDER_SERVICE_URL = key.ORDER_SERVICE_URL || "http://localhost:5300";
+
 export const createProduct = async (req, res, next) => {
   try {
     const { sku } = req.body;
@@ -20,6 +21,7 @@ export const createProduct = async (req, res, next) => {
       category: product.category,
       brand: product.brand,
       price: product.price,
+      stock: product.stock,
       tags: product.tags,
       sku: product.sku,
       images: product.images,
@@ -27,6 +29,7 @@ export const createProduct = async (req, res, next) => {
       isActive: product.isActive
     }
 
+    // To be replaced using RabbitMQ publisher
     try {
       axios.post(`${PRODUCT_SERVICE_URL}/api/v1/orders/products`, productData);
     } catch (err) {
@@ -145,6 +148,7 @@ export const updateStock = async (req, res, next) => {
     switch (action) {
       case 'add':
         newStock = product.stock + quantity;
+        
         break;
       case 'subtract':
         newStock = Math.max(0, product.stock - quantity);
@@ -157,6 +161,14 @@ export const updateStock = async (req, res, next) => {
 
     product.stock = newStock;
     await product.save();
+
+    // To be replaced using RabbitMQ publisher
+    try {
+      axios.put(`${ORDER_SERVICE_URL}/api/v1/orders/products/${productId}/stock`, req.body);
+      Logger.log({ level: "info", message: `Updated mirrored product stock in order service: ${productId}`});
+    } catch (err) {
+      Logger.log({ level: "error", message: `Error updating mirrored product stock in order service: ${err.message}`})
+    }
 
     Logger.log({ level: "info", message: `Stock updated for product ${product._id}` });
     return res.json({ success: true, message: `Stock updated for product: ${product._id}. New stock: ${newStock}`, data: product })

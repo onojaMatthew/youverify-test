@@ -278,3 +278,40 @@ export const saveProductData = async (req, res, next) => {
     return next(new AppError(`Internal server error: ${err.message}`, 500));
   }
 }
+
+export const updateStock = async (req, res, next) => {
+  try {
+    const {quantity, action = 'set'} = req.body;
+
+    let product = await Product.findOne({ productId: req.params.productId });
+
+    if (!product) return;
+
+    let newStock;
+    switch (action) {
+      case 'add':
+        newStock = product.stock + quantity;
+        break;
+      case 'subtract':
+        newStock = Math.max(0, product.stock - quantity);
+        break;
+      case 'set':
+      default:
+        newStock = quantity;
+        break;
+    }
+
+    product.stock = newStock;
+    await product.save();
+
+    Logger.log({ level: "info", message: `Product stock updated. product ID: ${product.productId}`});
+    return res.json({ success: true, message: "Product stock updated successfully", data: product });
+  } catch (err) {
+    Logger.log({ level: "error", message: `Error saving customer data:, ${err.message}`});
+    return next(new AppError(`Internal server error: ${err.message}`, 500));
+  }
+}
+
+// update product data when a product is updated
+// mirror the payment in order to update the order status after payment is completed
+// implement order routes and test the implementations
