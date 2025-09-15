@@ -1,19 +1,3 @@
-import { Sequence } from "../models/sequence";
-
-export const getNextSequenceValue = async (sequenceName) => {
-  try {
-    const sequence = await Sequence.findOneAndUpdate(
-      { name: sequenceName },
-      { $inc: { value: 1 }},
-      { new: true, upsert: true }
-    );
-
-    return sequence.value;
-  } catch (err) {
-    console.log(err.message)
-  }
-}
-
 
 export const otp_code = () => {
   const code = Math.floor(100000 + Math.random() * 900000);

@@ -4,7 +4,7 @@ import { validationResult, body, param } from "express-validator";
 
 export const paymentValition = [
   body("customerId").isMongoId().withMessage("Invalid customer ID"),
-  body("orderId").isMongoId().withMessage("Invalid order ID"),
+  body("orderReferenceId").isString().withMessage("Invalid order ID"),
   body("productId").isMongoId().withMessage("Invalid product ID"),
   body("amount").isNumeric().withMessage("Please enter a valid amount"),
   (req, res, next) => {

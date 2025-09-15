@@ -1,7 +1,10 @@
+import axios from "axios";
 import { Payment } from "../models/payment";
 import { Transaction } from "../models/transaction";
 import { AppError } from "../utils/errorHandler";
 import { generatePaymentId, generateTransactionId } from "../utils/util";
+import { key } from "../config/key";
+import { Logger } from "../config/logger";
 
 export const getPaymentList = async (req, res, next) => {
   try {
@@ -10,7 +13,7 @@ export const getPaymentList = async (req, res, next) => {
       limit = 10, 
       customerId, 
       status, 
-      orderId,
+      orderReferenceId,
       sortBy = 'createdAt',
       sortOrder = 'desc'
     } = req.query;
@@ -20,7 +23,7 @@ export const getPaymentList = async (req, res, next) => {
     
     if (customerId) query.customerId = customerId;
     if (status) query.status = status;
-    if (orderId) query.orderId = orderId;
+    if (orderReferenceId) query.orderReferenceId = orderReferenceId;
 
     // Build sort object
     const sort = {};
@@ -84,7 +87,7 @@ export const getPaymentById = async (req, res, next) => {
 
 export const createPayment = async (req, res, next) => {
   try {
-    const { customerId, orderId, productId, amount } = req.body;
+    const { customerId, orderReferenceId, productId, amount } = req.body;
     // Generate payment ID
     const paymentId = generatePaymentId();
     
@@ -92,7 +95,7 @@ export const createPayment = async (req, res, next) => {
     const paymentData = {
       paymentId,
       customerId,
-      orderId,
+      orderReferenceId,
       productId,
       amount,
       status: 'processing',
@@ -102,16 +105,16 @@ export const createPayment = async (req, res, next) => {
     const payment = new Payment(paymentData);
     await payment.save();
 
-    Logger.log({ level: "info", message: `Payment created: ${paymentId} for order: ${orderId}`});
+    Logger.log({ level: "info", message: `Payment created: ${paymentId} for order: ${orderReferenceId}`});
 
     // Simulating payment processing for demonstration purpose
     const paymentSuccess = Math.random() > 0.1; // 90% success rate
 
     if (paymentSuccess) {
-      // Create transaction details for queue
+      // Transaction details for queue
       const transactionDetails = {
         customerId,
-        orderId,
+        orderReferenceId,
         productId,
         amount,
         paymentId,
@@ -120,7 +123,13 @@ export const createPayment = async (req, res, next) => {
       };
 
       // Publish to RabbitMQ queue
-      await publishToQueue('transaction_queue', transactionDetails);
+      // await publishToQueue('transaction_queue', transactionDetails);
+
+      try {
+        axios.post(`${key.ORDER_SERVICE_URL}/api/v1/orders/payments`, transactionDetails);
+      } catch (err) {
+        Logger.log({ level: "error", message: `Error publishing transaction record`});
+      }
       
       payment.status = 'completed';
       payment.processedAt = new Date();
@@ -138,24 +147,43 @@ export const createPayment = async (req, res, next) => {
       });
     } else {
       // Payment failed
-      payment.status = 'failed';
+      payment.status = "failed";
       payment.processedAt = new Date();
       await payment.save();
 
+
       Logger.log({ level: "error", message: `Payment failed: ${paymentId}`});
-      
+     
+      const failedTransactionDetails = {
+        customerId,
+        orderReferenceId,
+        productId,
+        amount,
+        paymentId,
+        timestamp: new Date().toISOString(),
+        status: 'failed'
+      };
+
+      // await publishToQueue('transaction_queue', failedTransactionDetails);
+
+      try {
+        axios.post(`${key.ORDER_SERVICE_URL}/api/v1/orders/payments`, failedTransactionDetails);
+      } catch (err) {
+        Logger.log({ level: "error", message: `Error publishing transaction record`});
+      }
+
       return res.status(400).json({
         success: false,
-        error: 'Payment processing failed',
+        error: "Payment processing failed",
         data: {
           paymentId,
-          status: 'failed',
+          status: "failed",
         }
       });
     }
 
   } catch (err) {
-    Logger.log({ level: "error", message: `Error processing payment: ${error}`});
+    Logger.log({ level: "error", message: `Error processing payment: ${err.message}`});
     return next(new AppError(`Internal server error: ${err.message}`, 500));
   }
 }

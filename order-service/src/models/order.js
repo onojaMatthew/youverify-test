@@ -1,6 +1,11 @@
 import { model, Schema } from "mongoose";
 
 const orderSchema = new Schema({
+  orderReferenceId: {
+    type: String,
+    required: true,
+    index: true
+  },
   customerId: {
     type: String,
     required: true,
@@ -61,7 +66,7 @@ const orderSchema = new Schema({
     zipCode: String,
     country: String
   },
-  orderNotes: String,
+  orderNotes: { type: String },
   metadata: {
     userAgent: String,
     ipAddress: String,
@@ -81,7 +86,6 @@ orderSchema.virtual('formattedAmount').get(function() {
   return `$${this.amount.toFixed(2)}`;
 });
 
-orderSchema.index({ orderStatus: 1 });
 orderSchema.index({ createdAt: -1 });
 
 export const Order = model("Order", orderSchema)

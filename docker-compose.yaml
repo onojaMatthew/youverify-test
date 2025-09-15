@@ -110,10 +110,10 @@ services:
       dockerfile: Dockerfile
     container_name: order-service
     ports:
-      - "5400:5400"
+      - "5300:5300"
     environment:
       - NODE_ENV=development
-      - PORT=5400
+      - PORT=5300
       - MONGODB_URI=mongodb://order-db:27017/order_db
       - CUSTOMER_SERVICE_URL=http://customer-service:5200
       - PRODUCT_SERVICE_URL=http://product-service:5100

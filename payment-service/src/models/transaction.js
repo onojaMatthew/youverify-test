@@ -18,7 +18,7 @@ const transactionSchema = new Schema({
     required: true,
     index: true
   },
-  orderId: {
+  orderReferenceId: {
     type: String,
     required: true,
     index: true

@@ -30,11 +30,10 @@ app.get("/health", (req, res, next) => {
 app.use("/api_docs", swaggerUi.serve, swaggerUi.setup(swaggerJSDoc));
 router(app);
 
-app.use((req, res, next) => {
+
+app.use("*",(req, res, next) => {
   return next(new AppError("Not Found", 404));
 });
-
-
 
 app.use((err, req, res, next) => {
   if (err.isOperational) return res.status(err.statusCode || 500).json({ success: false, message: err.message || "Something went wrong", data: null });
@@ -44,19 +43,15 @@ app.use((err, req, res, next) => {
 const startApp = async () =>  {
   try {
     await connectDB();
-    await initializeRabbitMQ();
-    Logger.info({ level: "info", message: "RabbitMQ connection established" });
+    // await initializeRabbitMQ();
+    // Logger.info({ level: "info", message: "RabbitMQ connection established" });
 
     // Start transaction worker
-    await startTransactionWorker();
-    Logger.log({ level: "info", message: 'Transaction worker started'});
+    // await startTransactionWorker();
+    // Logger.log({ level: "info", message: 'Transaction worker started'});
   } catch (error) {
-    Logger.log({ level: "error", message: "Failed to sync database: "+ error.message});
+    // Logger.log({ level: "error", message: "Failed to sync database: "+ error.message});
   }
-
-  
-
-  
 
   app.listen(port, () => {
     Logger.log({ level: "info", message: `Payment service is running @ http://localhost:${port}`})

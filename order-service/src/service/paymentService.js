@@ -6,16 +6,16 @@ class PaymentService {
     this.baseURL = process.env.PAYMENT_SERVICE_URL || 'http://localhost:5000';
   }
 
-  async processPayment({ customerId, orderId, productId, amount }) {
+  async processPayment({ customerId, orderReferenceId, productId, amount }) {
     try {
       const paymentData = {
         customerId,
-        orderId,
+        orderReferenceId,
         productId,
         amount
       };
 
-      const response = await axios.post(`${this.baseURL}/api/v1/payments/process`, paymentData, {
+      const response = await axios.post(`${this.baseURL}/api/v1/payments`, paymentData, {
         timeout: 10000,
         headers: {
           'Content-Type': 'application/json'
@@ -26,10 +26,10 @@ class PaymentService {
       
       return { success: false, error: 'Payment processing failed' };
     } catch (err) {
-      Logger.log({ level: "error", message: `Error processing payment for order ${orderId}: ${err.message}`});
+      Logger.log({ level: "error", message: `Error processing payment for order ${orderReferenceId}: ${err.message}`});
       return { success: false, error: err.message };
     }
   }
 }
 
-export default { PaymentService: new PaymentService() }
+export const PaymentSrv = new PaymentService();

@@ -41,8 +41,6 @@ class ProductService {
       return null;
     }
   }
-
-
 }
 
-export default { ProductService: new ProductService()}
+export const ProductSrv = new ProductService()

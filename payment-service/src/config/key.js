@@ -5,6 +5,7 @@ config();
 export const key = {
   MONGO_URL: process.env.MONGODB_URI,
   SECRET: process.env.SECRET,
+  ORDER_SERVICE_URL: process.env.ORDER_SERVICE_URL,
   SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
   REDIS_HOST: process.env.REDIS_HOST,
   REDIS_PORT: process.env.REDIS_PORT,

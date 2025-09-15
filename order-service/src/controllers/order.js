@@ -2,8 +2,13 @@
 import { Logger } from "../config/logger";
 import { Customer } from "../models/customer";
 import { Order } from "../models/order";
+import { Payment } from "../models/payment";
 import { Product } from "../models/product";
+import { CustomerSrv } from "../service/customerService";
+import { PaymentSrv } from "../service/paymentService";
+import { ProductSrv } from "../service/productService";
 import { AppError } from "../utils/errorHandler";
+import { generateOrderId } from "../utils/util";
 
 export const filterOrders = async (req, res, next) => {
   try {
@@ -67,44 +72,28 @@ export const getOrderById = async (req, res, next) => {
 }
 
 export const createOrder = async (req, res, next) => {
-    
   const { customerId, productId, quantity = 1, orderNotes } = req.body;
   
   try {
     // Step 1: Validate customer exists
-    const customer = await CustomerService.getCustomer(customerId);
-    if (!customer) {
-      return res.status(400).json({
-        success: false,
-        error: 'Customer not found'
-      });
-    }
+    const customer = await CustomerSrv.getCustomer(customerId);
+    if (!customer) return next(new AppError("Customer not found", 404));
 
     // Step 2: Validate product exists and check availability
-    const product = await ProductService.getProduct(productId);
-    if (!product) {
-      return res.status(400).json({
-        success: false,
-        error: 'Product not found'
-      });
-    }
+    const product = await ProductSrv.getProduct(productId);
+    if (!product) return next(new AppError("Product not found", 404));
 
-    if (product.stock < quantity) {
-      return res.status(400).json({
-        success: false,
-        error: 'Insufficient product stock'
-      });
-    }
+    if (product.stock < quantity) return next(new AppError("Product in stock less than desired quantity", 400));
 
     // Step 3: Calculate order amount
     const unitPrice = product.price;
     const amount = unitPrice * quantity;
 
     // Step 4: Generate order ID and create order
-    const orderId = generateOrderId();
+    const orderReferenceId = generateOrderId();
     
     const orderData = {
-      orderId,
+      orderReferenceId,
       customerId,
       productId,
       quantity,
@@ -136,13 +125,13 @@ export const createOrder = async (req, res, next) => {
     const order = new Order(orderData);
     await order.save();
 
-    logger.info(`Order created: ${orderId} for customer: ${customerId}`);
+    Logger.log({ level: "info", message: `Order created: ${orderReferenceId} for customer: ${customerId}`});
 
     // Step 5: Process payment (call payment service)
     try {
-      const paymentResult = await PaymentService.processPayment({
+      const paymentResult = await PaymentSrv.processPayment({
         customerId,
-        orderId,
+        orderReferenceId,
         productId,
         amount
       });
@@ -152,56 +141,46 @@ export const createOrder = async (req, res, next) => {
         order.paymentStatus = 'processing';
         await order.save();
         
-        logger.info(`Payment initiated for order: ${orderId}, paymentId: ${paymentResult.paymentId}`);
+        Logger.log({level: "info", message: `Payment initiated for order: ${orderReferenceId}, paymentId: ${paymentResult.paymentId}`});
       } else {
         order.orderStatus = 'failed';
         order.paymentStatus = 'failed';
         await order.save();
         
-        logger.error(`Payment failed for order: ${orderId}`);
+        Logger.log({ level: "error", message: `Payment failed for order: ${orderReferenceId}`});
       }
     } catch (paymentError) {
-      logger.error('Payment service error:', paymentError);
+      Logger.log({level: "error", message: `Payment service error: ${paymentError}`});
       order.orderStatus = 'failed';
       order.paymentStatus = 'failed';
       await order.save();
     }
 
     // Step 6: Return response as specified in requirements
-    const response = {
+    
+    return res.status(201).json({
       success: true,
+      message: 'Order created successfully',
       data: {
         customerId: order.customerId,
-        orderId: order.orderId,
+        orderReferenceId: order.orderReferenceId,
         productId: order.productId,
         orderStatus: order.orderStatus,
         amount: order.amount,
         paymentStatus: order.paymentStatus,
         createdAt: order.createdAt
       },
-      message: 'Order created successfully'
-    };
-
-    res.status(201).json(response);
-
-  } catch (error) {
-    logger.error('Error creating order:', error);
-    
-    if (error.code === 11000) {
-      return res.status(400).json({ 
-        success: false, 
-        error: 'Order with this ID already exists' 
-      });
-    }
-    
-    res.status(500).json({ success: false, error: 'Internal server error' });
+    });
+  } catch (err) {
+    Logger.log({ level: "error", message: `Error creating order: ${err.message}`});
+    return next(new AppError(`Internal server error: ${err.message}`, 500));
   }
 }
 
 export const updateOrderStatus = async (req, res, next) => {
   try {
     const { orderStatus, paymentStatus } = req.body;
-    const order = await Order.findOne({ orderId: req.params.orderId });
+    const order = await Order.findOne({ _id: req.params.orderId });
     
     if (!order) return next(new AppError("Order not found", 400));
 
@@ -210,13 +189,13 @@ export const updateOrderStatus = async (req, res, next) => {
 
     await order.save();
 
-    Logger.info(`Order status updated: ${order.orderId}`);
+    Logger.info(`Order status updated: ${order.orderReferenceId}`);
     
     return res.json({
       success: true,
       message: 'Order status updated successfully',
       data: {
-        orderId: order.orderId,
+        orderReferenceId: order.orderReferenceId,
         orderStatus: order.orderStatus,
         paymentStatus: order.paymentStatus
       }
@@ -228,9 +207,8 @@ export const updateOrderStatus = async (req, res, next) => {
 }
 
 export const deleteOrder = async (req, res, next) => {
-  
   try {
-    const order = await Order.findOne({ orderId: req.params.orderId });
+    const order = await Order.findById({ _id: req.params.orderId });
     if (!order) return next(new AppError("Order not found", 404));
 
     if (order.orderStatus === 'delivered' || order.orderStatus === 'shipped') 
@@ -239,13 +217,13 @@ export const deleteOrder = async (req, res, next) => {
     order.orderStatus = 'cancelled';
     await order.save();
 
-    Logger.log({ level: "info", message: `Order cancelled: ${order.orderId}`});
+    Logger.log({ level: "info", message: `Order cancelled: ${order.orderReferenceId}`});
     
     return res.json({
       success: true,
       message: 'Order cancelled successfully',
       data: {
-        orderId: order.orderId,
+        orderReferenceId: order.orderReferenceId,
         orderStatus: order.orderStatus
       }
     });
@@ -312,6 +290,17 @@ export const updateStock = async (req, res, next) => {
   }
 }
 
-// update product data when a product is updated
+export const saveTransactionRecord = async (req, res, next) => {
+  try {
+    const payment = new Payment(req.body);
+    await payment.save();
+    Logger.log({ level: "info", message: `Transaction record saved: ${payment.transactionId}`});
+    return res.json({ success: true, message: `Payment transaction saved successfully: ${payment.transactionId}`, data: payment });
+  } catch (err) {
+    Logger.log({ level: "error", message: `Error saving customer data:, ${err.message}`});
+    return next(new AppError(`Internal server error: ${err.message}`, 500));
+  }
+}
+
 // mirror the payment in order to update the order status after payment is completed
 // implement order routes and test the implementations

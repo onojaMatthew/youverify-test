@@ -9,4 +9,5 @@ router.get("/", getPaymentList);
 router.get("/transactions", getAllTransactions);
 router.get("/:paymentId", paramValidation, getPaymentById);
 router.post("/:paymentId/refund", paymentValition, refundPayment);
+
 export { router as PaymentRoute }
