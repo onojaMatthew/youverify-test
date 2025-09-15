@@ -1,5 +1,6 @@
 
 import { Logger } from "../config/logger";
+import { Customer } from "../models/customer";
 import { Order } from "../models/order";
 import { AppError } from "../utils/errorHandler";
 
@@ -239,7 +240,7 @@ export const deleteOrder = async (req, res, next) => {
 
     Logger.log({ level: "info", message: `Order cancelled: ${order.orderId}`});
     
-    res.json({
+    return res.json({
       success: true,
       message: 'Order cancelled successfully',
       data: {
@@ -249,6 +250,30 @@ export const deleteOrder = async (req, res, next) => {
     });
   } catch (err) {
     Logger.log({ level: "error", message: `Error cancelling order:, ${err.message}`});
-    return res.status(500).json({ success: false, error: `Internal server error: ${err.message}` });
+    return next(new AppError(`Internal server error: ${err.message}`, 500));
+  }
+}
+
+export const saveCustomerData = async (req, res, next) => {
+  try {
+    let customer = new Customer(req.body);
+    await customer.save();
+    Logger.log({ level: "info", message: `Customer record saved. Customer ID: ${customer.customerId}`})
+    return res.json({ success: true, message: "Customer record saved successfully", data: customer });
+  } catch (err) {
+    Logger.log({ level: "error", message: `Error saving customer data:, ${err.message}`});
+    return next(new AppError(`Internal server error: ${err.message}`, 500));
+  }
+}
+
+export const saveProductData = async (req, res, next) => {
+  try {
+    let customer = new Customer(req.body);
+    await customer.save();
+    Logger.log({ level: "info", message: `Customer record saved. Customer ID: ${customer.customerId}`})
+    return res.json({ success: true, message: "Customer record saved successfully", data: customer });
+  } catch (err) {
+    Logger.log({ level: "error", message: `Error saving customer data:, ${err.message}`});
+    return next(new AppError(`Internal server error: ${err.message}`, 500));
   }
 }

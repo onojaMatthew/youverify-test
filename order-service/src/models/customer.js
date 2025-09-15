@@ -1,6 +1,10 @@
 import { model, Schema } from "mongoose";
 
 const customerSchema = new Schema({
+  customerId: {
+    type: Schema.Types.ObjectId,
+    required: true
+  },
   firstName: {
     type: String,
     required: true,
@@ -29,22 +33,10 @@ const customerSchema = new Schema({
     zipCode: String,
     country: String
   },
-  isActive: {
-    type: Boolean,
-    default: true
-  }
 }, {
   timestamps: true,
   toJSON: { virtuals: true },
   toObject: { virtuals: true }
 });
 
-// Virtual for full name
-customerSchema.virtual('fullName').get(function() {
-  return `${this.firstName} ${this.lastName}`;
-});
-
-// Index for better query performance
-customerSchema.index({ email: 1 });
-
-export const Customer = model("Customer", customerSchema)
+export const Customer = model("Customer", customerSchema);

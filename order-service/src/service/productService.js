@@ -4,12 +4,12 @@ import { key } from "../config/key";
 
 class ProductService {
   constructor() {
-    this.baseURL = key.PRODUCT_SERVICE_URL || 'http://localhost:3002';
+    this.baseURL = key.PRODUCT_SERVICE_URL || 'http://localhost:5100';
   }
 
   async getProduct(productId) {
     try {
-      const response = await axios.get(`${this.baseURL}/api/products/${productId}`, {
+      const response = await axios.get(`${this.baseURL}/api/v1/products/${productId}`, {
         timeout: 5000
       });
       
@@ -23,7 +23,7 @@ class ProductService {
 
   async checkAvailability(productId) {
     try {
-      const response = await axios.get(`${this.baseURL}/api/products/${productId}/available`, {
+      const response = await axios.get(`${this.baseURL}/api/v1/products/${productId}/available`, {
         timeout: 5000
       });
       

@@ -4,6 +4,7 @@ import { AppError } from "../utils/errorHandler";
 
 export const createProduct = async (req, res, next) => {
   try {
+    console.log("in the product controller")
     const { sku } = req.body;
     const itExists = await Product.findOne({ sku });
     if (itExists) return next(new AppError(`A product with ${sku} sku already exists`, 400));

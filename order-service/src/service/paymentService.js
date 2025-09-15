@@ -3,7 +3,7 @@ import { Logger } from "../config/logger";
 
 class PaymentService {
   constructor() {
-    this.baseURL = process.env.PAYMENT_SERVICE_URL || 'http://localhost:3004';
+    this.baseURL = process.env.PAYMENT_SERVICE_URL || 'http://localhost:5000';
   }
 
   async processPayment({ customerId, orderId, productId, amount }) {
@@ -15,7 +15,7 @@ class PaymentService {
         amount
       };
 
-      const response = await axios.post(`${this.baseURL}/api/payments/process`, paymentData, {
+      const response = await axios.post(`${this.baseURL}/api/v1/payments/process`, paymentData, {
         timeout: 10000,
         headers: {
           'Content-Type': 'application/json'

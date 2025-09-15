@@ -3,6 +3,7 @@ build
 db_data
 .env
 
+coverage
 
 combine.log
 error.log

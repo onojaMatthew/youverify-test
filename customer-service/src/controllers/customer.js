@@ -1,6 +1,10 @@
+import axios from "axios";
 import { Logger } from "../config/logger";
 import { Customer } from "../models/customer";
 import { AppError } from "../utils/errorHandler";
+import { key } from "../config/key";
+
+const ORDER_BASE_URL = key.ORDER_SERVICE_URL || "http://localhost:5300";
 
 export const createCustomer = async (req, res, next) => {
   try {
@@ -13,6 +17,22 @@ export const createCustomer = async (req, res, next) => {
     
     Logger.log({ level: "info", message: `New customer created: ${customer.customerId}`});
     
+    const customerData = {
+      firstName: customer.firstName,
+      lastName: customer.lastName,
+      email: customer.email,
+      phone: customer.phone,
+      address: customer.address,
+      customerId: customer._id,
+    }
+
+    try {
+      axios.post(`${ORDER_BASE_URL}/api/v1/orders/customers`, customerData);
+    } catch (err) {
+      Logger.log({ level: "error", message: `Error mirroring customer data in order service: ${err.message}`})
+    }
+    
+
     return res.status(201).json({
       success: true,
       message: 'Customer created successfully',
