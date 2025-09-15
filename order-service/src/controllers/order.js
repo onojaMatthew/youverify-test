@@ -206,7 +206,7 @@ export const updateOrderStatus = async (req, res, next) => {
   }
 }
 
-export const deleteOrder = async (req, res, next) => {
+export const cancelOrder = async (req, res, next) => {
   try {
     const order = await Order.findById({ _id: req.params.orderId });
     if (!order) return next(new AppError("Order not found", 404));
@@ -301,6 +301,3 @@ export const saveTransactionRecord = async (req, res, next) => {
     return next(new AppError(`Internal server error: ${err.message}`, 500));
   }
 }
-
-// mirror the payment in order to update the order status after payment is completed
-// implement order routes and test the implementations
