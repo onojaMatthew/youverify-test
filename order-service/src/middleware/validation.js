@@ -1,10 +1,9 @@
-import { validationResult, body, check, param } from "express-validator";
+import { validationResult, body, param } from "express-validator";
 
-export const customerValition = [
-  body("firstName").isString().withMessage("First name is required"),
-  body("lastName").isString().withMessage("Last name is required"),
-  body("email").isEmail().withMessage("Invalid email address"),
-  body("phone").isMobilePhone("any").withMessage("Please enter a valid phone number"),
+export const orderValidation = [
+  body("customerId").isMongoId().withMessage("Invalid customer ID"),
+  body("productId").isString().withMessage("Invalid product ID"),
+  body("quantity").isNumeric().withMessage("Please provide your desired quantity"),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -20,7 +19,7 @@ export const customerValition = [
 ];
 
 export const paramValidation = [
-  param("customerId").isMongoId().withMessage("Invalid customer ID"),
+  param("orderId").isMongoId().withMessage("Invalid order ID"),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

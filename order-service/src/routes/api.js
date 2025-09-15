@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { cancelOrder, createOrder, filterOrders, getOrderById, saveCustomerData, saveProductData, saveTransactionRecord, updateOrderStatus, updateStock } from "../controllers/order";
+import { orderValidation } from "../middleware/validation";
 
 const router = Router();
 
-router.post("/", createOrder);
+router.post("/", orderValidation, createOrder);
 router.get("/", filterOrders);
-
 router.post("/customers", saveCustomerData);
 router.post("/products", saveProductData);
 router.put("/products/:productId/stock", updateStock);
