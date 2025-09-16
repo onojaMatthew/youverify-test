@@ -15,7 +15,7 @@ class PaymentService {
         amount
       };
 
-      const response = await axios.post(`${this.baseURL}/api/v1/payments`, paymentData, {
+      const response = await axios.post(`${this.baseURL}/api/v1/payments/initiate`, paymentData, {
         timeout: 10000,
         headers: {
           'Content-Type': 'application/json'

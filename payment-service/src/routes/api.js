@@ -4,7 +4,7 @@ import { paramValidation, paymentValition } from "../middleware/validation";
 
 const router = Router();
 
-router.post("/", paymentValition, createPayment);
+router.post("/initiate", paymentValition, createPayment);
 router.get("/", getPaymentList);
 router.get("/transactions", getAllTransactions);
 router.get("/:paymentId", paramValidation, getPaymentById);

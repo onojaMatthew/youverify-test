@@ -1,5 +1,5 @@
 import { format, createLogger, transports } from "winston";
-import { key } from "./key";
+
 require("winston-mongodb");
 
 const { combine, timestamp, prettyPrint, label, colorize } = format;
@@ -17,26 +17,26 @@ const logger = createLogger({
   transports: [
     new transports.File({ filename: "error.log", level: "error" }),
     new transports.File({ filename: "combine.log" }),
-    new transports.MongoDB({
-      db: key.MONGO_URL, 
-      collection: "logs"
-    })
+    // new transports.MongoDB({
+    //   db: key.MONGO_URL, 
+    //   collection: "logs"
+    // })
   ],
   exceptionHandlers: [
     new transports.Console(),
-    new transports.MongoDB({
-      db: key.MONGO_URL,
-      options: {},
-      collection: "exceptions"
-    })
+    // new transports.MongoDB({
+    //   db: key.MONGO_URL,
+    //   options: {},
+    //   collection: "exceptions"
+    // })
   ],
   rejectionHandlers: [
     new transports.Console(),
-    new transports.MongoDB({
-      db: key.MONGO_URL,
-      options: {},
-      collection: "rejections"
-    })
+    // new transports.MongoDB({
+    //   db: key.MONGO_URL,
+    //   options: {},
+    //   collection: "rejections"
+    // })
   ]
 });
 

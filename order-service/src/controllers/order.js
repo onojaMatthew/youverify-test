@@ -292,6 +292,7 @@ export const updateStock = async (req, res, next) => {
 
 export const saveTransactionRecord = async (req, res, next) => {
   try {
+    console.log("call from the payment service")
     const payment = new Payment(req.body);
     await payment.save();
     Logger.log({ level: "info", message: `Transaction record saved: ${payment.transactionId}`});

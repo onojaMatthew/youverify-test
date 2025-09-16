@@ -126,9 +126,11 @@ export const createPayment = async (req, res, next) => {
       // await publishToQueue('transaction_queue', transactionDetails);
 
       try {
+        // let newTransaction = new Transaction(transactionDetails);
+        // await newTransaction.save();
         axios.post(`${key.ORDER_SERVICE_URL}/api/v1/orders/payments`, transactionDetails);
       } catch (err) {
-        Logger.log({ level: "error", message: `Error publishing transaction record`});
+        Logger.log({ level: "error", message: `Error publishing transaction record: ${err.message}`});
       }
       
       payment.status = 'completed';
@@ -167,9 +169,11 @@ export const createPayment = async (req, res, next) => {
       // await publishToQueue('transaction_queue', failedTransactionDetails);
 
       try {
+        // let newTransaction = new Transaction(failedTransactionDetails); // move this to message queue later
+        // await newTransaction.save();
         axios.post(`${key.ORDER_SERVICE_URL}/api/v1/orders/payments`, failedTransactionDetails);
       } catch (err) {
-        Logger.log({ level: "error", message: `Error publishing transaction record`});
+        Logger.log({ level: "error", message: `Error publishing transaction record: ${err.message}`});
       }
 
       return res.status(400).json({

@@ -12,9 +12,11 @@ export const jobRunner = async () => {
   try {
     job.schedule("*/1 * * * *", async () => { // Leave it at 1 minute for test purposes
       const orders = await Order.find({ orderStatus: "pending", paymentStatus: "processing" });
+      // console.log(orders, " the orders")
       for(let order of orders) {
         const orderReferenceId = order.orderReferenceId;
         const payment = await Payment.findOne({ orderReferenceId });
+        // console.log(payment, " the payment found")
         if (payment) {
           order.paymentStatus = payment.status;
           await order.save();
