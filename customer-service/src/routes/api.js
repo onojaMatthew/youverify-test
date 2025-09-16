@@ -4,10 +4,10 @@ import { customerValition, paramValidation } from "../middleware/validation";
 
 const router = Router();
 
-router.post("/", customerValition, createCustomer);
-router.get("/", getCustomers)
-router.get("/search", searchCustomers);
-router.get("/:customerId", paramValidation, getCustomerById);
-router.put("/:customerId", paramValidation, updateCustomer);
+router.post("/customers", customerValition, createCustomer);
+router.get("/customers", getCustomers)
+router.get("/customers/search", searchCustomers);
+router.get("/customers/:customerId", paramValidation, getCustomerById);
+router.put("/customers/:customerId", paramValidation, updateCustomer);
 
 export { router as CustomerRoute }

@@ -5,25 +5,25 @@ const router = Router();
 
 /**
  * Gateway status endpoint
- * GET /gateway/status
+ * GET /api/gateway/status
  */
 router.get('/status', getGatewayStatus);
 
 /**
  * Gateway metrics endpoint
- * GET /gateway/metrics
+ * GET /api/gateway/metrics
  */
 router.get('/metrics', getGatewayMetrics);
 
 /**
  * Reset metrics (useful for testing)
- * POST /gateway/metrics/reset
+ * POST /api/gateway/metrics/reset
  */
 router.post('/metrics/reset', resetGatewayMetrics);
 
 /**
  * Generate test JWT token (for development/testing)
- * POST /gateway/auth/token
+ * POST /api/gateway/auth/token
  */
 router.post('/auth/token', generateAuthToken);
 

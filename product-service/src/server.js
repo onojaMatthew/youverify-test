@@ -60,4 +60,4 @@ process.on('SIGTERM', () => {
   process.exit(0);
 });
 
-export { app as appServer }
+export { app }

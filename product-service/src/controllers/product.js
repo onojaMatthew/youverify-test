@@ -7,6 +7,7 @@ import { AppError } from "../utils/errorHandler";
 const ORDER_SERVICE_URL = key.ORDER_SERVICE_URL || "http://localhost:5300";
 
 export const createProduct = async (req, res, next) => {
+  console.log("calling product creation")
   try {
     const { sku } = req.body;
     const itExists = await Product.findOne({ sku });
@@ -35,6 +36,7 @@ export const createProduct = async (req, res, next) => {
     } catch (err) {
       Logger.log({ level: "error", message:`Failed to morror product in order service: ${err.message}`});
     }
+    console.log(product, " the product created")
     return res.status(201).json({ success: true, message: "Product created successfully", data: product })
   } catch (err) {
     Logger.log({ level: "error", message:` Failed to create product: ${err.message}`});

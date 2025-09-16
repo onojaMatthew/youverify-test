@@ -4,10 +4,10 @@ import { paramValidation, paymentValition } from "../middleware/validation";
 
 const router = Router();
 
-router.post("/initiate", paymentValition, createPayment);
-router.get("/", getPaymentList);
-router.get("/transactions", getAllTransactions);
-router.get("/:paymentId", paramValidation, getPaymentById);
-router.post("/:paymentId/refund", paymentValition, refundPayment);
+router.post("/payments/initiate", paymentValition, createPayment);
+router.get("/payments", getPaymentList);
+router.get("/payments/transactions", getAllTransactions);
+router.get("/payments/:paymentId", paramValidation, getPaymentById);
+router.post("/payments/:paymentId/refund", paymentValition, refundPayment);
 
 export { router as PaymentRoute }

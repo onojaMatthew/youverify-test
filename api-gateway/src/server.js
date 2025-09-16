@@ -6,7 +6,7 @@ import compression from "compression";
 import dotenv from "dotenv";
 import { setupProxies } from './proxy/proxyConfig';
 import { rateLimiter } from './middleware/rateLimiter';
-import authMiddleware from './middleware/auth';
+import {authMiddleware} from './middleware/auth';
 import { loggingMiddleware } from './middleware/logging';
 import { metricsCollector } from './middleware/metrics';
 import { router } from './routes';
@@ -64,10 +64,10 @@ app.get('/health', (req, res) => {
 });
 
 // Gateway status and metrics
-// router(app);
+router(app);
 
 // Authentication middleware (applied to protected routes)
-// app.use('/api', authMiddleware);
+app.use('/api', authMiddleware);
 
 // Setup service proxies
 setupProxies(app);
@@ -78,16 +78,15 @@ app.use((err, req, res, next) => {
   return res.status(500).json({ success: false, message: "Internal Server Error", data: null });
 })
 
-// 404 handler
-// app.use('*', (req, res) => {
-//   res.status(404).json({
-//     success: false,
-//     error: 'Route not found',
-//     path: req.originalUrl,
-//     method: req.method,
-//     timestamp: new Date().toISOString()
-//   });
-// });
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    error: 'Route not found',
+    path: req.originalUrl,
+    method: req.method,
+    timestamp: new Date().toISOString()
+  });
+});
 
 // Graceful shutdown
 const gracefulShutdown = (signal) => {

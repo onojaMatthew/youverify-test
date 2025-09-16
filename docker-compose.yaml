@@ -64,7 +64,37 @@ services:
       - rabbitmq_data:/var/lib/rabbitmq
     networks:
       - ecommerce-network
-
+  
+  # API Gateway
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - CUSTOMER_SERVICE_URL=http://customer-service:5200
+      - PRODUCT_SERVICE_URL=http://product-service:5100
+      - ORDER_SERVICE_URL=http://order-service:5300
+      - PAYMENT_SERVICE_URL=http://payment-service:5000
+      - JWT_SECRET=your-super-secret-jwt-key-change-in-production
+      - BYPASS_AUTH=true
+      - ENABLE_LEGACY_ROUTES=true
+      - ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3001
+    depends_on:
+      - customer-service
+      - product-service
+      - order-service
+      - payment-service
+    networks:
+      - ecommerce-network
+    volumes:
+      - ./api-gateway:/app
+      - /app/node_modules
+      
   # Microservices
   customer-service:
     build:

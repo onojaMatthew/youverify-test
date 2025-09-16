@@ -55,7 +55,7 @@ const authMiddleware = (req, res, next) => {
     });
   }
 
-  const token = authHeader.substring(7); // Remove 'Bearer ' prefix
+  const token = authHeader.split(" ")[1]; // Remove 'Bearer ' prefix
 
   try {
     // Verify JWT token
@@ -70,7 +70,7 @@ const authMiddleware = (req, res, next) => {
     };
 
     // Log authenticated request
-    logger.info(`Authenticated request: ${req.method} ${req.path} by user ${req.user.id}`);
+    Logger.log({ level: "info", message: `Authenticated request: ${req.method} ${req.path} by user ${req.user.id}`});
     
     next();
   } catch (err) {
