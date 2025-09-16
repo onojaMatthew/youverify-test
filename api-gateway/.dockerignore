@@ -1,0 +1,9 @@
+node_modules
+db_data
+build
+combine.log
+error.log
+
+.env
+
+yarn.lock

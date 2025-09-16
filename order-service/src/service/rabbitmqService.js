@@ -1,11 +1,12 @@
 import amqp from "amqplib";
+import { ProductSrv } from "./productService";
 const { Logger } = require('../config/logger');
 
 let connection = null;
 let channel = null;
 
 const RABBITMQ_URI = process.env.RABBITMQ_URI || 'amqp://admin:password@localhost:5672';
-const QUEUE_NAME = ['transaction_queue'];
+const QUEUE_NAMES = ['transaction_queue', "product_created", "product_updated", "stock_updated"];
 
 /**
  * Initialize RabbitMQ connection and channel
@@ -140,11 +141,25 @@ export {
   publishToQueue,
   consumeFromQueue,
   closeConnection,
-  QUEUE_NAME
+  QUEUE_NAMES
 };
 
 export const listenToMultipleQueues = async (queues) => {
     for (let queue of queues) {
-        consumer(queue);
+      switch(queue) {
+        case "product_created":
+          consumeFromQueue(queue, ProductSrv.saveProduct);
+          break;
+        case "product_updated":
+          consumeFromQueue(queue, ProductSrv.updateProduct);
+          break;
+        case "stock_updated":
+          consumeFromQueue(queue, ProductSrv.updateStock);
+          break;
+        case "transaction_queued":
+          consumeFromQueue(queue, ProductSrv.updateStock);
+          break;
+      }
+      
     }
 }

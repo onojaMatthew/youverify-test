@@ -3,6 +3,7 @@ import { key } from "../config/key";
 import { Logger } from "../config/logger";
 import { Product } from "../models/product";
 import { AppError } from "../utils/errorHandler";
+import { publishToQueue } from "../service/rabbitmqService";
 
 const ORDER_SERVICE_URL = key.ORDER_SERVICE_URL || "http://localhost:5300";
 
@@ -31,11 +32,7 @@ export const createProduct = async (req, res, next) => {
     }
 
     // To be replaced using RabbitMQ publisher
-    try {
-      axios.post(`${PRODUCT_SERVICE_URL}/api/v1/orders/products`, productData);
-    } catch (err) {
-      Logger.log({ level: "error", message:`Failed to morror product in order service: ${err.message}`});
-    }
+    publishToQueue("product_created", JSON.stringify(productData))
     console.log(product, " the product created")
     return res.status(201).json({ success: true, message: "Product created successfully", data: product })
   } catch (err) {
@@ -165,17 +162,28 @@ export const updateStock = async (req, res, next) => {
     await product.save();
 
     // To be replaced using RabbitMQ publisher
-    try {
-      axios.put(`${ORDER_SERVICE_URL}/api/v1/orders/products/${productId}/stock`, req.body);
-      Logger.log({ level: "info", message: `Updated mirrored product stock in order service: ${productId}`});
-    } catch (err) {
-      Logger.log({ level: "error", message: `Error updating mirrored product stock in order service: ${err.message}`})
-    }
+    publishToQueue("stock_updated", JSON.stringify(req.body))
 
     Logger.log({ level: "info", message: `Stock updated for product ${product._id}` });
     return res.json({ success: true, message: `Stock updated for product: ${product._id}. New stock: ${newStock}`, data: product })
   } catch (err) {
     Logger.log({ level: "error", message: `Failed to update product stock: ${err.message}` });
     return next(new AppError(`Internal server error: ${err.message}`, 500));
+  }
+}
+
+export const updateProduct = async (req, res, next) => {
+  try {
+    const { productId } = req.params;
+    const product = await Product.findByIdAndUpdate({ _id: productId }, req.body, { new: true });
+    if (!product) return next(new AppError(`Product not found`, 404));
+    const productData = {
+      ...req.body,
+      productId
+    }
+    publishToQueue("product_updated", JSON.stringify(productData));
+    return res.json({ success: true, message: "Product updated", data: product });
+  } catch (err) {
+    return next(new AppError(`Internal server error: ${err.message}`, 500))
   }
 }

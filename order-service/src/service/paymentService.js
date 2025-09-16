@@ -30,6 +30,10 @@ class PaymentService {
       return { success: false, error: err.message };
     }
   }
+
+  async createTransaction(){
+    
+  }
 }
 
 export const PaymentSrv = new PaymentService();

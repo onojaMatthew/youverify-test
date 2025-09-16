@@ -5,7 +5,7 @@ let connection = null;
 let channel = null;
 
 const RABBITMQ_URI = process.env.RABBITMQ_URI || 'amqp://admin:password@localhost:5672';
-const QUEUE_NAME = ['transaction_queue'];
+const QUEUE_NAMES = ['transaction_queue'];
 
 /**
  * Initialize RabbitMQ connection and channel
@@ -140,11 +140,11 @@ export {
   publishToQueue,
   consumeFromQueue,
   closeConnection,
-  QUEUE_NAME
+  QUEUE_NAMES
 };
 
 export const listenToMultipleQueues = async (queues) => {
     for (let queue of queues) {
-        consumer(queue);
+        consumeFromQueue(queue);
     }
 }

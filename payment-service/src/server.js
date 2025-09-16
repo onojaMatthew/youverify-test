@@ -43,14 +43,14 @@ app.use((err, req, res, next) => {
 const startApp = async () =>  {
   try {
     await connectDB();
-    // await initializeRabbitMQ();
-    // Logger.info({ level: "info", message: "RabbitMQ connection established" });
+    await initializeRabbitMQ();
+    Logger.info({ level: "info", message: "RabbitMQ connection established" });
 
     // Start transaction worker
-    // await startTransactionWorker();
-    // Logger.log({ level: "info", message: 'Transaction worker started'});
+    await startTransactionWorker();
+    Logger.log({ level: "info", message: 'Transaction worker started'});
   } catch (error) {
-    // Logger.log({ level: "error", message: "Failed to sync database: "+ error.message});
+    Logger.log({ level: "error", message: "Failed to sync database: "+ error.message});
   }
 
   app.listen(port, () => {

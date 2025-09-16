@@ -123,7 +123,7 @@ const setupProxies = (app) => {
   // Setup legacy routes for backward compatibility (optional)
   if (process.env.ENABLE_LEGACY_ROUTES === 'true') {
     Object.entries(legacyServices).forEach(([serviceName, config]) => {
-      const legacyProxyOptions = createLegacyProxyOptions(serviceName + '_legacy', config);
+      // const legacyProxyOptions = createLegacyProxyOptions(serviceName + '_legacy', config);
       const legacyProxy = createProxyMiddleware(legacyProxyOptions);
       
       app.use(config.pathPattern, legacyProxy);

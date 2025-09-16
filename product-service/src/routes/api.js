@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { paramValidation, productionValition, stockUpdateValidation } from "../middleware/validation";
-import { checkProductAvailability, createProduct, getProductById, searchProduct, updateStock } from "../controllers/product";
+import { checkProductAvailability, createProduct, getProductById, searchProduct, updateProduct, updateStock } from "../controllers/product";
 
 const router =  Router();
 
@@ -9,6 +9,7 @@ router.get("/search", searchProduct);
 router.get("/:productId", paramValidation, getProductById);
 router.get("/:productId/available", paramValidation, checkProductAvailability);
 router.patch("/:productId/stock", stockUpdateValidation, updateStock);
+router.put("/:productId/update", updateProduct);
 router.get('/debug/routes', (req, res) => {
   const routes = [];
   router.stack.forEach((middleware) => {

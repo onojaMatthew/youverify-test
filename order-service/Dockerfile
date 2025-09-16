@@ -6,7 +6,6 @@ WORKDIR /app
 
 # Copy package files first for better caching
 COPY package*.json ./
-COPY .babelrc ./
 
 # Install all dependencies (including devDependencies for build)
 RUN npm install
@@ -16,12 +15,6 @@ COPY . .
 
 # Build the application while devDependencies are still available
 RUN npm run build
-
-# Verify the build was successful
-RUN ls -la /app/build/ || echo "Build directory contents:"
-
-# Remove devDependencies to reduce image size
-RUN npm prune --production
 
 # Create non-root user for security
 RUN addgroup -g 1001 -S nodejs && \
@@ -40,4 +33,18 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:5400/health || exit 1
 
 # Start the application using the pre-built version
-CMD ["node", "./build/server.js"]
+FROM node:alpine
+
+WORKDIR /usr/src/app
+
+COPY ./package.json ./
+
+RUN npm install
+
+RUN npm install pm2 -g
+
+COPY ./ ./
+
+RUN npm run build
+
+CMD ["pm2-runtime", "start", "ecosystem.config.js"]

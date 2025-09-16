@@ -80,7 +80,7 @@ services:
       - PRODUCT_SERVICE_URL=http://product-service:5100
       - ORDER_SERVICE_URL=http://order-service:5300
       - PAYMENT_SERVICE_URL=http://payment-service:5000
-      - JWT_SECRET=your-super-secret-jwt-key-change-in-production
+      - JWT_SECRET=somdiwe3439ei34ler893p343
       - BYPASS_AUTH=true
       - ENABLE_LEGACY_ROUTES=true
       - ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3001
@@ -107,6 +107,7 @@ services:
       - NODE_ENV=development
       - PORT=5200
       - MONGODB_URI=mongodb://customer-db:27017/customer_db
+      - RABBITMQ_URI=amqp://admin:password@rabbitmq:5672
     depends_on:
       - customer-db
     networks:
@@ -126,6 +127,7 @@ services:
       - NODE_ENV=development
       - PORT=5100
       - MONGODB_URI=mongodb://product-db:27017/product_db
+      - RABBITMQ_URI=amqp://admin:password@rabbitmq:5672
     depends_on:
       - product-db
     networks:
@@ -148,6 +150,7 @@ services:
       - CUSTOMER_SERVICE_URL=http://customer-service:5200
       - PRODUCT_SERVICE_URL=http://product-service:5100
       - PAYMENT_SERVICE_URL=http://payment-service:5000
+      - RABBITMQ_URI=amqp://admin:password@rabbitmq:5672
     depends_on:
       - order-db
       - customer-service
