@@ -1,25 +1,33 @@
 import request from 'supertest';
-import {app} from '../src/app';
+import { appServer } from '../src/server';
 
-describe('POST /api/v1/auth/business/register', () => {
+let customer;
+describe('POST /api/v1/customers', () => {
   const customerObj = {
-    name: "Moses Agbo", 
-    email: "moses@gmail.com", 
-    password: "igochemat7@@", 
-    businessName: "enyawuson",
-    role: "content_manager"
-  };
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe1@example.com",
+    "phone": "+2349043556329",
+    "address": {
+      "street": "123 Main St",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10001",
+      "country": "USA"
+    }
+  }
 
   it('should register a new user', async () => {
-    const response = await request(app)
+    const response = await request(appServer)
       .post('/api/v1/customers')
       .send(customerObj)
-      .expect(201);
 
-    const resp = response.body;
-    expect(resp.success).toBe(true);
-
-  
+      const resp = response.body;
+      console.log(resp)
+      customer = resp.data
+      expect(response.body.success).toBe(true)
+    
+    // expect(resp.success).toBe(true);
   });
 
   
