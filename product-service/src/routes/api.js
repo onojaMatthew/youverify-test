@@ -4,7 +4,7 @@ import { checkProductAvailability, createProduct, getProductById, searchProduct,
 
 const router =  Router();
 
-router.post("", productionValition, createProduct);
+router.put("/", () => console.log("hitting the post router"), productionValition, createProduct);
 router.get("/search", searchProduct);
 router.get("/:productId", paramValidation, getProductById);
 router.get("/:productId/available", paramValidation, checkProductAvailability);

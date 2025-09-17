@@ -5,26 +5,30 @@ import { Logger } from "../config/logger";
 const services = {
   customer: {
     target: process.env.CUSTOMER_SERVICE_URL || "http://localhost:5200",
-    pathPattern: '/api/v1/customers/customers', // ✅ Remove duplicate "customers"
+    pathPattern: '/api/v1/customers', // ✅ Remove duplicate "customers"
     healthEndpoint: '/health',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     version: 'v1'
   },
   product: {
     target: process.env.PRODUCT_SERVICE_URL || "http://localhost:5100",
-    pathPattern: '/api/v1/products/products', // ✅ Remove duplicate "products"
+    pathPattern: '/api/v1/products', // ✅ Remove duplicate "products"
     healthEndpoint: '/health',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     version: 'v1'
   },
   order: {
     target: process.env.ORDER_SERVICE_URL || "http://localhost:5300",
-    pathPattern: '/api/v1/orders/orders', // ✅ Remove duplicate "orders"
+    pathPattern: '/api/v1/orders', // ✅ Remove duplicate "orders"
     healthEndpoint: '/health',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     version: 'v1'
   },
   payment: {
     target: process.env.PAYMENT_SERVICE_URL || "http://localhost:5000",
-    pathPattern: '/api/v1/payments/payments', // ✅ Remove duplicate "payments"
+    pathPattern: '/api/v1/payments', // ✅ Remove duplicate "payments"
     healthEndpoint: '/health',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     version: 'v1'
   }
 };
