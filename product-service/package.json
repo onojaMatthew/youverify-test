@@ -11,9 +11,9 @@
       "build": "npm run clean && babel src --out-dir build",
       "start": "node ./build/server.js",
       "start:prod": "node ./build/server.js",
-      "test": "jest --detectOpenHandles",
-      "test:watch": "jest --watch",
-      "test:coverage": "jest --coverage --detectOpenHandles"
+      "test": "cross-env NODE_ENV=test jest --detectOpenHandles",
+      "test:watch": "cross-env NODE_ENV=test --watch",
+      "test:coverage": "cross-env NODE_ENV=test --coverage --detectOpenHandles"
    },
    "jest": {
       "testEnvironment": "node",
@@ -33,10 +33,12 @@
       "amqplib": "^0.10.5",
       "axios": "^1.8.4",
       "bcrypt": "^5.1.1",
+      "body-parser": "^2.2.0",
       "chalk": "^5.4.1",
       "compression": "^1.8.1",
       "cookie-parser": "^1.4.7",
       "cors": "^2.8.5",
+      "cross-env": "^10.0.0",
       "dayjs": "^1.11.13",
       "dotenv": "^16.4.7",
       "express": "^4.21.2",

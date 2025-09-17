@@ -31,7 +31,10 @@ export const createProduct = async (req, res, next) => {
     }
 
     // To be replaced using RabbitMQ publisher
-    publishToQueue("create-product", JSON.stringify(productData))
+    if (process.env.NODE_ENV !== "test") {
+      publishToQueue("create-product", JSON.stringify(productData));
+    }
+    
     return res.status(201).json({ success: true, message: "Product created successfully", data: product })
   } catch (err) {
     Logger.log({ level: "error", message:` Failed to create product: ${err.message}`});
@@ -179,7 +182,11 @@ export const updateProduct = async (req, res, next) => {
       ...req.body,
       productId
     }
-    publishToQueue("udpate-product", JSON.stringify(productData));
+
+    if (process.env.NODE_ENV !== "test") {
+      publishToQueue("udpate-product", JSON.stringify(productData));
+    }
+    
     return res.json({ success: true, message: "Product updated", data: product });
   } catch (err) {
     return next(new AppError(`Internal server error: ${err.message}`, 500))

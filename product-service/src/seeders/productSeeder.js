@@ -194,19 +194,17 @@ const sampleProducts = [
   }
 ];
 
-const seedProducts = async () => {
+export const seedProducts = async () => {
   try {
     const existingCount = await Product.countDocuments();
     
     if (existingCount === 0) {
       await Product.insertMany(sampleProducts);
-      Logger.log({ level: "error", message: 'Sample products seeded successfully' });
+      Logger.log({ level: "info", message: "Sample products seeded successfully" });
     } else {
-      Logger.info({ level: "error", message: 'Products already exist, skipping seeding' });
+      Logger.log({ level: "info", message: 'Customers already exist, skipping seeding'});
     }
   } catch (err) {
-    Logger.log({ level: "error", message: `Error seeding products: ${err.message}`});
+    Logger.log({ level: "error", message: `Error seeding products. Error: ${err.message}` });
   }
 };
-
-export { seedProducts };

@@ -14,24 +14,54 @@ const app = express();
 
 const port = process.env.PORT || 5100
 
-app.use(helmet({
-  crossOriginEmbedderPolicy: false,
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      scriptSrc: ["'self'"],
-      imgSrc: ["'self'", "data:", "https:"],
-    },
-  },
+app.use(cors({
+  origin: true, // Allow all origins for testing
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  credentials: true
 }));
-app.use(cors());
-app.use(compression());
-app.use(morgan("dev"));
-app.use(express.json());
+
+// Relaxed Helmet configuration
+// app.use(helmet({
+//   crossOriginEmbedderPolicy: false,
+//   contentSecurityPolicy: false, // Temporarily disable for debugging
+// }));
+
+// app.use(compression());
+
+// Enhanced logging to debug requests
+app.use(morgan("combined"));
+
+// Body parsers - order matters!
+app.use(express.json({ limit: '10mb', type: ['application/json', 'text/plain']}));
+app.use(express.urlencoded({ extended: true, limit: '10mb' })); // Fixed: removed double semicolon
+
+// Add request logging middleware for debugging
+app.use((req, res, next) => {
+  Logger.log({ 
+    level: "info", 
+    message: `${req.method} ${req.path} - Content-Type: ${req.get('Content-Type')} - Body: ${JSON.stringify(req.body)}` 
+  });
+  next();
+});
+
+
+
+// Raw body parser for debugging
+app.use(express.raw({ 
+  limit: '10mb', 
+  type: 'application/octet-stream' 
+}));
 
 app.get("/health", (req, res, next) => {
   res.json({ success: true, message: "Status OK!", data: null });
+});
+
+app.use((req, res, next) => {
+  // Set timeout for all requests
+  req.setTimeout(30000); // 30 seconds
+  res.setTimeout(30000);
+  next();
 });
 
 router(app);
@@ -41,16 +71,17 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
+  Logger.log({ level: "error", message: `Error: ${err.message} - Stack: ${err.stack}`});
   if (err.isOperational) return res.status(err.statusCode || 500).json({ success: false, message: err.message || "Something went wrong", data: null });
   return res.status(500).json({ success: false, message: "Internal Server Error", data: null });
 });
+
 const startApp = async () =>  {
   try {
     await connectDB();
-
-    await initializeRabbitMQ();
-    Logger.log({ level: "info", message: 'RabbitMQ connection established'});
-
+    if (process.env.NODE_ENV !== "test") {
+      await initializeRabbitMQ();
+    } 
     await seedProduct();
   } catch (error) {
     Logger.log({ level: "error", message: "Entry dependency connection error: "+ error.message});
@@ -60,13 +91,19 @@ const startApp = async () =>  {
     Logger.log({ level: "info", message: `Product service is running @ http://localhost:${port}`})
   });
 
+  const gracefulShutdown = () => {
+    Logger.log({ level: "info", message: 'Received shutdown signal, closing server...' });
+    server.close(() => {
+      Logger.log({ level: "info", message: 'Server closed' });
+      process.exit(0);
+    });
+  };
+
+  process.on('SIGTERM', gracefulShutdown);
+  process.on('SIGINT', gracefulShutdown);
 }
 
 startApp();
 
-process.on('SIGTERM', () => {
-  Logger.log({ level: "info", message: 'SIGTERM received, shutting down gracefully'});
-  process.exit(0);
-});
 
 export { app }
