@@ -40,11 +40,9 @@ app.use(cors({
   credentials: true,
   optionsSuccessStatus: 200
 }));
-
+app.use(cors())
 app.use(compression());
 app.use(morgan('combined', { stream: { write: message => Logger.log({ level: "info", message: message.trim()}) } }));
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Custom middleware
 app.use(loggingMiddleware);
@@ -74,13 +72,37 @@ app.use('/api', authMiddleware);
 // Setup service proxies
 setupProxies(app);
 
+app.post('/debug-gateway', (req, res) => {
+  Logger.log({ level: "info", message: `Debug route hit: ${JSON.stringify(req.body)}` });
+  res.json({ 
+    success: true, 
+    message: "Gateway debug successful", 
+    body: req.body,
+    headers: req.headers 
+  });
+});
 // Global error handler
 app.use((err, req, res, next) => {
-  if (err.isOperational) return res.status(err.statusCode || 500).json({ success: false, message: err.message || "Something went wrong", data: null });
-  return res.status(500).json({ success: false, message: "Internal Server Error", data: null });
-})
+  Logger.log({ level: "error", message: `Gateway error: ${err.message} - Stack: ${err.stack}` });
+  
+  if (err.isOperational) {
+    return res.status(err.statusCode || 500).json({ 
+      success: false, 
+      message: err.message || "Something went wrong", 
+      data: null 
+    });
+  }
+  
+  return res.status(500).json({ 
+    success: false, 
+    message: "Internal Server Error", 
+    data: null 
+  });
+});
 
+// 404 handler (must be last)
 app.use((req, res) => {
+  Logger.log({ level: "warn", message: `404 - Route not found: ${req.method} ${req.originalUrl}` });
   res.status(404).json({
     success: false,
     error: 'Route not found',

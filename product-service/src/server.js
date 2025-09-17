@@ -14,44 +14,42 @@ const app = express();
 
 const port = process.env.PORT || 5100
 
+// CORS first
 app.use(cors({
-  origin: true, // Allow all origins for testing
+  origin: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   credentials: true
 }));
 
-// Relaxed Helmet configuration
-// app.use(helmet({
-//   crossOriginEmbedderPolicy: false,
-//   contentSecurityPolicy: false, // Temporarily disable for debugging
-// }));
+app.options('*', cors()); // handle preflight before body parsing
 
-// app.use(compression());
-
-// Enhanced logging to debug requests
+// Logging
 app.use(morgan("combined"));
 
-// Body parsers - order matters!
-app.use(express.json({ limit: '10mb', type: ['application/json', 'text/plain']}));
-app.use(express.urlencoded({ extended: true, limit: '10mb' })); // Fixed: removed double semicolon
+// Body parsers
+app.use(express.json({ limit: '10mb' })); 
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+// Add text parser only if you expect plain text bodies
+// app.use(express.text({ type: 'text/plain', limit: '10mb' }));
 
-// Add request logging middleware for debugging
+// Debug middleware
 app.use((req, res, next) => {
   Logger.log({ 
     level: "info", 
-    message: `${req.method} ${req.path} - Content-Type: ${req.get('Content-Type')} - Body: ${JSON.stringify(req.body)}` 
+    message: `${req.method} ${req.path} - Content-Type: ${req.get('Content-Type')} - Body: ${JSON.stringify(req.body)}`
   });
   next();
 });
+ 
 
 
 
 // Raw body parser for debugging
-app.use(express.raw({ 
-  limit: '10mb', 
-  type: 'application/octet-stream' 
-}));
+// app.use(express.raw({ 
+//   limit: '10mb', 
+//   type: 'application/octet-stream' 
+// }));
 
 app.get("/health", (req, res, next) => {
   res.json({ success: true, message: "Status OK!", data: null });
