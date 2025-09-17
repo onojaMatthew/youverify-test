@@ -7,9 +7,10 @@ class CustomerService {
     this.baseURL = process.env.CUSTOMER_SERVICE_URL || 'http://localhost:5200';
   }
 
-  async saveCustomerRecord(data) {
+  async saveCustomerRecord(customerData) {
     try {
-      const customer = Customer.findOne({ customerId: data.customerid });
+      const data = JSON.parse(customerData);
+      const customer = Customer.findOne({ customerId: data.customerId });
       if (customer) return;
       let newCustomer = new Customer(data);
       await newCustomer.save();

@@ -45,7 +45,7 @@ class ProductService {
   async updateStock(stockData) {
     try {
       const data = JSON.parse(stockData)
-      const {productId, quantity, action = 'set'} = data;
+      const { productId, quantity, action = 'set'} = data;
       
       let product = await Product.findOne({ productId });
 

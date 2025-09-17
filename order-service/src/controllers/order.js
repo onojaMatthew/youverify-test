@@ -142,7 +142,7 @@ export const createOrder = async (req, res, next) => {
         await order.save();
         product.stock = product.stock - quantity;
         await product.save();
-        publishTo     
+        // publishTo     
         Logger.log({level: "info", message: `Payment initiated for order: ${orderReferenceId}, paymentId: ${paymentResult.paymentId}`});
       } else {
         order.orderStatus = 'failed';

@@ -1,13 +1,14 @@
 import amqp from "amqplib";
 import { ProductSrv } from "./productService";
 const { Logger } = require('../config/logger');
-import { QUEUE_TRANSACTION, PRODUCT_CREATED, STOCK_UPDATED, PRODUCT_UPDATED } from "./queue";
+import { QUEUE_TRANSACTION, PRODUCT_CREATED, STOCK_UPDATED, PRODUCT_UPDATED, CUSTOMER_CREATED } from "./queue";
+import { CustomerSrv } from "./customerService";
 
 let connection = null;
 let channel = null;
 
 const RABBITMQ_URI = process.env.RABBITMQ_URI || 'amqp://admin:password@localhost:5672';
-const queues = [QUEUE_TRANSACTION, PRODUCT_CREATED, STOCK_UPDATED, PRODUCT_UPDATED ];
+const queues = [QUEUE_TRANSACTION, PRODUCT_CREATED, STOCK_UPDATED, PRODUCT_UPDATED, CUSTOMER_CREATED ];
 
 /**
  * Initialize RabbitMQ connection and channel
@@ -160,8 +161,11 @@ export const listenToMultipleQueues = async (queues) => {
         case "update-stock":
           consumeFromQueue(queue, ProductSrv.updateStock);
           break;
-        case "transaction-queue":
-          consumeFromQueue(queue, ProductSrv.updateStock);
+        // case "transaction-queue":
+        //   consumeFromQueue(queue, ProductSrv.updateStock);
+        //   break;
+        case "create-customer":
+          consumeFromQueue(queue, CustomerSrv.saveCustomerRecord);
           break;
       }
       
