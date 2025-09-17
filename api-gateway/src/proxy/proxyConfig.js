@@ -109,6 +109,64 @@ const createProxyOptions = (serviceName, config) => ({
   logLevel: 'warn'
 });
 
+const createLegacyProxyOptions = (serviceName, config) => ({
+  target: config.target,
+  changeOrigin: true,
+  pathRewrite: {
+    // Convert legacy paths to versioned paths
+    '^/api/customers': '/api/v1/customers',
+    '^/api/products': '/api/v1/products',
+    '^/api/orders': '/api/v1/orders',
+    '^/api/payments': '/api/v1/payments'
+  },
+  timeout: 30000,
+  proxyTimeout: 30000,
+  onError: (err, req, res) => {
+    logger.error(`Legacy proxy error for ${serviceName}:`, {
+      error: err.message,
+      originalUrl: req.originalUrl,
+      target: config.target
+    });
+    res.status(503).json({
+      success: false,
+      error: `Service ${serviceName} is currently unavailable`,
+      service: serviceName,
+      version: 'legacy',
+      originalUrl: req.originalUrl,
+      timestamp: new Date().toISOString()
+    });
+  },
+  onProxyReq: (proxyReq, req, res) => {
+    proxyReq.setHeader('X-Forwarded-By', 'api-gateway');
+    proxyReq.setHeader('X-Gateway-Version', '1.0.0');
+    proxyReq.setHeader('X-API-Version', 'legacy');
+    proxyReq.setHeader('X-Request-ID', req.headers['x-request-id'] || generateRequestId());
+    proxyReq.setHeader('X-Original-URL', req.originalUrl);
+    
+    logger.info(`Legacy proxy request:`, {
+      method: req.method,
+      originalUrl: req.originalUrl,
+      proxyPath: proxyReq.path,
+      targetUrl: `${config.target}${proxyReq.path}`,
+      service: serviceName
+    });
+  },
+  onProxyRes: (proxyRes, req, res) => {
+    if (!proxyRes.headers['access-control-allow-origin']) {
+      proxyRes.headers['access-control-allow-origin'] = '*';
+    }
+    
+    proxyRes.headers['x-served-by'] = 'api-gateway';
+    proxyRes.headers['x-api-version'] = 'legacy';
+    
+    logger.info(`Legacy response received:`, {
+      originalUrl: req.originalUrl,
+      statusCode: proxyRes.statusCode,
+      service: serviceName
+    });
+  },
+  logLevel: 'warn'
+});
 
 const setupProxies = (app) => {
   // Setup versioned API routes (v1) - these should be first for priority
@@ -123,7 +181,7 @@ const setupProxies = (app) => {
   // Setup legacy routes for backward compatibility (optional)
   if (process.env.ENABLE_LEGACY_ROUTES === 'true') {
     Object.entries(legacyServices).forEach(([serviceName, config]) => {
-      // const legacyProxyOptions = createLegacyProxyOptions(serviceName + '_legacy', config);
+      const legacyProxyOptions = createLegacyProxyOptions(serviceName + '_legacy', config);
       const legacyProxy = createProxyMiddleware(legacyProxyOptions);
       
       app.use(config.pathPattern, legacyProxy);

@@ -44,7 +44,5 @@ customerSchema.virtual('fullName').get(function() {
   return `${this.firstName} ${this.lastName}`;
 });
 
-// Index for better query performance
-customerSchema.index({ email: 1 });
 
 export const Customer = model("Customer", customerSchema)

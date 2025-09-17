@@ -1,27 +1,34 @@
 import express from "express";
 import morgan from "morgan";
-import cookieParser from "cookie-parser";
+import compression from "compression";
+import helmet from "helmet"
 import cors from "cors";
-import swaggerUi from "swagger-ui-express";
 import { AppError } from "./utils/errorHandler";
-import YAML from "yamljs";
-import path from "path";
 import connectDB from "./config/database";
 import { Logger } from "./config/logger";
 import { router } from "./routes";
 import { initializeRabbitMQ } from "./service/rabbitmqService";
 import { startTransactionWorker } from "./workers/transactionWorker";
 
-const swaggerJSDoc = YAML.load(path.resolve(__dirname, "../api.yaml"));
-
 const app = express();
 
 const port = process.env.PORT || 5000
 
+app.use(helmet({
+  crossOriginEmbedderPolicy: false,
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrc: ["'self'"],
+      imgSrc: ["'self'", "data:", "https:"],
+    },
+  },
+}));
+app.use(cors());
+app.use(compression());
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(cookieParser());
-app.use(cors());
 
 app.get("/health", (req, res, next) => {
   res.json({ success: true, message: "Status OK!", data: null });
