@@ -50,7 +50,6 @@ const startApp = async () =>  {
   try {
     await connectDB();
     await initializeRabbitMQ();
-    Logger.info({ level: "info", message: "RabbitMQ connection established" });
 
     // Start transaction worker
     await startTransactionWorker();

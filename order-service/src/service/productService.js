@@ -42,11 +42,15 @@ class ProductService {
     }
   }
 
-  async updateStock(data) {
+  async updateStock(stockData) {
     try {
+      const data = JSON.parse(stockData)
       const {productId, quantity, action = 'set'} = data;
-
+      console.log(data, " the data received")
+      
       let product = await Product.findOne({ productId });
+
+      console.log(product, " the product found");
 
       if (!product) return;
 
@@ -75,7 +79,7 @@ class ProductService {
 
   async saveProduct(productData) {
     try {
-      let product = new Product(productData);
+      let product = new Product(JSON.parse(productData));
       await product.save();
       Logger.log({ level: "info", message: `Product record saved. product ID: ${product.productId}`})
     } catch (err) {
@@ -85,7 +89,8 @@ class ProductService {
 
   async updateProduct(productData) {
     try {
-      let product = new Product.findOne({ productId: productData.productId }, productData, { new: true });
+      const data = JSON.parse(productData)
+      let product = new Product.findOne({ productId: data.productId }, data, { new: true });
       await product.save();
       Logger.log({ level: "info", message: `Product record updated. product ID: ${product.productId}`})
     } catch (err) {

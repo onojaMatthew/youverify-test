@@ -1,12 +1,13 @@
 import amqp from "amqplib";
 import { ProductSrv } from "./productService";
 const { Logger } = require('../config/logger');
+import { QUEUE_TRANSACTION, PRODUCT_CREATED, STOCK_UPDATED, PRODUCT_UPDATED } from "./queue";
 
 let connection = null;
 let channel = null;
 
 const RABBITMQ_URI = process.env.RABBITMQ_URI || 'amqp://admin:password@localhost:5672';
-const QUEUE_NAMES = ['transaction_queue', "product_created", "product_updated", "stock_updated"];
+const queues = [QUEUE_TRANSACTION, PRODUCT_CREATED, STOCK_UPDATED, PRODUCT_UPDATED ];
 
 /**
  * Initialize RabbitMQ connection and channel
@@ -18,6 +19,7 @@ const initializeRabbitMQ = async () => {
     while (retries > 0) {
       try {
         connection = await amqp.connect(RABBITMQ_URI);
+        Logger.log({ level: "info", message: "rabbitMQ connection established"})
         break;
       } catch (error) {
         retries--;
@@ -29,12 +31,15 @@ const initializeRabbitMQ = async () => {
 
     channel = await connection.createChannel();
     
-    await channel.assertQueue(QUEUE_NAME, {
-      // Queue survives broker restarts
-      durable: true, 
-      // Write messages to queue
-      persistent: true 
-    });
+    for (let queue of queues) {
+      await channel.assertQueue(queue, {
+        // Queue survives broker restarts
+        durable: true, 
+        // Write messages to queue
+        persistent: true 
+      });
+    }
+    
 
     // Handle connection events
     connection.on('error', (err) => {
@@ -141,22 +146,21 @@ export {
   publishToQueue,
   consumeFromQueue,
   closeConnection,
-  QUEUE_NAMES
 };
 
 export const listenToMultipleQueues = async (queues) => {
     for (let queue of queues) {
       switch(queue) {
-        case "product_created":
+        case "create-product":
           consumeFromQueue(queue, ProductSrv.saveProduct);
           break;
-        case "product_updated":
+        case "udpate-product":
           consumeFromQueue(queue, ProductSrv.updateProduct);
           break;
-        case "stock_updated":
+        case "update-stock":
           consumeFromQueue(queue, ProductSrv.updateStock);
           break;
-        case "transaction_queued":
+        case "transaction-queue":
           consumeFromQueue(queue, ProductSrv.updateStock);
           break;
       }

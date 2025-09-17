@@ -8,6 +8,7 @@ import connectDB from "./config/database";
 import { Logger } from "./config/logger";
 import { router } from "./routes";
 import { seedCustomers } from "./seeders/customerSeed";
+import { initializeRabbitMQ } from "./service/rabbitmqService";
 
 const app = express();
 
@@ -48,6 +49,7 @@ const startApp = async () =>  {
   try {
     await connectDB();
     await seedCustomers();
+    await initializeRabbitMQ();
   } catch (error) {
     Logger.log({ level: "error", message: "Failed to sync database: "+ error.message});
   }

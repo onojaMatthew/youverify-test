@@ -11,12 +11,19 @@ import { jobRunner } from "./utils/scheduler";
 import { 
   initializeRabbitMQ, 
   listenToMultipleQueues, 
-  QUEUE_NAMES 
 } from "./service/rabbitmqService";
+import { 
+  QUEUE_TRANSACTION, 
+  PRODUCT_CREATED, 
+  STOCK_UPDATED, 
+  PRODUCT_UPDATED 
+} from "./service/queue";
 
 const app = express();
 
 const port = process.env.PORT || 5300
+
+const queues = [QUEUE_TRANSACTION, PRODUCT_CREATED, STOCK_UPDATED, PRODUCT_UPDATED ];
 
 app.use(helmet({
   crossOriginEmbedderPolicy: false,
@@ -54,7 +61,7 @@ const startApp = async () =>  {
     await connectDB();
     await jobRunner();
     await initializeRabbitMQ()
-    await listenToMultipleQueues(QUEUE_NAMES);
+    await listenToMultipleQueues(queues);
   } catch (error) {
     Logger.log({ level: "error", message: "Failed to sync database: "+ error.message});
   }

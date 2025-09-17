@@ -1,11 +1,12 @@
 import amqp from "amqplib";
+import { QUEUE_TRANSACTION, PRODUCT_CREATED, STOCK_UPDATED, PRODUCT_UPDATED } from "./queue";
 const { Logger } = require('../config/logger');
 
 let connection = null;
 let channel = null;
-
+const queues = [ QUEUE_TRANSACTION, PRODUCT_CREATED, STOCK_UPDATED, PRODUCT_UPDATED ];
 const RABBITMQ_URI = process.env.RABBITMQ_URI || 'amqp://admin:password@localhost:5672';
-const QUEUE_NAMES = ['transaction_queue'];
+
 
 /**
  * Initialize RabbitMQ connection and channel
@@ -17,6 +18,7 @@ const initializeRabbitMQ = async () => {
     while (retries > 0) {
       try {
         connection = await amqp.connect(RABBITMQ_URI);
+        Logger.log({ level: "info", message: "rabbitMQ connection established"});
         break;
       } catch (error) {
         retries--;
@@ -28,12 +30,15 @@ const initializeRabbitMQ = async () => {
 
     channel = await connection.createChannel();
     
-    await channel.assertQueue(QUEUE_NAME, {
-      // Queue survives broker restarts
-      durable: true, 
-      // Write messages to queue
-      persistent: true 
-    });
+    for (let queue of queues) {
+      await channel.assertQueue(queue, {
+        // Queue survives broker restarts
+        durable: true, 
+        // Write messages to queue
+        persistent: true 
+      });
+    }
+    
 
     // Handle connection events
     connection.on('error', (err) => {
@@ -140,11 +145,11 @@ export {
   publishToQueue,
   consumeFromQueue,
   closeConnection,
-  QUEUE_NAMES
 };
 
 export const listenToMultipleQueues = async (queues) => {
     for (let queue of queues) {
         consumeFromQueue(queue);
+        Logger.info({ level: "info", message: "RabbitMQ listening to: ", queue });
     }
 }

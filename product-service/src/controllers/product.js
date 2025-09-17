@@ -5,10 +5,9 @@ import { Product } from "../models/product";
 import { AppError } from "../utils/errorHandler";
 import { publishToQueue } from "../service/rabbitmqService";
 
-const ORDER_SERVICE_URL = key.ORDER_SERVICE_URL || "http://localhost:5300";
+// const ORDER_SERVICE_URL = key.ORDER_SERVICE_URL || "http://localhost:5300";
 
 export const createProduct = async (req, res, next) => {
-  console.log("calling product creation")
   try {
     const { sku } = req.body;
     const itExists = await Product.findOne({ sku });
@@ -32,8 +31,7 @@ export const createProduct = async (req, res, next) => {
     }
 
     // To be replaced using RabbitMQ publisher
-    publishToQueue("product_created", JSON.stringify(productData))
-    console.log(product, " the product created")
+    publishToQueue("create-product", JSON.stringify(productData))
     return res.status(201).json({ success: true, message: "Product created successfully", data: product })
   } catch (err) {
     Logger.log({ level: "error", message:` Failed to create product: ${err.message}`});
@@ -162,7 +160,7 @@ export const updateStock = async (req, res, next) => {
     await product.save();
 
     // To be replaced using RabbitMQ publisher
-    publishToQueue("stock_updated", JSON.stringify(req.body))
+    publishToQueue("update-stock", JSON.stringify({...req.body, productId }))
 
     Logger.log({ level: "info", message: `Stock updated for product ${product._id}` });
     return res.json({ success: true, message: `Stock updated for product: ${product._id}. New stock: ${newStock}`, data: product })
@@ -181,7 +179,7 @@ export const updateProduct = async (req, res, next) => {
       ...req.body,
       productId
     }
-    publishToQueue("product_updated", JSON.stringify(productData));
+    publishToQueue("udpate-product", JSON.stringify(productData));
     return res.json({ success: true, message: "Product updated", data: product });
   } catch (err) {
     return next(new AppError(`Internal server error: ${err.message}`, 500))

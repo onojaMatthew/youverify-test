@@ -209,4 +209,4 @@ const seedProducts = async () => {
   }
 };
 
-exports = { seedProducts };
+export { seedProducts };
