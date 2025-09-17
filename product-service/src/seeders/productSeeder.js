@@ -202,7 +202,7 @@ export const seedProducts = async () => {
       await Product.insertMany(sampleProducts);
       Logger.log({ level: "info", message: "Sample products seeded successfully" });
     } else {
-      Logger.log({ level: "info", message: 'Customers already exist, skipping seeding'});
+      Logger.log({ level: "info", message: 'Products already exist, skipping seeding'});
     }
   } catch (err) {
     Logger.log({ level: "error", message: `Error seeding products. Error: ${err.message}` });

@@ -51,7 +51,7 @@ const startApp = async () =>  {
     await seedCustomers();
     await initializeRabbitMQ();
   } catch (error) {
-    Logger.log({ level: "error", message: "Failed to sync database: "+ error.message});
+    Logger.log({ level: "error", message: "Entry dependency connection error: "+ error.message});
   }
 
   

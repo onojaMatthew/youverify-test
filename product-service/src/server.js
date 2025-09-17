@@ -5,7 +5,7 @@ import helmet from "helmet";
 import cors from "cors";
 import { AppError } from "./utils/errorHandler";
 import connectDB from "./config/database";
-import { seedProduct } from "./seeders/productSeeder";
+import { seedProduct, seedProducts } from "./seeders/productSeeder";
 import { Logger } from "./config/logger";
 import { router } from "./routes";
 import { initializeRabbitMQ } from "./service/rabbitmqService";
@@ -78,10 +78,10 @@ app.use((err, req, res, next) => {
 const startApp = async () =>  {
   try {
     await connectDB();
+    await seedProducts();
     if (process.env.NODE_ENV !== "test") {
       await initializeRabbitMQ();
     } 
-    await seedProduct();
   } catch (error) {
     Logger.log({ level: "error", message: "Entry dependency connection error: "+ error.message});
   }
