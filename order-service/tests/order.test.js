@@ -3,16 +3,15 @@ import app from '../src/app';
 
 describe('POST /api/v1/auth/business/register', () => {
   const userObj = {
-    name: "Moses Agbo", 
-    email: "moses@gmail.com", 
-    password: "igochemat7@@", 
-    businessName: "enyawuson",
-    role: "content_manager"
-  };
+    "customerId": "68c7d975c54ab3f888058a4e", 
+    "productId": "68c7e0ac08bbfeb20a9e310a", 
+    "quantity": 1, 
+    "orderNotes": "Please I cannot take delivery today. Send my item to my address tomorrow"
+  }
 
-  it('should register a new user', async () => {
+  it('it should successfully create a new order', async () => {
     const response = await request(app)
-      .post('/api/v1/auth/business/register')
+      .post('/')
       .send(userObj)
       .expect(201);
 

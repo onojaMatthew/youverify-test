@@ -5,6 +5,7 @@ import { AppError } from "../utils/errorHandler";
 import { generatePaymentId, generateTransactionId } from "../utils/util";
 import { key } from "../config/key";
 import { Logger } from "../config/logger";
+import { publishToQueue } from "../service/rabbitmqService";
 
 export const getPaymentList = async (req, res, next) => {
   try {
@@ -246,6 +247,14 @@ export const refundPayment = async (req, res, next) => {
     }
 
     Logger.log({ level: "error", message: `Payment refunded: ${payment.paymentId}`});
+    const paymentData = {
+      paymentId,
+      orderReferenceId: payment.orderReferenceId,
+    }
+
+    if (process.env.NODE_ENV !== "test") {
+      publishToQueue("refund-payment", JSON.stringify(paymentData));
+    }
     
     return res.json({
       success: true,

@@ -60,8 +60,11 @@ const startApp = async () =>  {
   try {
     await connectDB();
     await jobRunner();
-    await initializeRabbitMQ()
-    await listenToMultipleQueues(queues);
+    if (process.env.NODE_ENV !== "test") {
+      await initializeRabbitMQ()
+      await listenToMultipleQueues(queues);
+    }
+    
   } catch (error) {
     Logger.log({ level: "error", message: "Failed to sync database: "+ error.message});
   }

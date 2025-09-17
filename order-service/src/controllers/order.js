@@ -80,7 +80,7 @@ export const createOrder = async (req, res, next) => {
     if (!customer) return next(new AppError("Customer not found", 404));
 
     // Step 2: Validate product exists and check availability
-    const product = await ProductSrv.getProduct(productId);
+    let product = await ProductSrv.getProduct(productId);
     if (!product) return next(new AppError("Product not found", 404));
 
     if (product.stock < quantity) return next(new AppError("Product in stock less than desired quantity", 400));
@@ -140,7 +140,9 @@ export const createOrder = async (req, res, next) => {
         order.paymentId = paymentResult.paymentId;
         order.paymentStatus = 'processing';
         await order.save();
-        
+        product.stock = product.stock - quantity;
+        await product.save();
+        publishTo     
         Logger.log({level: "info", message: `Payment initiated for order: ${orderReferenceId}, paymentId: ${paymentResult.paymentId}`});
       } else {
         order.orderStatus = 'failed';
@@ -155,9 +157,7 @@ export const createOrder = async (req, res, next) => {
       order.paymentStatus = 'failed';
       await order.save();
     }
-
-    // Step 6: Return response as specified in requirements
-    
+   
     return res.status(201).json({
       success: true,
       message: 'Order created successfully',
