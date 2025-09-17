@@ -34,7 +34,6 @@ app.get("/health", (req, res, next) => {
   res.json({ success: true, message: "Status OK!", data: null });
 });
 
-app.use("/api_docs", swaggerUi.serve, swaggerUi.setup(swaggerJSDoc));
 router(app);
 
 
