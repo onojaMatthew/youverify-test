@@ -8,7 +8,11 @@ import connectDB from "./config/database";
 import { Logger } from "./config/logger";
 import { router } from "./routes";
 import { jobRunner } from "./utils/scheduler";
-import { initializeRabbitMQ, listenToMultipleQueues, QUEUE_NAMES } from "./service/rabbitmqService";
+import { 
+  initializeRabbitMQ, 
+  listenToMultipleQueues, 
+  QUEUE_NAMES 
+} from "./service/rabbitmqService";
 
 const app = express();
 

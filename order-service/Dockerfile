@@ -47,4 +47,6 @@ COPY ./ ./
 
 RUN npm run build
 
+EXPOSE 5300
+
 CMD ["pm2-runtime", "start", "ecosystem.config.js"]
