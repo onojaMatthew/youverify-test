@@ -15,7 +15,7 @@ class PaymentService {
         amount
       };
 
-      const response = await axios.post(`${this.baseURL}/api/v1/payments/initiate`, paymentData, {
+      const response = await axios.post(`${this.baseURL}/initiate`, paymentData, {
         timeout: 10000,
         headers: {
           'Content-Type': 'application/json'
@@ -29,10 +29,6 @@ class PaymentService {
       Logger.log({ level: "error", message: `Error processing payment for order ${orderReferenceId}: ${err.message}`});
       return { success: false, error: err.message };
     }
-  }
-
-  async createTransaction(){
-    
   }
 }
 

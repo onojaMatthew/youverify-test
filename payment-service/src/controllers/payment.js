@@ -123,15 +123,7 @@ export const createPayment = async (req, res, next) => {
       };
 
       // Publish to RabbitMQ queue
-      // await publishToQueue('transaction_queue', transactionDetails);
-
-      try {
-        // let newTransaction = new Transaction(transactionDetails);
-        // await newTransaction.save();
-        axios.post(`${key.ORDER_SERVICE_URL}/api/v1/orders/payments`, transactionDetails);
-      } catch (err) {
-        Logger.log({ level: "error", message: `Error publishing transaction record: ${err.message}`});
-      }
+      await publishToQueue('transaction-queue', transactionDetails);
       
       payment.status = 'completed';
       payment.processedAt = new Date();
@@ -166,15 +158,7 @@ export const createPayment = async (req, res, next) => {
         status: 'failed'
       };
 
-      // await publishToQueue('transaction_queue', failedTransactionDetails);
-
-      try {
-        // let newTransaction = new Transaction(failedTransactionDetails); // move this to message queue later
-        // await newTransaction.save();
-        axios.post(`${key.ORDER_SERVICE_URL}/api/v1/orders/payments`, failedTransactionDetails);
-      } catch (err) {
-        Logger.log({ level: "error", message: `Error publishing transaction record: ${err.message}`});
-      }
+      await publishToQueue('transaction-queue', failedTransactionDetails);
 
       return res.status(400).json({
         success: false,

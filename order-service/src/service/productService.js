@@ -46,11 +46,8 @@ class ProductService {
     try {
       const data = JSON.parse(stockData)
       const {productId, quantity, action = 'set'} = data;
-      console.log(data, " the data received")
       
       let product = await Product.findOne({ productId });
-
-      console.log(product, " the product found");
 
       if (!product) return;
 

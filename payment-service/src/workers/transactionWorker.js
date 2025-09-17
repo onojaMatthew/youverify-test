@@ -1,7 +1,8 @@
 import { Transaction } from '../models/transaction';
 import { Logger } from '../config/logger';
-import { consumeFromQueue, QUEUE_NAME } from '../service/rabbitmqService';
+import { consumeFromQueue } from '../service/rabbitmqService';
 import { generateTransactionId } from '../utils/util';
+import { QUEUE_TRANSACTION } from '../service/queue';
 
 /**
  * Process transaction message from queue
@@ -66,7 +67,7 @@ const simulateAdditionalProcessing = async (transaction) => {
  */
 const startTransactionWorker = async () => {
   try {
-    await consumeFromQueue(QUEUE_NAME, processTransaction);
+    await consumeFromQueue(QUEUE_TRANSACTION, processTransaction);
     Logger.log({ level: "info", message: 'Transaction worker started successfully' });
   } catch (err) {
     Logger.log({ level: "error", message: `Failed to start transaction worker: ${err.message}`});

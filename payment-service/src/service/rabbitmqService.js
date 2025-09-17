@@ -1,11 +1,13 @@
 import amqp from "amqplib";
+import { QUEUE_TRANSACTION } from "./queue";
 const { Logger } = require('../config/logger');
 
 let connection = null;
 let channel = null;
 
+const queues = [ QUEUE_TRANSACTION ];
+
 const RABBITMQ_URI = process.env.RABBITMQ_URI || 'amqp://admin:password@localhost:5672';
-const QUEUE_NAME = ['transaction_queue'];
 
 /**
  * Initialize RabbitMQ connection and channel
@@ -29,12 +31,14 @@ const initializeRabbitMQ = async () => {
 
     channel = await connection.createChannel();
     
-    await channel.assertQueue(QUEUE_NAME, {
-      // Queue survives broker restarts
-      durable: true, 
-      // Write messages to queue
-      persistent: true 
-    });
+    for (let queue of queues) {
+      await channel.assertQueue(queue, {
+        // Queue survives broker restarts
+        durable: true, 
+        // Write messages to queue
+        persistent: true 
+      });
+    }
 
     // Handle connection events
     connection.on('error', (err) => {
@@ -141,11 +145,10 @@ export {
   publishToQueue,
   consumeFromQueue,
   closeConnection,
-  QUEUE_NAME
 };
 
 export const listenToMultipleQueues = async (queues) => {
-    for (let queue of queues) {
-        consumer(queue);
-    }
+  for (let queue of queues) {
+    consumeFromQueue(queue);
+  }
 }
