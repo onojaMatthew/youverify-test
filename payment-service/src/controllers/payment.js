@@ -124,7 +124,7 @@ export const createPayment = async (req, res, next) => {
       };
 
       // Publish to RabbitMQ queue
-      await publishToQueue('transaction-queue', transactionDetails);
+      // await publishToQueue('transaction-queue', transactionDetails);
       
       payment.status = 'completed';
       payment.processedAt = new Date();

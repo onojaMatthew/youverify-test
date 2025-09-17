@@ -19,7 +19,7 @@ describe('POST /api/v1/customers', () => {
 
   it('should register a new user', async () => {
     const response = await request(appServer)
-      .post('/api/v1/customers')
+      .post('/')
       .send(customerObj)
 
       const resp = response.body;

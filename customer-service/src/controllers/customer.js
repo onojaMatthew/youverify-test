@@ -3,6 +3,7 @@ import { Logger } from "../config/logger";
 import { Customer } from "../models/customer";
 import { AppError } from "../utils/errorHandler";
 import { key } from "../config/key";
+import { publishToQueue } from "../service/rabbitmqService";
 
 const ORDER_BASE_URL = key.ORDER_SERVICE_URL || "http://localhost:5300";
 
@@ -26,13 +27,8 @@ export const createCustomer = async (req, res, next) => {
       customerId: customer._id,
     }
 
-    try {
-      axios.post(`${ORDER_BASE_URL}/api/v1/orders/customers`, customerData);
-    } catch (err) {
-      Logger.log({ level: "error", message: `Error mirroring customer data in order service: ${err.message}`})
-    }
+    publishToQueue("create-customer", JSON.stringify(customerData));
     
-
     return res.status(201).json({
       success: true,
       message: 'Customer created successfully',

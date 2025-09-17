@@ -9,7 +9,8 @@ import { QUEUE_TRANSACTION } from '../service/queue';
  */
 const processTransaction = async (transactionData) => {
   try {
-    const { customerId, orderId, productId, amount, paymentId, timestamp, status } = transactionData;
+    const data = JSON.parse(transactionData)
+    const { customerId, orderId, productId, amount, paymentId, timestamp, status } = data;
     
     // Generate transaction ID
     const transactionId = generateTransactionId();

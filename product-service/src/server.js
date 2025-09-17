@@ -14,6 +14,18 @@ const app = express();
 
 const port = process.env.PORT || 5100
 
+app.use(helmet({
+  crossOriginEmbedderPolicy: false,
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrc: ["'self'"],
+      imgSrc: ["'self'", "data:", "https:"],
+    },
+  },
+}));
+
 // CORS first
 app.use(cors({
   origin: true,
@@ -22,7 +34,7 @@ app.use(cors({
   credentials: true
 }));
 
-app.options('*', cors()); // handle preflight before body parsing
+app.options('*', cors());
 
 // Logging
 app.use(morgan("combined"));
@@ -30,8 +42,6 @@ app.use(morgan("combined"));
 // Body parsers
 app.use(express.json({ limit: '10mb' })); 
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-// Add text parser only if you expect plain text bodies
-// app.use(express.text({ type: 'text/plain', limit: '10mb' }));
 
 // Debug middleware
 app.use((req, res, next) => {
@@ -42,15 +52,6 @@ app.use((req, res, next) => {
   next();
 });
  
-
-
-
-// Raw body parser for debugging
-// app.use(express.raw({ 
-//   limit: '10mb', 
-//   type: 'application/octet-stream' 
-// }));
-
 app.get("/health", (req, res, next) => {
   res.json({ success: true, message: "Status OK!", data: null });
 });
