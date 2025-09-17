@@ -18,7 +18,6 @@ describe('POST /', () => {
     const resp = response.body;
     expect(resp.success).toBe(true);
     expect(resp.message).toContain("Order created successfully");
-  
   });
 
 
@@ -48,6 +47,5 @@ describe("GET /", () => {
       .expect(200)
 
       expect(response.body.success).toBe(true);
-      // expect(response.body.data)
-  })
+  });
 })

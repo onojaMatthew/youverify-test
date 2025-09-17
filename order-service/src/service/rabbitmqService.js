@@ -3,6 +3,7 @@ import { ProductSrv } from "./productService";
 const { Logger } = require('../config/logger');
 import { QUEUE_TRANSACTION, PRODUCT_CREATED, STOCK_UPDATED, PRODUCT_UPDATED, CUSTOMER_CREATED } from "./queue";
 import { CustomerSrv } from "./customerService";
+import { PaymentSrv } from "./paymentService";
 
 let connection = null;
 let channel = null;
@@ -161,9 +162,9 @@ export const listenToMultipleQueues = async (queues) => {
         case "update-stock":
           consumeFromQueue(queue, ProductSrv.updateStock);
           break;
-        // case "transaction-queue":
-        //   consumeFromQueue(queue, ProductSrv.updateStock);
-        //   break;
+        case "transaction-queue":
+          consumeFromQueue(queue, PaymentSrv.saveTransactionRecord);
+          break;
         case "create-customer":
           consumeFromQueue(queue, CustomerSrv.saveCustomerRecord);
           break;

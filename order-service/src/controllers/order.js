@@ -133,7 +133,8 @@ export const createOrder = async (req, res, next) => {
         customerId,
         orderReferenceId,
         productId,
-        amount
+        amount,
+        quantity: orderData.quantity
       });
 
       if (paymentResult.success) {
@@ -141,8 +142,7 @@ export const createOrder = async (req, res, next) => {
         order.paymentStatus = 'processing';
         await order.save();
         product.stock = product.stock - quantity;
-        await product.save();
-        // publishTo     
+        await product.save(); 
         Logger.log({level: "info", message: `Payment initiated for order: ${orderReferenceId}, paymentId: ${paymentResult.paymentId}`});
       } else {
         order.orderStatus = 'failed';
@@ -290,15 +290,3 @@ export const updateStock = async (req, res, next) => {
   }
 }
 
-export const saveTransactionRecord = async (req, res, next) => {
-  try {
-    console.log("call from the payment service")
-    const payment = new Payment(req.body);
-    await payment.save();
-    Logger.log({ level: "info", message: `Transaction record saved: ${payment.transactionId}`});
-    return res.json({ success: true, message: `Payment transaction saved successfully: ${payment.transactionId}`, data: payment });
-  } catch (err) {
-    Logger.log({ level: "error", message: `Error saving customer data:, ${err.message}`});
-    return next(new AppError(`Internal server error: ${err.message}`, 500));
-  }
-}

@@ -1,5 +1,7 @@
 import axios from "axios";
 import { Logger } from "../config/logger";
+import { Payment } from "../models/payment";
+import { Order } from "../models/order";
 
 class PaymentService {
   constructor() {
@@ -28,6 +30,33 @@ class PaymentService {
     } catch (err) {
       Logger.log({ level: "error", message: `Error processing payment for order ${orderReferenceId}: ${err.message}`});
       return { success: false, error: err.message };
+    }
+  }
+
+  async saveTransactionRecord(transactionData) {
+    try {
+      const data = JSON.parse(transactionData)
+      const payment = new Payment(data);
+      await payment.save();
+      Logger.log({ level: "info", message: `Transaction record saved: ${payment.transactionId}`});
+    } catch (err) {
+      Logger.log({ level: "error", message: `Error saving customer data:, ${err.message}`});
+    }
+  }
+
+  async refundPayment(transactionData) {
+    try {
+      const data = JSON.parse(transactionData);
+      const { orderReferenceId } = data;
+      let order = await Order.findOne({ orderReferenceId });
+      if (order) {
+        order.paymentStatus = "refunded";
+        await order.save();
+      }
+
+      Logger.log({ level: "info", message: `Payment refunded for order: ${orderReferenceId}`});
+    } catch (err) {
+      Logger.log({ level: "error", message: `Error refunding order payment:, ${err.message}`});
     }
   }
 }

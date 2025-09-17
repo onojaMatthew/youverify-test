@@ -1,12 +1,11 @@
 import amqp from "amqplib";
-import { QUEUE_TRANSACTION, PRODUCT_CREATED, STOCK_UPDATED, PRODUCT_UPDATED } from "./queue";
+import { QUEUE_TRANSACTION } from "./queue";
 const { Logger } = require('../config/logger');
 
 let connection = null;
 let channel = null;
-const queues = [ QUEUE_TRANSACTION, PRODUCT_CREATED, STOCK_UPDATED, PRODUCT_UPDATED ];
+const queues = [ QUEUE_TRANSACTION ];
 const RABBITMQ_URI = process.env.RABBITMQ_URI || 'amqp://admin:password@localhost:5672';
-
 
 /**
  * Initialize RabbitMQ connection and channel
@@ -148,8 +147,8 @@ export {
 };
 
 export const listenToMultipleQueues = async (queues) => {
-    for (let queue of queues) {
-        consumeFromQueue(queue);
-        Logger.info({ level: "info", message: "RabbitMQ listening to: ", queue });
-    }
+  for (let queue of queues) {
+    consumeFromQueue(queue);
+    Logger.info({ level: "info", message: "RabbitMQ listening to: ", queue });
+  }
 }

@@ -88,7 +88,7 @@ export const getPaymentById = async (req, res, next) => {
 
 export const createPayment = async (req, res, next) => {
   try {
-    const { customerId, orderReferenceId, productId, amount } = req.body;
+    const { customerId, orderReferenceId, productId, amount, quantity } = req.body;
     // Generate payment ID
     const paymentId = generatePaymentId();
     
@@ -118,13 +118,14 @@ export const createPayment = async (req, res, next) => {
         orderReferenceId,
         productId,
         amount,
+        quantity,
         paymentId,
         timestamp: new Date().toISOString(),
         status: 'completed'
       };
 
       // Publish to RabbitMQ queue
-      // await publishToQueue('transaction-queue', transactionDetails);
+      publishToQueue('transaction-queue', transactionDetails);
       
       payment.status = 'completed';
       payment.processedAt = new Date();
