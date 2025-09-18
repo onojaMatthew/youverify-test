@@ -1,8 +1,6 @@
 
 import { Logger } from "../config/logger";
-import { Customer } from "../models/customer";
 import { Order } from "../models/order";
-import { Product } from "../models/product";
 import { CustomerSrv } from "../service/customerService";
 import { PaymentSrv } from "../service/paymentService";
 import { ProductSrv } from "../service/productService";
@@ -140,8 +138,6 @@ export const createOrder = async (req, res, next) => {
         order.paymentId = paymentResult.paymentId;
         order.paymentStatus = 'processing';
         await order.save();
-        product.stock = product.stock - quantity;
-        await product.save(); 
         Logger.log({level: "info", message: `Payment initiated for order: ${orderReferenceId}, paymentId: ${paymentResult.paymentId}`});
       } else {
         order.orderStatus = 'failed';

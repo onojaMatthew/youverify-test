@@ -8,6 +8,6 @@ router.post("/initiate", paymentValition, createPayment);
 router.get("/", getPaymentList);
 router.get("/transactions", getAllTransactions);
 router.get("/:paymentId", paramValidation, getPaymentById);
-router.post("/:paymentId/refund", paymentValition, refundPayment);
+router.post("/:paymentId/refund", paramValidation, refundPayment);
 
 export { router as PaymentRoute }

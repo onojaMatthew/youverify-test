@@ -125,7 +125,10 @@ export const createPayment = async (req, res, next) => {
       };
 
       // Publish to RabbitMQ queue
-      publishToQueue('transaction-queue', transactionDetails);
+      if (process.env.NODE_ENV !== "test") {
+        publishToQueue('transaction-queue', transactionDetails);
+      }
+      
       
       payment.status = 'completed';
       payment.processedAt = new Date();
@@ -159,8 +162,11 @@ export const createPayment = async (req, res, next) => {
         timestamp: new Date().toISOString(),
         status: 'failed'
       };
-
-      await publishToQueue('transaction-queue', failedTransactionDetails);
+      
+      if (process.env.NODE_ENV !== "test") {
+        publishToQueue('transaction-queue', failedTransactionDetails);
+      }
+      
 
       return res.status(400).json({
         success: false,

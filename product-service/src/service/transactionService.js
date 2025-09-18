@@ -17,19 +17,6 @@ class CustomerService {
       Logger.log({ level: "error", message: `Error saving customer data: ${err.message}`});
     }
   }
-
-  async getCustomer(customerId) {
-    try {
-      const customer = await Customer.findOne({ customerId })
-      
-      if (customer) return customer
-      
-      return null;
-    } catch (err) {
-      Logger.log({ level: "error", message: `Error fetching customer ${customerId}: ${err.message}`});
-      return null;
-    }
-  }
 }
 
 export const CustomerSrv = new CustomerService();

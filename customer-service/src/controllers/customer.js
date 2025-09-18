@@ -1,7 +1,6 @@
 import { Logger } from "../config/logger";
 import { Customer } from "../models/customer";
 import { AppError } from "../utils/errorHandler";
-import { publishToQueue } from "../service/rabbitmqService";
 
 export const createCustomer = async (req, res, next) => {
   try {
@@ -13,20 +12,7 @@ export const createCustomer = async (req, res, next) => {
     await customer.save();
     
     Logger.log({ level: "info", message: `New customer created: ${customer.customerId}`});
-    
-    const customerData = {
-      firstName: customer.firstName,
-      lastName: customer.lastName,
-      email: customer.email,
-      phone: customer.phone,
-      address: customer.address,
-      customerId: customer._id,
-    }
 
-    if (process.env.NODE_ENV !== "test") {
-      publishToQueue("create-customer", JSON.stringify(customerData));
-    }
-    
     return res.status(201).json({
       success: true,
       message: 'Customer created successfully',

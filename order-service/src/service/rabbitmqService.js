@@ -1,15 +1,14 @@
 import amqp from "amqplib";
-import { ProductSrv } from "./productService";
 const { Logger } = require('../config/logger');
-import { QUEUE_TRANSACTION, PRODUCT_CREATED, STOCK_UPDATED, PRODUCT_UPDATED, CUSTOMER_CREATED } from "./queue";
-import { CustomerSrv } from "./customerService";
+import { QUEUE_TRANSACTION, } from "./queue";
 import { PaymentSrv } from "./paymentService";
+import { key } from "../config/key";
 
 let connection = null;
 let channel = null;
 
-const RABBITMQ_URI = process.env.RABBITMQ_URI || 'amqp://admin:password@localhost:5672';
-const queues = [QUEUE_TRANSACTION, PRODUCT_CREATED, STOCK_UPDATED, PRODUCT_UPDATED, CUSTOMER_CREATED ];
+const RABBITMQ_URI = key.RABBITMQ_URI || 'amqp://admin:password@localhost:5672';
+const queues = [QUEUE_TRANSACTION ];
 
 /**
  * Initialize RabbitMQ connection and channel
@@ -153,21 +152,10 @@ export {
 export const listenToMultipleQueues = async (queues) => {
     for (let queue of queues) {
       switch(queue) {
-        case "create-product":
-          consumeFromQueue(queue, ProductSrv.saveProduct);
-          break;
-        case "udpate-product":
-          consumeFromQueue(queue, ProductSrv.updateProduct);
-          break;
-        case "update-stock":
-          consumeFromQueue(queue, ProductSrv.updateStock);
-          break;
         case "transaction-queue":
           consumeFromQueue(queue, PaymentSrv.saveTransactionRecord);
           break;
-        case "create-customer":
-          consumeFromQueue(queue, CustomerSrv.saveCustomerRecord);
-          break;
+        
       }
       
     }

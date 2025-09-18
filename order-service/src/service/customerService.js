@@ -1,29 +1,16 @@
 import axios from "axios";
 import { Logger } from "../config/logger";
-import { Customer } from "../models/customer";
 
 class CustomerService {
   constructor() {
     this.baseURL = process.env.CUSTOMER_SERVICE_URL || 'http://localhost:5200';
   }
 
-  async saveCustomerRecord(customerData) {
-    try {
-      const data = JSON.parse(customerData);
-      const customer = Customer.findOne({ customerId: data.customerId });
-      if (customer) return;
-      let newCustomer = new Customer(data);
-      await newCustomer.save();
-    } catch (err) {
-      Logger.log({ level: "error", message: `Error saving customer data: ${err.message}`});
-    }
-  }
-
   async getCustomer(customerId) {
     try {
-      const customer = await Customer.findOne({ customerId })
+      const response = await axios.get(`${this.baseURL}/${customerId}`, { timeout: 5000 });
       
-      if (customer) return customer
+      if (response.data.success) return response.data.data
       
       return null;
     } catch (err) {

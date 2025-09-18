@@ -13,17 +13,14 @@ import {
   listenToMultipleQueues, 
 } from "./service/rabbitmqService";
 import { 
-  QUEUE_TRANSACTION, 
-  PRODUCT_CREATED, 
-  STOCK_UPDATED, 
-  PRODUCT_UPDATED 
+  QUEUE_TRANSACTION,  
 } from "./service/queue";
 
 const app = express();
 
 const port = process.env.PORT || 5300
 
-const queues = [QUEUE_TRANSACTION, PRODUCT_CREATED, STOCK_UPDATED, PRODUCT_UPDATED ];
+const queues = [QUEUE_TRANSACTION ];
 
 app.use(helmet({
   crossOriginEmbedderPolicy: false,

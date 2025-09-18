@@ -1,5 +1,6 @@
 import amqp from "amqplib";
 import { QUEUE_TRANSACTION } from "./queue";
+import { key } from "../config/key";
 const { Logger } = require('../config/logger');
 
 let connection = null;
@@ -7,7 +8,7 @@ let channel = null;
 
 const queues = [ QUEUE_TRANSACTION ];
 
-const RABBITMQ_URI = process.env.RABBITMQ_URI || 'amqp://admin:password@localhost:5672';
+const RABBITMQ_URI = key.RABBITMQ_URI || 'amqp://admin:password@localhost:5672';
 
 /**
  * Initialize RabbitMQ connection and channel

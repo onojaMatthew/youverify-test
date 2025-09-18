@@ -1,11 +1,12 @@
 import amqp from "amqplib";
 import { CUSTOMER_CREATED } from "./queue";
+import { key } from "../config/key";
 const { Logger } = require('../config/logger');
 
 let connection = null;
 let channel = null;
 
-const RABBITMQ_URI = process.env.RABBITMQ_URI || 'amqp://admin:password@localhost:5672';
+const RABBITMQ_URI = key.RABBITMQ_URI || 'amqp://admin:password@localhost:5672';
 const queues = [ CUSTOMER_CREATED ];
 
 /**

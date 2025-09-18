@@ -1,0 +1,3572 @@
+{
+	"info": {
+		"_postman_id": "d2637c98-9ea8-4f8d-9074-311ee405d08a",
+		"name": "Youverify-collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2525985",
+		"_collection_link": "https://restless-rocket-696374.postman.co/workspace/My-Workspace~ab0bac4a-46c4-402c-843d-0a6f869782d4/collection/2525985-d2637c98-9ea8-4f8d-9074-311ee405d08a?action=share&source=collection_link&creator=2525985"
+	},
+	"item": [
+		{
+			"name": "Product Service APIs",
+			"item": [
+				{
+					"name": "Create product",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"iPhone 15 Pro\",\r\n    \"description\": \"Latest Apple iPhone with A17 Pro chip and titanium design\",\r\n    \"price\": 999.99,\r\n    \"category\": \"Electronics\",\r\n    \"brand\": \"Apple\",\r\n    \"stock\": 50,\r\n    \"sku\": \"APL-IP15P-170\",\r\n    \"images\": [\r\n      { \"url\": \"https://example.com/iphone15pro.jpg\" }\r\n    ],\r\n    \"specifications\": {\r\n      \"weight\": \"187g\",\r\n      \"dimensions\": \"159.9 x 76.7 x 8.25 mm\",\r\n      \"color\": \"Space Black\",\r\n      \"material\": \"Titanium\"\r\n    },\r\n    \"tags\": [\"smartphone\", \"ios\", \"premium\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"products"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Samsung Galaxy S24\",\r\n    \"description\": \"High-performance Android smartphone with AI features\",\r\n    \"price\": 849.99,\r\n    \"category\": \"Electronics\",\r\n    \"brand\": \"Samsung\",\r\n    \"stock\": 75,\r\n    \"sku\": \"SAM-GS24-256\",\r\n    \"images\": [\r\n      { \"url\": \"https://example.com/galaxys24.jpg\" }\r\n    ],\r\n    \"specifications\": {\r\n      \"weight\": \"168g\",\r\n      \"dimensions\": \"158.5 x 75.9 x 7.7 mm\",\r\n      \"color\": \"Phantom Black\",\r\n      \"material\": \"Aluminum\"\r\n    },\r\n    \"tags\": [\"smartphone\", \"android\", \"ai\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5100/api/v1/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5100",
+									"path": [
+										"api",
+										"v1",
+										"products"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "741"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2e5-iWKAigXBeuVCdKL6uegXohBQmz0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Sep 2025 09:23:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Product created successfully\",\n    \"data\": {\n        \"name\": \"Samsung Galaxy S24\",\n        \"description\": \"High-performance Android smartphone with AI features\",\n        \"price\": 849.99,\n        \"category\": \"Electronics\",\n        \"brand\": \"Samsung\",\n        \"stock\": 75,\n        \"sku\": \"SAM-GS24-256\",\n        \"images\": [\n            {\n                \"url\": \"https://example.com/galaxys24.jpg\",\n                \"_id\": \"68c538044ff35a9945bb653f\",\n                \"id\": \"68c538044ff35a9945bb653f\"\n            }\n        ],\n        \"specifications\": {\n            \"weight\": \"168g\",\n            \"dimensions\": \"158.5 x 75.9 x 7.7 mm\",\n            \"color\": \"Phantom Black\",\n            \"material\": \"Aluminum\"\n        },\n        \"isActive\": true,\n        \"tags\": [\n            \"smartphone\",\n            \"android\",\n            \"ai\"\n        ],\n        \"_id\": \"68c538044ff35a9945bb653e\",\n        \"createdAt\": \"2025-09-13T09:23:16.731Z\",\n        \"updatedAt\": \"2025-09-13T09:23:16.731Z\",\n        \"__v\": 0,\n        \"isAvailable\": true,\n        \"formattedPrice\": \"$849.99\",\n        \"id\": \"68c538044ff35a9945bb653e\"\n    }\n}"
+						},
+						{
+							"name": "Validation error response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Samsung Galaxy S24\",\r\n    \"description\": \"High-performance Android smartphone with AI features\",\r\n    \"brand\": \"Samsung\",\r\n    \"stock\": 75,\r\n    \"sku\": \"SAM-GS24-256\",\r\n    \"images\": [\r\n      { \"url\": \"https://example.com/galaxys24.jpg\" }\r\n    ],\r\n    \"specifications\": {\r\n      \"weight\": \"168g\",\r\n      \"dimensions\": \"158.5 x 75.9 x 7.7 mm\",\r\n      \"color\": \"Phantom Black\",\r\n      \"material\": \"Aluminum\"\r\n    },\r\n    \"tags\": [\"smartphone\", \"android\", \"ai\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5100/api/v1/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5100",
+									"path": [
+										"api",
+										"v1",
+										"products"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "173"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ad-h/j1KnC98rXhiX08aUINoTcXzDw\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Sep 2025 09:24:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"error\": \"Validation Error\",\n    \"details\": [\n        {\n            \"path\": \"price\",\n            \"msg\": \"Please enter a valid product price\"\n        },\n        {\n            \"path\": \"category\",\n            \"msg\": \"Product category is required\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get product by Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/products/68cbe1b27125df3663ededd6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"68cbe1b27125df3663ededd6"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Samsung Galaxy S24\",\r\n    \"description\": \"High-performance Android smartphone with AI features\",\r\n    \"price\": 849.99,\r\n    \"category\": \"Electronics\",\r\n    \"brand\": \"Samsung\",\r\n    \"stock\": 75,\r\n    \"sku\": \"SAM-GS24-256\",\r\n    \"images\": [\r\n      { \"url\": \"https://example.com/galaxys24.jpg\" }\r\n    ],\r\n    \"specifications\": {\r\n      \"weight\": \"168g\",\r\n      \"dimensions\": \"158.5 x 75.9 x 7.7 mm\",\r\n      \"color\": \"Phantom Black\",\r\n      \"material\": \"Aluminum\"\r\n    },\r\n    \"tags\": [\"smartphone\", \"android\", \"ai\"]\r\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5100/api/v1/products/68c538c54ff35a9945bb6542",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5100",
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"68c538c54ff35a9945bb6542"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "731"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2db-2HEzw5oAMHrhyl53ZlYQEgCsxM0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Sep 2025 09:33:38 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"request completed\",\n    \"data\": {\n        \"specifications\": {\n            \"weight\": \"187g\",\n            \"dimensions\": \"159.9 x 76.7 x 8.25 mm\",\n            \"color\": \"Space Black\",\n            \"material\": \"Titanium\"\n        },\n        \"_id\": \"68c538c54ff35a9945bb6542\",\n        \"name\": \"iPhone 15 Pro\",\n        \"description\": \"Latest Apple iPhone with A17 Pro chip and titanium design\",\n        \"price\": 999.99,\n        \"category\": \"Electronics\",\n        \"brand\": \"Apple\",\n        \"stock\": 50,\n        \"sku\": \"APL-IP15P-128\",\n        \"images\": [\n            {\n                \"url\": \"https://example.com/iphone15pro.jpg\",\n                \"_id\": \"68c538c54ff35a9945bb6543\",\n                \"id\": \"68c538c54ff35a9945bb6543\"\n            }\n        ],\n        \"isActive\": true,\n        \"tags\": [\n            \"smartphone\",\n            \"ios\",\n            \"premium\"\n        ],\n        \"createdAt\": \"2025-09-13T09:26:29.085Z\",\n        \"updatedAt\": \"2025-09-13T09:26:29.085Z\",\n        \"__v\": 0,\n        \"isAvailable\": true,\n        \"formattedPrice\": \"$999.99\",\n        \"id\": \"68c538c54ff35a9945bb6542\"\n    }\n}"
+						},
+						{
+							"name": "Failure response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Samsung Galaxy S24\",\r\n    \"description\": \"High-performance Android smartphone with AI features\",\r\n    \"price\": 849.99,\r\n    \"category\": \"Electronics\",\r\n    \"brand\": \"Samsung\",\r\n    \"stock\": 75,\r\n    \"sku\": \"SAM-GS24-256\",\r\n    \"images\": [\r\n      { \"url\": \"https://example.com/galaxys24.jpg\" }\r\n    ],\r\n    \"specifications\": {\r\n      \"weight\": \"168g\",\r\n      \"dimensions\": \"158.5 x 75.9 x 7.7 mm\",\r\n      \"color\": \"Phantom Black\",\r\n      \"material\": \"Aluminum\"\r\n    },\r\n    \"tags\": [\"smartphone\", \"android\", \"ai\"]\r\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5100/api/v1/products/68c538c54ff35a9945bb6544",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5100",
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"68c538c54ff35a9945bb6544"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "59"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3b-V1t6GZ7P4cu9fHrCBWeKOyLH1dM\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Sep 2025 09:34:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Product not found\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Search products",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/products/search?searchTerm=apple&category=electronics&brand=apple&minPrice=100&maxPrice=1000page=1&limit=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"search"
+							],
+							"query": [
+								{
+									"key": "searchTerm",
+									"value": "apple"
+								},
+								{
+									"key": "category",
+									"value": "electronics"
+								},
+								{
+									"key": "brand",
+									"value": "apple"
+								},
+								{
+									"key": "minPrice",
+									"value": "100"
+								},
+								{
+									"key": "maxPrice",
+									"value": "1000page=1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5100/api/v1/products/search?searchTerm=apple&category=electronics&brand=apple&minPrice=100&maxPrice=1000page=1&limit=10",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5100",
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchTerm",
+											"value": "apple"
+										},
+										{
+											"key": "category",
+											"value": "electronics"
+										},
+										{
+											"key": "brand",
+											"value": "apple"
+										},
+										{
+											"key": "minPrice",
+											"value": "100"
+										},
+										{
+											"key": "maxPrice",
+											"value": "1000page=1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "854"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"356-PCMDMB8iXekDgU6odhga3zbLyl4\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Sep 2025 09:47:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Request processed successfully\",\n    \"data\": {\n        \"products\": [\n            {\n                \"specifications\": {\n                    \"weight\": \"187g\",\n                    \"dimensions\": \"159.9 x 76.7 x 8.25 mm\",\n                    \"color\": \"Space Black\",\n                    \"material\": \"Titanium\"\n                },\n                \"_id\": \"68c538c54ff35a9945bb6542\",\n                \"name\": \"iPhone 15 Pro\",\n                \"description\": \"Latest Apple iPhone with A17 Pro chip and titanium design\",\n                \"price\": 999.99,\n                \"category\": \"Electronics\",\n                \"brand\": \"Apple\",\n                \"stock\": 50,\n                \"sku\": \"APL-IP15P-128\",\n                \"images\": [\n                    {\n                        \"url\": \"https://example.com/iphone15pro.jpg\",\n                        \"_id\": \"68c538c54ff35a9945bb6543\",\n                        \"id\": \"68c538c54ff35a9945bb6543\"\n                    }\n                ],\n                \"isActive\": true,\n                \"tags\": [\n                    \"smartphone\",\n                    \"ios\",\n                    \"premium\"\n                ],\n                \"createdAt\": \"2025-09-13T09:26:29.085Z\",\n                \"updatedAt\": \"2025-09-13T09:26:29.085Z\",\n                \"__v\": 0,\n                \"isAvailable\": true,\n                \"formattedPrice\": \"$999.99\",\n                \"id\": \"68c538c54ff35a9945bb6542\"\n            }\n        ],\n        \"pagination\": {\n            \"page\": 1,\n            \"limit\": 10,\n            \"total\": 1,\n            \"pages\": 1,\n            \"hasNextPage\": false,\n            \"hasPrevPage\": false\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Check product availability",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/products/68cbe1b27125df3663ededd6/available",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"68cbe1b27125df3663ededd6",
+								"available"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5100/api/v1/products/68c538044ff35a9945bb653e/available",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5100",
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"68c538044ff35a9945bb653e",
+										"available"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "141"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8d-1ZCojSRDlPjz70TuldLR9ThtGs0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Sep 2025 09:50:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Request processed successfully\",\n    \"data\": {\n        \"name\": \"Samsung Galaxy S24\",\n        \"price\": 849.99,\n        \"stock\": 75,\n        \"isAvailable\": true\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Stock update",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quantity\": 100,\r\n    \"action\": \"set\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/products/68cbe1b27125df3663ededd6/stock",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"68cbe1b27125df3663ededd6",
+								"stock"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Validation error response",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5100/api/v1/products/68c538c54ff35a9945bb6542/stock",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5100",
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"68c538c54ff35a9945bb6542",
+										"stock"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "177"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"b1-3yBAChx4Bs53awjY4mm+NoOllMY\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Sep 2025 09:57:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"error\": \"Validation Error\",\n    \"details\": [\n        {\n            \"path\": \"quantity\",\n            \"msg\": \"Invalid stock quantity\"\n        },\n        {\n            \"path\": \"action\",\n            \"msg\": \"Action must be one of add, set, or subtract\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"quantity\": 100,\r\n    \"action\": \"add\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5100/api/v1/products/68c538c54ff35a9945bb6542/stock",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5100",
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"68c538c54ff35a9945bb6542",
+										"stock"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "782"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"30e-YLrnahC7mXfoRzgMs/chUXbhgYY\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Sep 2025 10:00:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Stock updated for product: 68c538c54ff35a9945bb6542. New stock: 200\",\n    \"data\": {\n        \"specifications\": {\n            \"weight\": \"187g\",\n            \"dimensions\": \"159.9 x 76.7 x 8.25 mm\",\n            \"color\": \"Space Black\",\n            \"material\": \"Titanium\"\n        },\n        \"_id\": \"68c538c54ff35a9945bb6542\",\n        \"name\": \"iPhone 15 Pro\",\n        \"description\": \"Latest Apple iPhone with A17 Pro chip and titanium design\",\n        \"price\": 999.99,\n        \"category\": \"Electronics\",\n        \"brand\": \"Apple\",\n        \"stock\": 200,\n        \"sku\": \"APL-IP15P-128\",\n        \"images\": [\n            {\n                \"url\": \"https://example.com/iphone15pro.jpg\",\n                \"_id\": \"68c538c54ff35a9945bb6543\",\n                \"id\": \"68c538c54ff35a9945bb6543\"\n            }\n        ],\n        \"isActive\": true,\n        \"tags\": [\n            \"smartphone\",\n            \"ios\",\n            \"premium\"\n        ],\n        \"createdAt\": \"2025-09-13T09:26:29.085Z\",\n        \"updatedAt\": \"2025-09-13T10:00:30.462Z\",\n        \"__v\": 0,\n        \"isAvailable\": true,\n        \"formattedPrice\": \"$999.99\",\n        \"id\": \"68c538c54ff35a9945bb6542\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Customer service APIs",
+			"item": [
+				{
+					"name": "Get customer by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/customers/68cb36c04e7a9b238676663b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"68cb36c04e7a9b238676663b"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5200/api/v1/customers/68c550dcc7c03061ded671a",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5200",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"68c550dcc7c03061ded671a"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "448"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1c0-qPXSOrSjxGfWQZ6ayGSyoKL7/rM\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Sep 2025 11:10:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Customer fetched successfully\",\n    \"data\": {\n        \"address\": {\n            \"street\": \"123 Main St\",\n            \"city\": \"New York\",\n            \"state\": \"NY\",\n            \"zipCode\": \"10001\",\n            \"country\": \"USA\"\n        },\n        \"_id\": \"68c550dcc7c03061ded671a0\",\n        \"firstName\": \"John\",\n        \"lastName\": \"Doe\",\n        \"email\": \"john.doe@example.com\",\n        \"phone\": \"+2349043556329\",\n        \"isActive\": true,\n        \"createdAt\": \"2025-09-13T11:09:17.203Z\",\n        \"updatedAt\": \"2025-09-13T11:09:17.203Z\",\n        \"__v\": 0,\n        \"fullName\": \"John Doe\",\n        \"id\": \"68c550dcc7c03061ded671a0\"\n    }\n}"
+						},
+						{
+							"name": "Param validation error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5200/api/v1/customers/68c550dcc7c03061ded671a",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5200",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"68c550dcc7c03061ded671a"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "106"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6a-Pb2opFHxBm8lswT6C9aHYMmPvo0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Sep 2025 11:12:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"error\": \"Validation Error\",\n    \"details\": [\n        {\n            \"path\": \"customerId\",\n            \"msg\": \"Invalid customer ID\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Not found error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5200/api/v1/customers/68c550dcc7c03061ded671a1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5200",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"68c550dcc7c03061ded671a1"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "60"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3c-ugNSfiLYOdpI4kTOSZ0JVTRFt+U\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Sep 2025 11:13:25 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Customer not found\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Create customers",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Doe\",\r\n    \"email\": \"john.doe@example.com\",\r\n    \"phone\": \"+2349043556329\",\r\n    \"address\": {\r\n      \"street\": \"123 Main St\",\r\n      \"city\": \"New York\",\r\n      \"state\": \"NY\",\r\n      \"zipCode\": \"10001\",\r\n      \"country\": \"USA\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/customers/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Validation response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5200/api/v1/customers/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5200",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										""
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "264"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"108-iwS8a1b4CyUiW46pW8an13oIHFE\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Sep 2025 10:55:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"error\": \"Validation Error\",\n    \"details\": [\n        {\n            \"path\": \"firstName\",\n            \"msg\": \"First name is required\"\n        },\n        {\n            \"path\": \"lastName\",\n            \"msg\": \"Last name is required\"\n        },\n        {\n            \"path\": \"email\",\n            \"msg\": \"Invalid email address\"\n        },\n        {\n            \"path\": \"phone\",\n            \"msg\": \"Please enter a valid phone number\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Customer exist reponse",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Doe\",\r\n    \"email\": \"john.doe@example.com\",\r\n    \"phone\": \"+2349043556329\",\r\n    \"address\": {\r\n      \"street\": \"123 Main St\",\r\n      \"city\": \"New York\",\r\n      \"state\": \"NY\",\r\n      \"zipCode\": \"10001\",\r\n      \"country\": \"USA\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5200/api/v1/customers/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5200",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										""
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "65"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"41-bgfjvLw72RNFIOJBzzQs/h2Y1es\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Sep 2025 11:07:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Customer already exists\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Doe\",\r\n    \"email\": \"john.doe@example.com\",\r\n    \"phone\": \"+2349043556329\",\r\n    \"address\": {\r\n      \"street\": \"123 Main St\",\r\n      \"city\": \"New York\",\r\n      \"state\": \"NY\",\r\n      \"zipCode\": \"10001\",\r\n      \"country\": \"USA\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5200/api/v1/customers/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5200",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "448"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1c0-zsZpBkfmJnbjFs8anCBpD23hP6o\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Sep 2025 11:09:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Customer created successfully\",\n    \"data\": {\n        \"firstName\": \"John\",\n        \"lastName\": \"Doe\",\n        \"email\": \"john.doe@example.com\",\n        \"phone\": \"+2349043556329\",\n        \"address\": {\n            \"street\": \"123 Main St\",\n            \"city\": \"New York\",\n            \"state\": \"NY\",\n            \"zipCode\": \"10001\",\n            \"country\": \"USA\"\n        },\n        \"isActive\": true,\n        \"_id\": \"68c550dcc7c03061ded671a0\",\n        \"createdAt\": \"2025-09-13T11:09:17.203Z\",\n        \"updatedAt\": \"2025-09-13T11:09:17.203Z\",\n        \"__v\": 0,\n        \"fullName\": \"John Doe\",\n        \"id\": \"68c550dcc7c03061ded671a0\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Search customers",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/customers/search?firstName=john&page=1&limit=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"search"
+							],
+							"query": [
+								{
+									"key": "firstName",
+									"value": "john"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5200/api/v1/customers/search?firstName=john&page=1&limit=10",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5200",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"search"
+									],
+									"query": [
+										{
+											"key": "firstName",
+											"value": "john"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "560"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"230-YWbOiTqOp1eZhwfIqGoaV6EkLeg\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Sep 2025 11:16:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Customers fetched successfully\",\n    \"data\": {\n        \"customers\": [\n            {\n                \"address\": {\n                    \"street\": \"123 Main St\",\n                    \"city\": \"New York\",\n                    \"state\": \"NY\",\n                    \"zipCode\": \"10001\",\n                    \"country\": \"USA\"\n                },\n                \"_id\": \"68c550dcc7c03061ded671a0\",\n                \"firstName\": \"John\",\n                \"lastName\": \"Doe\",\n                \"email\": \"john.doe@example.com\",\n                \"phone\": \"+2349043556329\",\n                \"isActive\": true,\n                \"createdAt\": \"2025-09-13T11:09:17.203Z\",\n                \"updatedAt\": \"2025-09-13T11:09:17.203Z\",\n                \"__v\": 0,\n                \"fullName\": \"John Doe\",\n                \"id\": \"68c550dcc7c03061ded671a0\"\n            }\n        ],\n        \"pagination\": {\n            \"page\": 1,\n            \"limit\": 10,\n            \"total\": 1,\n            \"pages\": 1,\n            \"hasNextPage\": false,\n            \"hasPrevPage\": false\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Customer list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/customers?page=1&limit=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5200/api/v1/customers?page=1&limit=10",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5200",
+									"path": [
+										"api",
+										"v1",
+										"customers"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "564"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"234-hI7owkszPTL7gTYfE9J4wtibsRw\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Sep 2025 11:22:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Customer list fetched successfully\",\n    \"data\": {\n        \"customers\": [\n            {\n                \"address\": {\n                    \"street\": \"123 Main St\",\n                    \"city\": \"New York\",\n                    \"state\": \"NY\",\n                    \"zipCode\": \"10001\",\n                    \"country\": \"USA\"\n                },\n                \"_id\": \"68c550dcc7c03061ded671a0\",\n                \"firstName\": \"John\",\n                \"lastName\": \"Doe\",\n                \"email\": \"john.doe@example.com\",\n                \"phone\": \"+2349043556329\",\n                \"isActive\": true,\n                \"createdAt\": \"2025-09-13T11:09:17.203Z\",\n                \"updatedAt\": \"2025-09-13T11:09:17.203Z\",\n                \"__v\": 0,\n                \"fullName\": \"John Doe\",\n                \"id\": \"68c550dcc7c03061ded671a0\"\n            }\n        ],\n        \"pagination\": {\n            \"page\": 1,\n            \"limit\": 10,\n            \"total\": 1,\n            \"pages\": 1,\n            \"hasNextPage\": false,\n            \"hasPrevPage\": false\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update customer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Mark\",\r\n    \"lastName\": \"Doe\",\r\n    \"email\": \"mark.doe@example.com\",\r\n    \"phone\": \"+2349043556329\",\r\n    \"address\": {\r\n      \"street\": \"123 Main St\",\r\n      \"city\": \"New York\",\r\n      \"state\": \"NY\",\r\n      \"zipCode\": \"10001\",\r\n      \"country\": \"USA\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/customers/68cbe32137b08ee9ffa2b347",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"68cbe32137b08ee9ffa2b347"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Param validation response",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5200/api/v1/customers/68c550dcc7c03061ded671a",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5200",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"68c550dcc7c03061ded671a"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "106"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6a-Pb2opFHxBm8lswT6C9aHYMmPvo0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Sep 2025 11:24:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"error\": \"Validation Error\",\n    \"details\": [\n        {\n            \"path\": \"customerId\",\n            \"msg\": \"Invalid customer ID\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"Mark\",\r\n    \"lastName\": \"Doe\",\r\n    \"email\": \"john.doe@example.com\",\r\n    \"phone\": \"+2349043556329\",\r\n    \"address\": {\r\n      \"street\": \"123 Main St\",\r\n      \"city\": \"New York\",\r\n      \"state\": \"NY\",\r\n      \"zipCode\": \"10001\",\r\n      \"country\": \"USA\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5200/api/v1/customers/68c550dcc7c03061ded671a0",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5200",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"68c550dcc7c03061ded671a0"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "447"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1bf-ZmWMTSr5LQBx0zf2L+5OhxVOwKs\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Sep 2025 11:26:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Account updated successfully\",\n    \"data\": {\n        \"address\": {\n            \"street\": \"123 Main St\",\n            \"city\": \"New York\",\n            \"state\": \"NY\",\n            \"zipCode\": \"10001\",\n            \"country\": \"USA\"\n        },\n        \"_id\": \"68c550dcc7c03061ded671a0\",\n        \"firstName\": \"Mark\",\n        \"lastName\": \"Doe\",\n        \"email\": \"john.doe@example.com\",\n        \"phone\": \"+2349043556329\",\n        \"isActive\": true,\n        \"createdAt\": \"2025-09-13T11:09:17.203Z\",\n        \"updatedAt\": \"2025-09-13T11:26:44.737Z\",\n        \"__v\": 0,\n        \"fullName\": \"Mark Doe\",\n        \"id\": \"68c550dcc7c03061ded671a0\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Order Service APIs",
+			"item": [
+				{
+					"name": "Create order",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customerId\": \"68cb49024ccd38077527b54d\", \r\n    \"productId\": \"68c7e0ac08bbfeb20a9e310a\", \r\n    \"quantity\": 1, \r\n    \"orderNotes\": \"Please I cannot take delivery today. Send my item to my address tomorrow\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"customerId\": \"68c7d975c54ab3f888058a4e\", \r\n    \"productId\": \"68c7e0ac08bbfeb20a9e310a\", \r\n    \"quantity\": 1, \r\n    \"orderNotes\": \"Please I cannot take delivery today. Send my item to my address tomorrow\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5300/api/v1/orders",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5300",
+									"path": [
+										"api",
+										"v1",
+										"orders"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "291"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"123-QFsbv51elLLM01GkaeJhDnDCLhk\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 15 Sep 2025 14:03:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Order created successfully\",\n    \"data\": {\n        \"customerId\": \"68c7d975c54ab3f888058a4e\",\n        \"orderReferenceId\": \"ORD-MFL72ES3-48KUN\",\n        \"productId\": \"68c7e0ac08bbfeb20a9e310a\",\n        \"orderStatus\": \"pending\",\n        \"amount\": 999.99,\n        \"paymentStatus\": \"processing\",\n        \"createdAt\": \"2025-09-15T14:03:24.629Z\"\n    }\n}"
+						},
+						{
+							"name": "Validation Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"customerId\": \"68c7d975c54ab3f888058a4e\", \r\n    \"orderNotes\": \"Please I cannot take delivery today. Send my item to my address tomorrow\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5300/api/v1/orders",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5300",
+									"path": [
+										"api",
+										"v1",
+										"orders"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "169"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a9-vLHzePVUwkj5hg+aVhaYPYVetvM\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 15 Sep 2025 15:41:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"error\": \"Validation Error\",\n    \"details\": [\n        {\n            \"path\": \"productId\",\n            \"msg\": \"Invalid product ID\"\n        },\n        {\n            \"path\": \"quantity\",\n            \"msg\": \"Please provide your desired quantity\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Filter Order list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/orders?orderStatus=pending&paymentStatus=processing&sortBy=createdAt&sortOrder=desc&page=1&limit=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "orderStatus",
+									"value": "pending"
+								},
+								{
+									"key": "paymentStatus",
+									"value": "processing"
+								},
+								{
+									"key": "sortBy",
+									"value": "createdAt"
+								},
+								{
+									"key": "sortOrder",
+									"value": "desc"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n"
+								},
+								"url": {
+									"raw": "http://localhost:5300/api/v1/orders?customerId=68c7d975c54ab3f888058a4e&orderStatus=pending&paymentStatus=processing&sortBy=createdAt&sortOrder=desc&page=1&limit=10",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5300",
+									"path": [
+										"api",
+										"v1",
+										"orders"
+									],
+									"query": [
+										{
+											"key": "customerId",
+											"value": "68c7d975c54ab3f888058a4e"
+										},
+										{
+											"key": "orderStatus",
+											"value": "pending"
+										},
+										{
+											"key": "paymentStatus",
+											"value": "processing"
+										},
+										{
+											"key": "sortBy",
+											"value": "createdAt"
+										},
+										{
+											"key": "sortOrder",
+											"value": "desc"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1090"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"442-o3QE1/Y4d9gpnZAnMkWOhOwHaA4\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 15 Sep 2025 14:23:58 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Order fetched successfully\",\n    \"data\": {\n        \"orders\": [\n            {\n                \"customerDetails\": {\n                    \"firstName\": \"John\",\n                    \"lastName\": \"Doe\",\n                    \"email\": \"john.doe@example.com\",\n                    \"phone\": \"+2349043556329\"\n                },\n                \"productDetails\": {\n                    \"name\": \"iPhone 15 Pro\",\n                    \"brand\": \"Apple\",\n                    \"category\": \"Electronics\",\n                    \"sku\": \"APL-IP15P-128\"\n                },\n                \"shippingAddress\": {\n                    \"street\": \"123 Main St\",\n                    \"city\": \"New York\",\n                    \"state\": \"NY\",\n                    \"zipCode\": \"10001\",\n                    \"country\": \"USA\"\n                },\n                \"metadata\": {\n                    \"userAgent\": \"PostmanRuntime/7.46.0\",\n                    \"ipAddress\": \"::1\",\n                    \"source\": \"api\"\n                },\n                \"_id\": \"68c81cacf71fd20b86cef3e1\",\n                \"orderReferenceId\": \"ORD-MFL72ES3-48KUN\",\n                \"customerId\": \"68c7d975c54ab3f888058a4e\",\n                \"productId\": \"68c7e0ac08bbfeb20a9e310a\",\n                \"quantity\": 1,\n                \"unitPrice\": 999.99,\n                \"amount\": 999.99,\n                \"orderStatus\": \"pending\",\n                \"paymentStatus\": \"processing\",\n                \"orderNotes\": \"Please I cannot take delivery today. Send my item to my address tomorrow\",\n                \"createdAt\": \"2025-09-15T14:03:24.629Z\",\n                \"updatedAt\": \"2025-09-15T14:03:24.698Z\",\n                \"__v\": 0,\n                \"totalWithTax\": 1099.989,\n                \"formattedAmount\": \"$999.99\",\n                \"id\": \"68c81cacf71fd20b86cef3e1\"\n            }\n        ],\n        \"pagination\": {\n            \"page\": 1,\n            \"limit\": 10,\n            \"total\": 1,\n            \"pages\": 1,\n            \"hasNextPage\": false,\n            \"hasPrevPage\": false\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get order By ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n"
+						},
+						"url": {
+							"raw": "http://localhost:5300/api/v1/orders/68c81cacf71fd20b86cef3e1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5300",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"68c81cacf71fd20b86cef3e1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n"
+								},
+								"url": {
+									"raw": "http://localhost:5300/api/v1/orders/68c81cacf71fd20b86cef3e1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5300",
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"68c81cacf71fd20b86cef3e1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "982"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3d6-9rHQXxuE4ubvvv+vd2FKBKPpkyY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 15 Sep 2025 14:26:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Order fetched successfully\",\n    \"data\": {\n        \"customerDetails\": {\n            \"firstName\": \"John\",\n            \"lastName\": \"Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"phone\": \"+2349043556329\"\n        },\n        \"productDetails\": {\n            \"name\": \"iPhone 15 Pro\",\n            \"brand\": \"Apple\",\n            \"category\": \"Electronics\",\n            \"sku\": \"APL-IP15P-128\"\n        },\n        \"shippingAddress\": {\n            \"street\": \"123 Main St\",\n            \"city\": \"New York\",\n            \"state\": \"NY\",\n            \"zipCode\": \"10001\",\n            \"country\": \"USA\"\n        },\n        \"metadata\": {\n            \"userAgent\": \"PostmanRuntime/7.46.0\",\n            \"ipAddress\": \"::1\",\n            \"source\": \"api\"\n        },\n        \"_id\": \"68c81cacf71fd20b86cef3e1\",\n        \"orderReferenceId\": \"ORD-MFL72ES3-48KUN\",\n        \"customerId\": \"68c7d975c54ab3f888058a4e\",\n        \"productId\": \"68c7e0ac08bbfeb20a9e310a\",\n        \"quantity\": 1,\n        \"unitPrice\": 999.99,\n        \"amount\": 999.99,\n        \"orderStatus\": \"pending\",\n        \"paymentStatus\": \"processing\",\n        \"orderNotes\": \"Please I cannot take delivery today. Send my item to my address tomorrow\",\n        \"createdAt\": \"2025-09-15T14:03:24.629Z\",\n        \"updatedAt\": \"2025-09-15T14:03:24.698Z\",\n        \"__v\": 0,\n        \"totalWithTax\": 1099.989,\n        \"formattedAmount\": \"$999.99\",\n        \"id\": \"68c81cacf71fd20b86cef3e1\"\n    }\n}"
+						},
+						{
+							"name": "Param validation",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n"
+								},
+								"url": {
+									"raw": "http://localhost:5300/api/v1/orders/68c81cacf71fd20b86cef3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5300",
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"68c81cacf71fd20b86cef3"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "100"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"64-ATdZrgRQRrDVB5/baL25IVIZlRA\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 15 Sep 2025 15:46:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"error\": \"Validation Error\",\n    \"details\": [\n        {\n            \"path\": \"orderId\",\n            \"msg\": \"Invalid order ID\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Cancel Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJDVVNULTAwMSIsImN1c3RvbWVySWQiOiJDVVNULTAwMSIsImVtYWlsIjoidGVzdEBleGFtcGxlLmNvbSIsInJvbGUiOiJjdXN0b21lciIsImlhdCI6MTc1ODEwMTcxMywiZXhwIjoxNzU4MTg4MTEzfQ.TdTzTt56dTmGfcPPQmQYt0Yt-2ci13rLbzTSs5XObYo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/orders/68cbe51e549fac076eab1fea/cancel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"68cbe51e549fac076eab1fea",
+								"cancel"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n"
+								},
+								"url": {
+									"raw": "http://localhost:5300/api/v1/orders/68c81cacf71fd20b86cef3e1/cancel",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5300",
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"68c81cacf71fd20b86cef3e1",
+										"cancel"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "132"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"84-mZTkQcmyPk+PZ0+49VGI5X/com4\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 15 Sep 2025 14:35:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Order cancelled successfully\",\n    \"data\": {\n        \"orderReferenceId\": \"ORD-MFL72ES3-48KUN\",\n        \"orderStatus\": \"cancelled\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Order Status",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n    \"orderStatus\": \"confirmed\",\r\n    \"paymentStatus\": \"completed\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/orders/68cbe51e549fac076eab1fea/status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"68cbe51e549fac076eab1fea",
+								"status"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n    \"orderStatus\": \"confirmed\",\r\n    \"paymentStatus\": \"completed\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5300/api/v1/orders/68c81cacf71fd20b86cef3e1/status",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5300",
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"68c81cacf71fd20b86cef3e1",
+										"status"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "165"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a5-MAM4sGIRXGyJjfdkuXj4gq4R2VM\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 15 Sep 2025 14:46:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Order status updated successfully\",\n    \"data\": {\n        \"orderReferenceId\": \"ORD-MFL72ES3-48KUN\",\n        \"orderStatus\": \"confirmed\",\n        \"paymentStatus\": \"completed\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Payment Service APIs",
+			"item": [
+				{
+					"name": "Initiate Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customerId\": \"68c7d975c54ab3f888058a4e\",\r\n    \"orderReferenceId\": \"ORD-MFL72ES3-48KUN\",\r\n    \"productId\": \"68c7e0ac08bbfeb20a9e310a\",\r\n    \"amount\": 999.99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/payments/initiate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"payments",
+								"initiate"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"customerId\": \"68c7d975c54ab3f888058a4e\",\r\n    \"orderReferenceId\": \"ORD-MFL72ES3-48KUN\",\r\n    \"productId\": \"68c7e0ac08bbfeb20a9e310a\",\r\n    \"amount\": 999.99\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/payments/initiate",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"payments",
+										"initiate"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "content-security-policy",
+									"value": "default-src 'self';style-src 'self' 'unsafe-inline';script-src 'self';img-src 'self' data: https:;base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';object-src 'none';script-src-attr 'none';upgrade-insecure-requests"
+								},
+								{
+									"key": "cross-origin-opener-policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "cross-origin-resource-policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "origin-agent-cluster",
+									"value": "?1"
+								},
+								{
+									"key": "referrer-policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-dns-prefetch-control",
+									"value": "off"
+								},
+								{
+									"key": "x-download-options",
+									"value": "noopen"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-permitted-cross-domain-policies",
+									"value": "none"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "x-request-id",
+									"value": "req_1758193368587_43jjdjtoi"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "1000;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "1000"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "988"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "440"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "content-length",
+									"value": "122"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"7a-6ngYKd3jDETzohAi+oCnbsvIPmc\""
+								},
+								{
+									"key": "date",
+									"value": "Thu, 18 Sep 2025 11:02:48 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Payment processed successfully\",\n    \"data\": {\n        \"paymentId\": \"PAY-MFPAXPNO-YZ40K\",\n        \"status\": \"completed\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Payment List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customerId\": \"68c7d975c54ab3f888058a4e\",\r\n    \"orderReferenceId\": \"ORD-MFL72ES3-48KUN\",\r\n    \"productId\": \"68c7e0ac08bbfeb20a9e310a\",\r\n    \"amount\": 999.99\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/payments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"payments"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"customerId\": \"68c7d975c54ab3f888058a4e\",\r\n    \"orderReferenceId\": \"ORD-MFL72ES3-48KUN\",\r\n    \"productId\": \"68c7e0ac08bbfeb20a9e310a\",\r\n    \"amount\": 999.99\r\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/payments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"payments"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "content-security-policy",
+									"value": "default-src 'self';style-src 'self' 'unsafe-inline';script-src 'self';img-src 'self' data: https:;base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';object-src 'none';script-src-attr 'none';upgrade-insecure-requests"
+								},
+								{
+									"key": "cross-origin-opener-policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "cross-origin-resource-policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "origin-agent-cluster",
+									"value": "?1"
+								},
+								{
+									"key": "referrer-policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-dns-prefetch-control",
+									"value": "off"
+								},
+								{
+									"key": "x-download-options",
+									"value": "noopen"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-permitted-cross-domain-policies",
+									"value": "none"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "x-request-id",
+									"value": "req_1758193484109_vew5h1s09"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "1000;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "1000"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "986"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "324"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"f42-LB7iV5havFHPt8265qs82qY7FOk\""
+								},
+								{
+									"key": "content-encoding",
+									"value": "br"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 18 Sep 2025 11:04:44 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								},
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Payment list fetched successfully\",\n    \"data\": {\n        \"payments\": [\n            {\n                \"_id\": \"68cbe6d8c245af0e67608078\",\n                \"paymentId\": \"PAY-MFPAXPNO-YZ40K\",\n                \"customerId\": \"68c7d975c54ab3f888058a4e\",\n                \"orderReferenceId\": \"ORD-MFL72ES3-48KUN\",\n                \"productId\": \"68c7e0ac08bbfeb20a9e310a\",\n                \"amount\": 999.99,\n                \"status\": \"completed\",\n                \"queuedAt\": \"2025-09-18T11:02:48.612Z\",\n                \"createdAt\": \"2025-09-18T11:02:48.619Z\",\n                \"updatedAt\": \"2025-09-18T11:02:48.626Z\",\n                \"__v\": 0,\n                \"processedAt\": \"2025-09-18T11:02:48.625Z\"\n            },\n            {\n                \"_id\": \"68cbe51e9d64423953c2ba31\",\n                \"paymentId\": \"PAY-MFPAO8KA-ZOIMC\",\n                \"customerId\": \"68cb49024ccd38077527b54d\",\n                \"orderReferenceId\": \"ORD-MFPAO8C4-9B17A\",\n                \"productId\": \"68c7e0ac08bbfeb20a9e310a\",\n                \"amount\": 999.99,\n                \"status\": \"completed\",\n                \"queuedAt\": \"2025-09-18T10:55:26.554Z\",\n                \"createdAt\": \"2025-09-18T10:55:26.643Z\",\n                \"updatedAt\": \"2025-09-18T10:55:26.727Z\",\n                \"__v\": 0,\n                \"processedAt\": \"2025-09-18T10:55:26.724Z\"\n            },\n            {\n                \"_id\": \"68cb278047247087090a8e59\",\n                \"paymentId\": \"PAY-MFOHRT3N-WHL8T\",\n                \"customerId\": \"68c7d975c54ab3f888058a4e\",\n                \"orderReferenceId\": \"ORD-MFOHRSZG-L1471\",\n                \"productId\": \"68c7e0ac08bbfeb20a9e310a\",\n                \"amount\": 999.99,\n                \"status\": \"completed\",\n                \"queuedAt\": \"2025-09-17T21:26:24.275Z\",\n                \"createdAt\": \"2025-09-17T21:26:24.291Z\",\n                \"updatedAt\": \"2025-09-17T21:26:24.307Z\",\n                \"__v\": 0,\n                \"processedAt\": \"2025-09-17T21:26:24.305Z\"\n            },\n            {\n                \"_id\": \"68cb20bda8d4374cc8d7002f\",\n                \"paymentId\": \"PAY-MFOGQPCN-887YZ\",\n                \"customerId\": \"68c7d975c54ab3f888058a4e\",\n                \"orderReferenceId\": \"ORD-MFOGQPA9-7S6ZL\",\n                \"productId\": \"68c7e0ac08bbfeb20a9e310a\",\n                \"amount\": 999.99,\n                \"status\": \"failed\",\n                \"queuedAt\": \"2025-09-17T20:57:33.143Z\",\n                \"createdAt\": \"2025-09-17T20:57:33.144Z\",\n                \"updatedAt\": \"2025-09-17T20:57:33.149Z\",\n                \"__v\": 0,\n                \"processedAt\": \"2025-09-17T20:57:33.148Z\"\n            },\n            {\n                \"_id\": \"68cb1faea8d4374cc8d7002a\",\n                \"paymentId\": \"PAY-MFOGKWHP-9ROZU\",\n                \"customerId\": \"68c7d975c54ab3f888058a4e\",\n                \"orderReferenceId\": \"ORD-MFOGKWB6-Y8JOK\",\n                \"productId\": \"68c7e0ac08bbfeb20a9e310a\",\n                \"amount\": 999.99,\n                \"status\": \"completed\",\n                \"queuedAt\": \"2025-09-17T20:53:02.461Z\",\n                \"createdAt\": \"2025-09-17T20:53:02.479Z\",\n                \"updatedAt\": \"2025-09-17T20:53:02.495Z\",\n                \"__v\": 0,\n                \"processedAt\": \"2025-09-17T20:53:02.493Z\"\n            },\n            {\n                \"_id\": \"68cb1f5356d7c3bc627ec9c2\",\n                \"paymentId\": \"PAY-MFOGIYBH-T9KUV\",\n                \"customerId\": \"68c7d975c54ab3f888058a4e\",\n                \"orderReferenceId\": \"ORD-MFOGIY6M-7VTKC\",\n                \"productId\": \"68c7e0ac08bbfeb20a9e310a\",\n                \"amount\": 999.99,\n                \"status\": \"processing\",\n                \"queuedAt\": \"2025-09-17T20:51:31.517Z\",\n                \"createdAt\": \"2025-09-17T20:51:31.537Z\",\n                \"updatedAt\": \"2025-09-17T20:51:31.537Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"68cb1d4756d7c3bc627ec9bd\",\n                \"paymentId\": \"PAY-MFOG7QAG-4P1E9\",\n                \"customerId\": \"68c7d975c54ab3f888058a4e\",\n                \"orderReferenceId\": \"ORD-MFOG7Q7Y-6PBXP\",\n                \"productId\": \"68c7e0ac08bbfeb20a9e310a\",\n                \"amount\": 999.99,\n                \"status\": \"processing\",\n                \"queuedAt\": \"2025-09-17T20:42:47.896Z\",\n                \"createdAt\": \"2025-09-17T20:42:47.897Z\",\n                \"updatedAt\": \"2025-09-17T20:42:47.897Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"68cb1cd456d7c3bc627ec9b8\",\n                \"paymentId\": \"PAY-MFOG592J-7MYAK\",\n                \"customerId\": \"68c7d975c54ab3f888058a4e\",\n                \"orderReferenceId\": \"ORD-MFOG58ZX-2V6YB\",\n                \"productId\": \"68c7e0ac08bbfeb20a9e310a\",\n                \"amount\": 999.99,\n                \"status\": \"processing\",\n                \"queuedAt\": \"2025-09-17T20:40:52.267Z\",\n                \"createdAt\": \"2025-09-17T20:40:52.269Z\",\n                \"updatedAt\": \"2025-09-17T20:40:52.269Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"68cb1bd856d7c3bc627ec9b3\",\n                \"paymentId\": \"PAY-MFOFZUM5-QBFXM\",\n                \"customerId\": \"68c7d975c54ab3f888058a4e\",\n                \"orderReferenceId\": \"ORD-MFOFZUFC-57WCQ\",\n                \"productId\": \"68c7e0ac08bbfeb20a9e310a\",\n                \"amount\": 999.99,\n                \"status\": \"processing\",\n                \"queuedAt\": \"2025-09-17T20:36:40.253Z\",\n                \"createdAt\": \"2025-09-17T20:36:40.278Z\",\n                \"updatedAt\": \"2025-09-17T20:36:40.278Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"68c840f04382dc7c09cd5bcc\",\n                \"paymentId\": \"PAY-MFLCLEN5-IYQT3\",\n                \"customerId\": \"68c7d975c54ab3f888058a4e\",\n                \"orderReferenceId\": \"ORD-MFLCLEMG-5LKTA\",\n                \"productId\": \"68c7e0ac08bbfeb20a9e310a\",\n                \"amount\": 999.99,\n                \"status\": \"completed\",\n                \"queuedAt\": \"2025-09-15T16:38:08.993Z\",\n                \"createdAt\": \"2025-09-15T16:38:08.999Z\",\n                \"updatedAt\": \"2025-09-15T16:38:09.013Z\",\n                \"__v\": 0,\n                \"processedAt\": \"2025-09-15T16:38:09.011Z\"\n            }\n        ],\n        \"pagination\": {\n            \"page\": 1,\n            \"limit\": 10,\n            \"total\": 16,\n            \"pages\": 2,\n            \"hasNextPage\": true,\n            \"hasPrevPage\": false\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Payment by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customerId\": \"68c7d975c54ab3f888058a4e\",\r\n    \"orderReferenceId\": \"ORD-MFL72ES3-48KUN\",\r\n    \"productId\": \"68c7e0ac08bbfeb20a9e310a\",\r\n    \"amount\": 999.99\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/payments/68cbe6d8c245af0e67608078",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"payments",
+								"68cbe6d8c245af0e67608078"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"customerId\": \"68c7d975c54ab3f888058a4e\",\r\n    \"orderReferenceId\": \"ORD-MFL72ES3-48KUN\",\r\n    \"productId\": \"68c7e0ac08bbfeb20a9e310a\",\r\n    \"amount\": 999.99\r\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/payments/68cbe6d8c245af0e67608078",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"payments",
+										"68cbe6d8c245af0e67608078"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "content-security-policy",
+									"value": "default-src 'self';style-src 'self' 'unsafe-inline';script-src 'self';img-src 'self' data: https:;base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';object-src 'none';script-src-attr 'none';upgrade-insecure-requests"
+								},
+								{
+									"key": "cross-origin-opener-policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "cross-origin-resource-policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "origin-agent-cluster",
+									"value": "?1"
+								},
+								{
+									"key": "referrer-policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-dns-prefetch-control",
+									"value": "off"
+								},
+								{
+									"key": "x-download-options",
+									"value": "noopen"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-permitted-cross-domain-policies",
+									"value": "none"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "x-request-id",
+									"value": "req_1758193577999_dw2enagt6"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "1000;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "1000"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "985"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "231"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "content-length",
+									"value": "491"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"1eb-D3ksauRCvLEwC3pfYl6NR6sPgPE\""
+								},
+								{
+									"key": "date",
+									"value": "Thu, 18 Sep 2025 11:06:18 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Payment record fetched successfully\",\n    \"data\": {\n        \"payment\": {\n            \"_id\": \"68cbe6d8c245af0e67608078\",\n            \"paymentId\": \"PAY-MFPAXPNO-YZ40K\",\n            \"customerId\": \"68c7d975c54ab3f888058a4e\",\n            \"orderReferenceId\": \"ORD-MFL72ES3-48KUN\",\n            \"productId\": \"68c7e0ac08bbfeb20a9e310a\",\n            \"amount\": 999.99,\n            \"status\": \"completed\",\n            \"queuedAt\": \"2025-09-18T11:02:48.612Z\",\n            \"createdAt\": \"2025-09-18T11:02:48.619Z\",\n            \"updatedAt\": \"2025-09-18T11:02:48.626Z\",\n            \"__v\": 0,\n            \"processedAt\": \"2025-09-18T11:02:48.625Z\"\n        },\n        \"transaction\": null\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Refund Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/payments/68cbe6d8c245af0e67608078/refund",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"payments",
+								"68cbe6d8c245af0e67608078",
+								"refund"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/payments/68cbe6d8c245af0e67608078/refund",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"payments",
+										"68cbe6d8c245af0e67608078",
+										"refund"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "content-security-policy",
+									"value": "default-src 'self';style-src 'self' 'unsafe-inline';script-src 'self';img-src 'self' data: https:;base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';object-src 'none';script-src-attr 'none';upgrade-insecure-requests"
+								},
+								{
+									"key": "cross-origin-opener-policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "cross-origin-resource-policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "origin-agent-cluster",
+									"value": "?1"
+								},
+								{
+									"key": "referrer-policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-dns-prefetch-control",
+									"value": "off"
+								},
+								{
+									"key": "x-download-options",
+									"value": "noopen"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-permitted-cross-domain-policies",
+									"value": "none"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "x-request-id",
+									"value": "req_1758193854698_8vk58rw7d"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "1000;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "1000"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "999"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "900"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "content-length",
+									"value": "121"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"79-RcExFmQimq4iITngOXmHW4uj7e0\""
+								},
+								{
+									"key": "date",
+									"value": "Thu, 18 Sep 2025 11:10:54 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Payment refunded successfully\",\n    \"data\": {\n        \"paymentId\": \"PAY-MFPAXPNO-YZ40K\",\n        \"status\": \"cancelled\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Transaction list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/payments/transactions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"payments",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API Gateway APIs",
+			"item": [
+				{
+					"name": "Gateway Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/health",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/health",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"health"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';style-src 'self' 'unsafe-inline';script-src 'self';img-src 'self' data: https:;base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';object-src 'none';script-src-attr 'none';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin, Accept-Encoding"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "x-request-id",
+									"value": "req_1758012723754_cw7zel2yj"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "1000;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "1000"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "998"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "874"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "153"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"99-GvlbmF4gCF7+jK2T4S+abIRS0Xs\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 16 Sep 2025 08:52:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"API Gateway OK!\",\n    \"data\": {\n        \"service\": \"api-gateway\",\n        \"status\": \"healthy\",\n        \"timestamp\": \"2025-09-16T08:52:03.755Z\",\n        \"version\": \"1.0.0\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Services health status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/gateway/status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"gateway",
+								"status"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/gateway/status",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"gateway",
+										"status"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';style-src 'self' 'unsafe-inline';script-src 'self';img-src 'self' data: https:;base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';object-src 'none';script-src-attr 'none';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin, Accept-Encoding"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "x-request-id",
+									"value": "req_1758013101507_4e6rf0776"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "1000;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "1000"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "999"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "900"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "652"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"28c-1b+WZATYwrR5zrn+ukihGF2KubE\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 16 Sep 2025 08:58:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Fetched gateway status\",\n    \"data\": {\n        \"gateway\": {\n            \"status\": \"healthy\",\n            \"version\": \"1.0.0\",\n            \"timestamp\": \"2025-09-16T08:58:21.782Z\"\n        },\n        \"services\": {\n            \"overall_status\": \"healthy\",\n            \"healthy_services\": 4,\n            \"total_services\": 4,\n            \"services\": [\n                {\n                    \"service\": \"customer\",\n                    \"status\": \"healthy\",\n                    \"response_time\": \"N/A\",\n                    \"last_check\": \"2025-09-16T08:58:21.773Z\"\n                },\n                {\n                    \"service\": \"product\",\n                    \"status\": \"healthy\",\n                    \"response_time\": \"N/A\",\n                    \"last_check\": \"2025-09-16T08:58:21.780Z\"\n                },\n                {\n                    \"service\": \"order\",\n                    \"status\": \"healthy\",\n                    \"response_time\": \"N/A\",\n                    \"last_check\": \"2025-09-16T08:58:21.745Z\"\n                },\n                {\n                    \"service\": \"payment\",\n                    \"status\": \"healthy\",\n                    \"response_time\": \"N/A\",\n                    \"last_check\": \"2025-09-16T08:58:21.782Z\"\n                }\n            ]\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Gateway Metrics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/gateway/metrics",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"gateway",
+								"metrics"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/gateway/metrics",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"gateway",
+										"metrics"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';style-src 'self' 'unsafe-inline';script-src 'self';img-src 'self' data: https:;base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';object-src 'none';script-src-attr 'none';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin, Accept-Encoding"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "x-request-id",
+									"value": "req_1758013292163_rpp76dmi4"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "1000;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "1000"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "999"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "900"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "357"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"165-fZu6FDp8AlGShdRzsrJmLoOVPMI\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 16 Sep 2025 09:01:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Gateway metrics fetched successfully\",\n    \"metrics\": {\n        \"timestamp\": \"2025-09-16T09:01:32.172Z\",\n        \"uptime\": \"51s\",\n        \"requests\": {\n            \"total\": 1,\n            \"byMethod\": {\n                \"GET\": 1\n            },\n            \"byStatus\": {},\n            \"byService\": {\n                \"unknown\": 1\n            },\n            \"avg_response_time\": \"0.00ms\",\n            \"requests_per_second\": \"0.02\"\n        },\n        \"errors\": {\n            \"total\": 0,\n            \"byType\": {}\n        },\n        \"health\": {\n            \"status\": \"healthy\",\n            \"error_rate\": \"0.00%\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Reset Gateway Metrics",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/gateway/metrics/reset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"gateway",
+								"metrics",
+								"reset"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/gateway/metrics/reset",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"gateway",
+										"metrics",
+										"reset"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';style-src 'self' 'unsafe-inline';script-src 'self';img-src 'self' data: https:;base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';object-src 'none';script-src-attr 'none';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin, Accept-Encoding"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "x-request-id",
+									"value": "req_1758013436387_0v2o9yzlj"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "1000;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "1000"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "998"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "756"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-1Jj62MU5VyJR70ksSL8IycGr5Rg\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 16 Sep 2025 09:03:56 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Metrics reset successfully\",\n    \"data\": null\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

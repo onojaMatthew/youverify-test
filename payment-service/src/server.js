@@ -50,7 +50,10 @@ app.use((err, req, res, next) => {
 const startApp = async () =>  {
   try {
     await connectDB();
-    await initializeRabbitMQ();
+    if (process.env.NODE_ENV !== "test") {
+      await initializeRabbitMQ();
+    }
+    
 
     // Start transaction worker
     await startTransactionWorker();
