@@ -67,11 +67,13 @@ app.get('/health', (req, res) => {
 router(app);
 
 // Authentication middleware (applied to protected routes)
-app.use('/api', authMiddleware);
+// app.use('/api', authMiddleware);
 
 // Setup service proxies
 setupProxies(app);
 
+app.use(express.json({ limit: "5mb" }))
+app.use(express.urlencoded({ extended: true, limit: "5mb"}))
 app.post('/debug-gateway', (req, res) => {
   Logger.log({ level: "info", message: `Debug route hit: ${JSON.stringify(req.body)}` });
   res.json({ 

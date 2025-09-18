@@ -2,7 +2,6 @@
 import { Logger } from "../config/logger";
 import { Customer } from "../models/customer";
 import { Order } from "../models/order";
-import { Payment } from "../models/payment";
 import { Product } from "../models/product";
 import { CustomerSrv } from "../service/customerService";
 import { PaymentSrv } from "../service/paymentService";

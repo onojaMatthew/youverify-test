@@ -5,13 +5,15 @@ import { key } from "./key";
 
 config();
 
+const MONGO_URL = process.env.NODE_ENV === "test" ? "mongodb://localhost:27017/test_db" : key.MONGO_URL;
 const connectDB = async () => {
   try {
-    await mongoose.connect(key.MONGO_URL);
+    await mongoose.connect(MONGO_URL);
     Logger.log({ level: "info", message: 'MongoDB connected successfully'});
   } catch (err) {
     Logger.log({ level: "error", message: `MongoDB connection error: ${err.message}`});
-    process.exit(1); // Exit process on failure
+    // Exit process on failure
+    process.exit(1); 
   }
 };
 

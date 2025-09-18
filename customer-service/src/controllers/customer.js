@@ -1,11 +1,7 @@
-import axios from "axios";
 import { Logger } from "../config/logger";
 import { Customer } from "../models/customer";
 import { AppError } from "../utils/errorHandler";
-import { key } from "../config/key";
 import { publishToQueue } from "../service/rabbitmqService";
-
-const ORDER_BASE_URL = key.ORDER_SERVICE_URL || "http://localhost:5300";
 
 export const createCustomer = async (req, res, next) => {
   try {
@@ -27,7 +23,9 @@ export const createCustomer = async (req, res, next) => {
       customerId: customer._id,
     }
 
-    publishToQueue("create-customer", JSON.stringify(customerData));
+    if (process.env.NODE_ENV !== "test") {
+      publishToQueue("create-customer", JSON.stringify(customerData));
+    }
     
     return res.status(201).json({
       success: true,
@@ -112,6 +110,7 @@ export const searchCustomers = async (req, res, next) => {
 
 export const getCustomerById = async (req, res, next) => {
   try {
+    console.log(req.params)
     const { customerId } = req.params;
 
     const customer = await Customer.findOne({ _id: customerId });
