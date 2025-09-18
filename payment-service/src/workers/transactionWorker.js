@@ -36,32 +36,13 @@ const processTransaction = async (transactionData) => {
     
     Logger.log({ level: "info", message: `Transaction saved to database: ${transactionId} for payment: ${paymentId}`});
     
-    // Simulate additional processing (e.g., sending notifications, updating analytics, etc.)
-    await simulateAdditionalProcessing(transaction);
+   
   } catch (err) {
     Logger.log({ level: "error", message: `Error processing transaction: ${err.message}`});
     throw err;
   }
 };
 
-/**
- * Simulate additional processing that might happen after saving transaction
- */
-const simulateAdditionalProcessing = async (transaction) => {
-  try {
-    // Simulate notification sending
-    Logger.log({ level: "info", message: `Notification sent for transaction: ${transaction.transactionId}`});
-    
-    // Simulate analytics update
-    Logger.log({ level: "info", message: `Analytics updated for transaction: ${transaction.transactionId}`});
-    
-    // Add small delay to simulate real processing
-    await new Promise(resolve => setTimeout(resolve, 100));
-    
-  } catch (err) {
-    Logger.log({ level: "error", message: `Error in additional processing: ${err.messagee}`});
-  }
-};
 
 /**
  * Start the transaction worker

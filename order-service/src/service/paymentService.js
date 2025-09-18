@@ -35,7 +35,7 @@ class PaymentService {
 
   async saveTransactionRecord(transactionData) {
     try {
-      const data = JSON.parse(transactionData)
+      const data = JSON.parse(transactionData);
       const payment = new Payment(data);
       await payment.save();
       Logger.log({ level: "info", message: `Transaction record saved: ${payment.transactionId}`});

@@ -125,7 +125,7 @@ export const createPayment = async (req, res, next) => {
       };
 
       // Publish to RabbitMQ queue
-      if (process.env.NODE_ENV !== "test") {
+      if (process.env.NODE_ENV !== "test") { // this is in case you have not run the docker containers
         publishToQueue('transaction-queue', transactionDetails);
       }
       
@@ -163,7 +163,8 @@ export const createPayment = async (req, res, next) => {
         status: 'failed'
       };
       
-      if (process.env.NODE_ENV !== "test") {
+      // Publish to RabbitMQ queue
+      if (process.env.NODE_ENV !== "test") {  // this is in case you have not run the docker container
         publishToQueue('transaction-queue', failedTransactionDetails);
       }
       

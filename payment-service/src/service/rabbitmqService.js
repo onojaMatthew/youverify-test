@@ -149,7 +149,7 @@ export {
 };
 
 export const listenToMultipleQueues = async (queues) => {
-  for (let queue of queues) {
-    consumeFromQueue(queue);
-  }
+  // for (let queue of queues) {
+  //   consumeFromQueue(queue);
+  // }
 }

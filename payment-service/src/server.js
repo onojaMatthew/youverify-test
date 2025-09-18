@@ -50,7 +50,7 @@ app.use((err, req, res, next) => {
 const startApp = async () =>  {
   try {
     await connectDB();
-    if (process.env.NODE_ENV !== "test") {
+    if (process.env.NODE_ENV !== "test") { // this is in case you have not run the docker container
       await initializeRabbitMQ();
     }
     

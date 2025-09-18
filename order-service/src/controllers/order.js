@@ -72,21 +72,21 @@ export const createOrder = async (req, res, next) => {
   const { customerId, productId, quantity = 1, orderNotes } = req.body;
   
   try {
-    // Step 1: Check that customer exists
+    // Check that customer exists
     const customer = await CustomerSrv.getCustomer(customerId);
     if (!customer) return next(new AppError("Customer not found", 404));
 
-    // Step 2: Check that product exists and check availability
+    // Check that product exists and check availability
     let product = await ProductSrv.getProduct(productId);
     if (!product) return next(new AppError("Product not found", 404));
 
     if (product.stock < quantity) return next(new AppError("Product in stock less than desired quantity", 400));
 
-    // Step 3: Calculate order amount
+    // Calculate order amount
     const unitPrice = product.price;
     const amount = unitPrice * quantity;
 
-    // Step 4: Generate order ID and create order
+    // Generate order ID and create order
     const orderReferenceId = generateOrderId();
     
     const orderData = {
@@ -124,7 +124,7 @@ export const createOrder = async (req, res, next) => {
 
     Logger.log({ level: "info", message: `Order created: ${orderReferenceId} for customer: ${customerId}`});
 
-    // Step 5: Process payment (call payment service)
+    // Process payment (call payment service)
     try {
       const paymentResult = await PaymentSrv.processPayment({
         customerId,

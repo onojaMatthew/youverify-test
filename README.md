@@ -59,7 +59,7 @@ To get started with the application, first clone the application from github by 
 
 ### To run API Test
 
-API testing can be ran at the service level. This means that each service is tested in isolation. Below is a detail information of how to test the APIs:
+API testing can be run at the service level. This means that each service is tested in isolation but it requires other services to be running for communication purposes. Below is a detail information of how to test the APIs:
 
 #### Testing the product service
 
@@ -74,8 +74,27 @@ Do the followings:
       MONGODB_URI=mongodb://localhost:27017/products
       RABBITMQ_URI=amqp://admin:password@localhost:5672
     `
-5.  run `npm run test`. This command should be run from the service root directory.
+5.  run `npm run test`. This command should be run from the service root directory. See the structure below:
 
+`product-service/
+├── src/                          # Source code directory
+│   ├── config/                   # Configuration files
+│   ├── controller/               # Request handlers & business logic
+│   ├── middleware/               # Custom middleware functions
+│   ├── models/                   # Database models & schemas
+│   ├── routes/                   # API route definitions
+│   ├── services/                 # Business logic & external services
+│   ├── utils/                    # Utility functions & helpers
+│   └── server.js                 # Application entry point
+├── tests                         # Test files
+├── .babelrc                      # Babel configuration
+├── .dockerignore                 # Docker ignore patterns
+├── .env                          # Environment variables
+├── .gitignore                    # Git ignore patterns
+├── Dockerfile                    # Docker container definition
+├── ecosystem.config.js           # PM2 process manager config
+├── package-lock.json             # NPM dependency lock file
+└── package.json`
 
 #### Testing the Order Service
 
@@ -93,7 +112,28 @@ Do the followings:
       PAYMENT_SERVICE_URL=http://localhost:5000
       RABBITMQ_URI=amqp://admin:password@localhost:5672
     `
-5.  run `npm run test`. This command should be run from the service root directory.
+5.  run `npm run test`. This command should be run from the service root directory. See the structure below:
+
+`order-service/
+├── src/                          # Source code directory
+│   ├── config/                   # Configuration files
+│   ├── controller/               # Request handlers & business logic
+│   ├── middleware/               # Custom middleware functions
+│   ├── models/                   # Database models & schemas
+│   ├── routes/                   # API route definitions
+│   ├── services/                 # Business logic & external services
+│   ├── utils/                    # Utility functions & helpers                 
+│   └── server.js                 # Application entry point
+├── tests                         # Test files
+├── .babelrc                      # Babel configuration
+├── .dockerignore                 # Docker ignore patterns
+├── .env                          # Environment variables
+├── .gitignore                    # Git ignore patterns
+├── Dockerfile                    # Docker container definition
+├── ecosystem.config.js           # PM2 process manager config
+├── package-lock.json             # NPM dependency lock file
+└── package.json`
+
 
 
 #### Testing the Customer Service
@@ -109,7 +149,28 @@ Do the followings:
       MONGODB_URI=mongodb://localhost:27017/customers
       RABBITMQ_URI=amqp://admin:password@localhost:5672
     `
-5.  run `npm run test`. This command should be run from the service root directory.
+5.  run `npm run test`. This command should be run from the service root directory. See the structure below:
+
+`customer-service/
+├── src/                          # Source code directory
+│   ├── config/                   # Configuration files
+│   ├── controller/               # Request handlers & business logic
+│   ├── middleware/               # Custom middleware functions
+│   ├── models/                   # Database models & schemas
+│   ├── routes/                   # API route definitions
+│   ├── services/                 # Business logic & external services
+│   ├── utils/                    # Utility functions & helpers
+│   └── server.js                 # Application entry point
+├── tests                         # Test files
+├── .babelrc                      # Babel configuration
+├── .dockerignore                 # Docker ignore patterns
+├── .env                          # Environment variables
+├── .gitignore                    # Git ignore patterns
+├── Dockerfile                    # Docker container definition
+├── ecosystem.config.js           # PM2 process manager config
+├── package-lock.json             # NPM dependency lock file
+└── package.json`
+
 
 
 #### Testing the Payment Service
@@ -125,9 +186,29 @@ Do the followings:
       MONGODB_URI=mongodb://localhost:27017/payments
       RABBITMQ_URI=amqp://admin:password@localhost:5672
     `
-5.  run `npm run test`. This command should be run from the service root directory.
+5.  run `npm run test`. This command should be run from the service root directory. See the structure below:
 
-### To RUN the application without 
+`payment-service/
+├── src/                          # Source code directory
+│   ├── config/                   # Configuration files
+│   ├── controller/               # Request handlers & business logic
+│   ├── middleware/               # Custom middleware functions
+│   ├── models/                   # Database models & schemas
+│   ├── routes/                   # API route definitions
+│   ├── services/                 # Business logic & external services
+│   ├── utils/                    # Utility functions & helpers
+│   ├── worker/                   # Background job processors
+│   └── server.js                 # Application entry point
+├── tests                         # Test files
+├── .babelrc                      # Babel configuration
+├── .dockerignore                 # Docker ignore patterns
+├── .env                          # Environment variables
+├── .gitignore                    # Git ignore patterns
+├── Dockerfile                    # Docker container definition
+├── ecosystem.config.js           # PM2 process manager config
+├── package-lock.json             # NPM dependency lock file
+└── package.json`
+
 
 Below are the steps that must be followed to run the application successfully.
 
@@ -139,9 +220,9 @@ Below are the steps that must be followed to run the application successfully.
 2.  When step 1 is successful, you can then access the application following the Postman collection I have dropped in  the root folder.
 
 
-### Running the application outside docker container
+## Running the application outside docker container
 
-After the environment variables are properly set as show above, you can run each of the services as follows:
+After the environment variables are properly set as shown above, you can run each of the services as follows:
 
 ### NOTE: you must run all the services first before you can run the API-Gateway service as it depends on them.
 
