@@ -143,7 +143,7 @@ Below are the steps that must be followed to run the application successfully.
 
 After the environment variables are properly set as show above, you can run each of the services as follows:
 
-### NOTE: you must first run all the services first before you can run the API-Gateway service.
+### NOTE: you must run all the services first before you can run the API-Gateway service as it depends on them.
 
 Follow these steps:
 
