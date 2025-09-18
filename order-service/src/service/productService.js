@@ -11,7 +11,6 @@ class ProductService {
   async getProduct(productId) {
     try {
       const product = await Product.findOne({ productId });
-      
       if (product) return product;
 
       return null;

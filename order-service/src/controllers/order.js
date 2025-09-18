@@ -75,11 +75,11 @@ export const createOrder = async (req, res, next) => {
   const { customerId, productId, quantity = 1, orderNotes } = req.body;
   
   try {
-    // Step 1: Validate customer exists
+    // Step 1: Check that customer exists
     const customer = await CustomerSrv.getCustomer(customerId);
     if (!customer) return next(new AppError("Customer not found", 404));
 
-    // Step 2: Validate product exists and check availability
+    // Step 2: Check that product exists and check availability
     let product = await ProductSrv.getProduct(productId);
     if (!product) return next(new AppError("Product not found", 404));
 
@@ -163,6 +163,7 @@ export const createOrder = async (req, res, next) => {
       message: 'Order created successfully',
       data: {
         customerId: order.customerId,
+        _id: order._id,
         orderReferenceId: order.orderReferenceId,
         productId: order.productId,
         orderStatus: order.orderStatus,

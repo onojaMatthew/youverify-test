@@ -472,6 +472,18 @@ const sampleCustomers = [
   }
 ];
 
+// "firstName": "Zoe",
+// "lastName": "Edwards",
+// "email": "zoe.edwards@example.com",
+// "phone": "+1234567835",
+// "address": {
+//   "street": "3030 Sunset Blvd",
+//   "city": "Miami",
+//   "state": 'FL,
+//   "zipCode": "33101",
+//   "country": "USA"
+// }
+
 export const seedCustomers = async () => {
   try {
     const existingCount = await Customer.countDocuments();
