@@ -50,9 +50,9 @@ const startApp = async () =>  {
   try {
     await connectDB();
     await seedCustomers();
-    if (process.env.NODE_ENV !== "test") {
+    // if (process.env.NODE_ENV !== "test") {
       await initializeRabbitMQ();
-    }
+    // }
   } catch (error) {
     Logger.log({ level: "error", message: "Entry dependency connection error: "+ error.message});
   }

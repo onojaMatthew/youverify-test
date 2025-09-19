@@ -35,6 +35,7 @@ class PaymentService {
 
   async saveTransactionRecord(transactionData) {
     try {
+      console.log(transactionData, " transaction data in save transaction record")
       const data = JSON.parse(transactionData);
       const payment = new Payment(data);
       await payment.save();

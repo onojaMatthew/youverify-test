@@ -57,10 +57,10 @@ const startApp = async () =>  {
   try {
     await connectDB();
     await jobRunner();
-    if (process.env.NODE_ENV !== "test") {
+    // if (process.env.NODE_ENV !== "test") {
       await initializeRabbitMQ()
       await listenToMultipleQueues(queues);
-    }
+    // }
     
   } catch (error) {
     Logger.log({ level: "error", message: "Entry dependency connection error: "+ error.message });

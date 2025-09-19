@@ -8,11 +8,14 @@ import connectDB from "./config/database";
 import { seedProduct, seedProducts } from "./seeders/productSeeder";
 import { Logger } from "./config/logger";
 import { router } from "./routes";
-import { initializeRabbitMQ } from "./service/rabbitmqService";
+import { initializeRabbitMQ, listenToMultipleQueues } from "./service/rabbitmqService";
+import { ORDER_CREATED } from "./service/queue";
 
 const app = express();
 
 const port = process.env.PORT || 5100
+
+const queues =[ ORDER_CREATED ];
 
 app.use(helmet({
   crossOriginEmbedderPolicy: false,
@@ -79,9 +82,8 @@ const startApp = async () =>  {
   try {
     await connectDB();
     await seedProducts();
-    if (process.env.NODE_ENV !== "test") {
-      await initializeRabbitMQ();
-    } 
+    await initializeRabbitMQ();
+    await listenToMultipleQueues(queues);
   } catch (error) {
     Logger.log({ level: "error", message: "Entry dependency connection error: "+ error.message});
   }

@@ -1,11 +1,12 @@
 import amqp from "amqplib";
-import { QUEUE_TRANSACTION } from "./queue";
+import { ORDER_CREATED, QUEUE_TRANSACTION } from "./queue";
 import { key } from "../config/key";
+import { CustomerSrv } from "./transactionService";
 const { Logger } = require('../config/logger');
 
 let connection = null;
 let channel = null;
-const queues = [ QUEUE_TRANSACTION ];
+const queues = [ QUEUE_TRANSACTION, ORDER_CREATED ];
 const RABBITMQ_URI = key.RABBITMQ_URI || 'amqp://admin:password@localhost:5672';
 
 /**
@@ -149,8 +150,12 @@ export {
 
 export const listenToMultipleQueues = async (queues) => {
   for (let queue of queues) {
-    sw
-    consumeFromQueue(queue);
+    switch(queue) {
+      case "create-order":
+        consumeFromQueue(queue, CustomerSrv.updateProductStock);
+        break;
+    }
+    
     Logger.info({ level: "info", message: "RabbitMQ listening to: ", queue });
   }
 }

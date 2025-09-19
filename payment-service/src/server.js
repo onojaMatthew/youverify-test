@@ -51,12 +51,8 @@ app.use((err, req, res, next) => {
 const startApp = async () =>  {
   try {
     await connectDB();
-    if (process.env.NODE_ENV !== "test") { // this is in case you have not run the docker container
-      await initializeRabbitMQ();
-    }
+    await initializeRabbitMQ();
     
-    // await listenToMultipleQueues([QUEUE_TRANSACTION]);
-    // Start transaction worker
     await startTransactionWorker();
     Logger.log({ level: "info", message: 'Transaction worker started'});
   } catch (error) {
