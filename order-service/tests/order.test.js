@@ -6,8 +6,8 @@ let order;
 describe('POST /', () => {
   it('it should successfully create a new order', async () => {
     const orderObj = {
-      "customerId": "68cb49024ccd38077527b54d", 
-      "productId": "68c7e0ac08bbfeb20a9e310a", 
+      "customerId": "68cd8269668be46f17523732", 
+      "productId": "68cd82689a06d8bb1b38a919", 
       "quantity": 1, 
       "orderNotes": "Please I cannot take delivery today. Send my item to my address tomorrow"
     }

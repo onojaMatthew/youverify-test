@@ -7,7 +7,8 @@ import { AppError } from "./utils/errorHandler";
 import connectDB from "./config/database";
 import { Logger } from "./config/logger";
 import { router } from "./routes";
-import { initializeRabbitMQ } from "./service/rabbitmqService";
+import { initializeRabbitMQ, listenToMultipleQueues } from "./service/rabbitmqService";
+import { QUEUE_TRANSACTION } from "./service/queue";
 import { startTransactionWorker } from "./workers/transactionWorker";
 
 const app = express();
@@ -54,7 +55,7 @@ const startApp = async () =>  {
       await initializeRabbitMQ();
     }
     
-
+    // await listenToMultipleQueues([QUEUE_TRANSACTION]);
     // Start transaction worker
     await startTransactionWorker();
     Logger.log({ level: "info", message: 'Transaction worker started'});

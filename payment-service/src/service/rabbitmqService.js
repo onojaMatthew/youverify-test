@@ -1,6 +1,7 @@
 import amqp from "amqplib";
 import { QUEUE_TRANSACTION } from "./queue";
 import { key } from "../config/key";
+import { processTransaction } from "../workers/transactionWorker";
 const { Logger } = require('../config/logger');
 
 let connection = null;
@@ -90,12 +91,14 @@ const publishToQueue = async (queueName, message) => {
  * Consume messages from queue
  */
 const consumeFromQueue = async (queueName, callback) => {
+  console.log(queueName, " the queue name")
   try {
     if (!channel) {
       throw new Error('RabbitMQ channel not initialized');
     }
 
     await channel.consume(queueName, async (message) => {
+      console.log(message, " the message in channel")
       if (message !== null) {
         try {
           const content = JSON.parse(message.content.toString());
@@ -149,7 +152,9 @@ export {
 };
 
 export const listenToMultipleQueues = async (queues) => {
-  // for (let queue of queues) {
-  //   consumeFromQueue(queue);
-  // }
+  console.log(queues,)
+  for (let queue of queues) {
+    console.log(queue)
+    consumeFromQueue(queue, processTransaction);
+  }
 }

@@ -125,9 +125,9 @@ export const createPayment = async (req, res, next) => {
       };
 
       // Publish to RabbitMQ queue
-      if (process.env.NODE_ENV !== "test") { // this is in case you have not run the docker containers
-        publishToQueue('transaction-queue', transactionDetails);
-      }
+      // if (process.env.NODE_ENV !== "test") { // this is in case you have not run the docker containers
+        publishToQueue('transaction-queue', JSON.stringify(transactionDetails));
+      // }
       
       
       payment.status = 'completed';
@@ -164,11 +164,11 @@ export const createPayment = async (req, res, next) => {
       };
       
       // Publish to RabbitMQ queue
-      if (process.env.NODE_ENV !== "test") {  // this is in case you have not run the docker container
-        publishToQueue('transaction-queue', failedTransactionDetails);
-      }
+      // if (process.env.NODE_ENV !== "test") {  // this is in case you have not run the docker container
+        publishToQueue('transaction-queue', JSON.stringify(failedTransactionDetails));
+        publishToQueue('create-transaction', JSON.stringify(failedTransactionDetails));
+      // }
       
-
       return res.status(400).json({
         success: false,
         error: "Payment processing failed",

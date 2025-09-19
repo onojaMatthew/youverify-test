@@ -5,7 +5,7 @@ import { Order } from "../models/order";
 
 class PaymentService {
   constructor() {
-    this.baseURL = process.env.PAYMENT_SERVICE_URL || 'http://localhost:5000';
+    this.baseURL = process.env.PAYMENT_SERVICE_URL || 'http://localhost:5002';
   }
 
   async processPayment({ customerId, orderReferenceId, productId, amount }) {

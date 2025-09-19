@@ -9,8 +9,9 @@ import { QUEUE_TRANSACTION } from '../service/queue';
  */
 const processTransaction = async (transactionData) => {
   try {
+    console.log("processing transaction ", transactionData)
     const data = JSON.parse(transactionData)
-    const { customerId, orderId, productId, amount, paymentId, timestamp, status } = data;
+    const { customerId, orderReferenceId, orderId, productId, amount, paymentId, timestamp, status } = data;
     
     // Generate transaction ID
     const transactionId = generateTransactionId();
@@ -18,6 +19,7 @@ const processTransaction = async (transactionData) => {
     // Create transaction record
     const transaction = new Transaction({
       transactionId,
+      orderReferenceId,
       paymentId,
       customerId,
       orderId,

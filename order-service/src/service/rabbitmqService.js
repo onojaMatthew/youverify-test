@@ -152,10 +152,9 @@ export {
 export const listenToMultipleQueues = async (queues) => {
     for (let queue of queues) {
       switch(queue) {
-        case "transaction-queue":
+        case "create-transaction":
           consumeFromQueue(queue, PaymentSrv.saveTransactionRecord);
           break;
-        
       }
       
     }
